@@ -1,4 +1,4 @@
-﻿import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { MotionConfig } from "framer-motion";
 import Navbar from "./components/Navbar";
@@ -14,7 +14,7 @@ const Work = lazy(() => import("./pages/Work"));
 
 export type Theme = "light" | "dark";
 
-const SITE_URL = "https://YOUR-VERCEL-DOMAIN.vercel.app";
+const SITE_URL = "https://khizer-hayat-portfolio.vercel.app";
 
 const ROUTE_META: Record<string, { title: string; description: string }> = {
   "/": {

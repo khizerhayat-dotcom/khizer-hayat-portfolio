@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://YOUR-VERCEL-DOMAIN.vercel.app/</loc>
+    <loc>https://khizer-hayat-portfolio.vercel.app/</loc>
   </url>
   <url>
-    <loc>https://YOUR-VERCEL-DOMAIN.vercel.app/work</loc>
+    <loc>https://khizer-hayat-portfolio.vercel.app/work</loc>
   </url>
   <url>
-    <loc>https://YOUR-VERCEL-DOMAIN.vercel.app/about</loc>
+    <loc>https://khizer-hayat-portfolio.vercel.app/about</loc>
   </url>
   <url>
-    <loc>https://YOUR-VERCEL-DOMAIN.vercel.app/services</loc>
+    <loc>https://khizer-hayat-portfolio.vercel.app/services</loc>
   </url>
   <url>
-    <loc>https://YOUR-VERCEL-DOMAIN.vercel.app/faq</loc>
+    <loc>https://khizer-hayat-portfolio.vercel.app/faq</loc>
   </url>
   <url>
-    <loc>https://YOUR-VERCEL-DOMAIN.vercel.app/contact</loc>
+    <loc>https://khizer-hayat-portfolio.vercel.app/contact</loc>
   </url>
 </urlset>
