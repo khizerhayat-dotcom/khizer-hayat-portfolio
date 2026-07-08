@@ -36,9 +36,9 @@ export default function CTA() {
                     target={link.href.startsWith("http") ? "_blank" : undefined}
                     rel={link.href.startsWith("http") ? "noreferrer" : undefined}
                     download={link.download ? true : undefined}
-                    className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full border border-black/10 bg-paper px-5 py-3 text-sm font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:border-flame hover:text-flame active:translate-y-0 dark:border-white/10 dark:bg-ink dark:text-white dark:hover:border-flame dark:hover:text-flame"
+                    className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full border border-black/10 bg-paper px-5 py-3 text-sm font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:border-flame hover:bg-flame hover:text-white active:translate-y-0 dark:border-white/10 dark:bg-ink dark:text-white dark:hover:border-flame dark:hover:bg-flame dark:hover:text-white"
                   >
-                    <img src={link.icon} alt="" className="h-4 w-4 shrink-0 dark:invert" aria-hidden="true" />
+                    <img src={link.icon} alt="" className="h-4 w-4 shrink-0 transition duration-200 group-hover:invert dark:invert" aria-hidden="true" />
                     {link.label}
                   </a>
                 ))}

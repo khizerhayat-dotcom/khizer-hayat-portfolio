@@ -119,11 +119,11 @@ export default function Contact() {
                         target={link.href.startsWith("http") ? "_blank" : undefined}
                         rel={link.href.startsWith("http") ? "noreferrer" : undefined}
                         download={link.download ? true : undefined}
-                        className="group inline-flex min-h-14 items-center justify-between gap-4 rounded-2xl border border-white/18 bg-white/10 px-4 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:text-ink active:translate-y-0"
+                        className="group inline-flex min-h-14 items-center justify-between gap-4 rounded-2xl border border-white/18 bg-white/10 px-4 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-white/35 hover:bg-white/18 active:translate-y-0"
                       >
                         <span className="inline-flex items-center gap-3">
-                          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-ink transition-colors duration-200 group-hover:bg-ink group-hover:text-white">
-                            <img src={link.icon} alt="" className="h-4 w-4" aria-hidden="true" />
+                          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-white transition-colors duration-200 group-hover:bg-flame">
+                            <img src={link.icon} alt="" className="h-4 w-4 invert" aria-hidden="true" />
                           </span>
                           {link.label}
                         </span>

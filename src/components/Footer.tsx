@@ -43,9 +43,9 @@ export default function Footer() {
                   target={item.href.startsWith("http") ? "_blank" : undefined}
                   rel={item.href.startsWith("http") ? "noreferrer" : undefined}
                   download={item.download ? true : undefined}
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-black/10 bg-paper/80 px-4 py-2 text-sm font-semibold text-ink/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-flame hover:bg-white hover:text-flame active:translate-y-0 dark:border-white/10 dark:bg-coal/80 dark:text-white/70 dark:hover:border-flame dark:hover:bg-coal dark:hover:text-flame"
+                  className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-black/10 bg-paper/80 px-4 py-2 text-sm font-semibold text-ink/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-flame hover:bg-flame hover:text-white active:translate-y-0 dark:border-white/10 dark:bg-coal/80 dark:text-white/70 dark:hover:border-flame dark:hover:bg-flame dark:hover:text-white"
                 >
-                  <img src={item.icon} alt="" className="h-4 w-4 shrink-0 dark:invert" aria-hidden="true" />
+                  <img src={item.icon} alt="" className="h-4 w-4 shrink-0 transition duration-200 group-hover:invert dark:invert" aria-hidden="true" />
                   {item.label}
                 </a>
               ))}

@@ -25,11 +25,11 @@ export default function Navbar() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="fixed inset-x-0 top-4 z-50 flex justify-center px-4 sm:top-6 lg:top-[4.9%]"
+      className="fixed inset-x-0 top-3 z-50 flex justify-center px-3 sm:top-6 sm:px-4 lg:top-[4.9%]"
     >
       <nav
         aria-label="Primary"
-        className="relative flex w-full max-w-[570px] items-center justify-between gap-2 rounded-full border border-black/10 bg-white/85 py-2 pl-2 pr-2 text-ink shadow-[0_8px_30px_rgba(20,10,0,0.12)] backdrop-blur-md transition-colors duration-300 dark:border-white/10 dark:bg-ink/75 dark:text-white dark:shadow-[0_8px_30px_rgba(0,0,0,0.25)] sm:gap-3 sm:pl-3"
+        className="relative flex w-full max-w-[570px] items-center justify-between gap-2 rounded-full border border-black/10 bg-white/90 py-2 pl-2 pr-2 text-ink shadow-[0_8px_30px_rgba(20,10,0,0.12)] backdrop-blur-md transition-colors duration-300 dark:border-white/10 dark:bg-ink/80 dark:text-white dark:shadow-[0_8px_30px_rgba(0,0,0,0.25)] sm:gap-3 sm:pl-3"
       >
         <a
           href="/"
@@ -72,7 +72,7 @@ export default function Navbar() {
 
         <a
           href="/contact"
-          className="shrink-0 rounded-full bg-ink px-4 py-2 text-xs font-medium text-white transition-transform duration-200 ease-premium hover:scale-[1.04] active:scale-[0.98] dark:bg-white dark:text-black sm:px-5 sm:py-[9px] sm:text-sm"
+          className="shrink-0 rounded-full bg-ink px-3.5 py-2 text-xs font-medium text-white transition-transform duration-200 ease-premium hover:scale-[1.04] active:scale-[0.98] dark:bg-white dark:text-black min-[380px]:px-4 sm:px-5 sm:py-[9px] sm:text-sm"
         >
           Get in Touch
         </a>

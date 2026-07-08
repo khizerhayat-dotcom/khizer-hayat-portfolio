@@ -271,9 +271,9 @@ export default function About() {
                     target={link.href.startsWith("http") ? "_blank" : undefined}
                     rel={link.href.startsWith("http") ? "noreferrer" : undefined}
                     download={link.download ? true : undefined}
-                    className="inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-full border border-white/25 bg-white px-5 py-3 text-sm font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:border-white hover:bg-ink hover:text-white active:translate-y-0"
+                    className="group inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-full border border-white/25 bg-white px-5 py-3 text-sm font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:border-white hover:bg-flame hover:text-white active:translate-y-0"
                   >
-                    <img src={link.icon} alt="" className="h-4 w-4" aria-hidden="true" />
+                    <img src={link.icon} alt="" className="h-4 w-4 transition duration-200 group-hover:invert" aria-hidden="true" />
                     {link.label}
                   </a>
                 ))}

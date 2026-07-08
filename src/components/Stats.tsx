@@ -26,14 +26,14 @@ const item = {
 
 function StatItem({ value, label }: Pick<Stat, "value" | "label">) {
   return (
-    <motion.div variants={item} className="flex flex-col gap-1">
-      <div className="flex items-center gap-2.5">
+    <motion.div variants={item} className="flex min-w-0 flex-col gap-1">
+      <div className="flex items-center gap-2">
         <span className="h-[7px] w-[7px] shrink-0 rounded-full bg-white" aria-hidden="true" />
-        <span className="font-display text-[30px] font-bold leading-none tracking-tight text-white sm:text-[34px]">
+        <span className="font-display text-[clamp(24px,7vw,30px)] font-bold leading-none tracking-normal text-white sm:text-[34px]">
           {value}
         </span>
       </div>
-      <span className="pl-[17px] text-[11px] font-medium uppercase tracking-[0.14em] text-white/70">
+      <span className="pl-[15px] text-[10px] font-medium uppercase tracking-[0.12em] text-white/70 sm:pl-[17px] sm:text-[11px] sm:tracking-[0.14em]">
         {label}
       </span>
     </motion.div>
@@ -71,7 +71,7 @@ export function StatsMobile() {
       whileInView="show"
       viewport={{ once: true, amount: 0.4 }}
       transition={{ staggerChildren: 0.1 }}
-      className="relative z-20 mt-10 flex flex-wrap gap-x-8 gap-y-6 px-6 pb-10 sm:px-10 lg:hidden"
+      className="relative z-20 grid grid-cols-3 gap-x-3 gap-y-4 px-5 pb-20 sm:flex sm:flex-wrap sm:gap-x-8 sm:gap-y-6 sm:px-10 sm:pb-12 lg:hidden"
     >
       {STATS.map((stat) => (
         <StatItem key={stat.label} value={stat.value} label={stat.label} />
