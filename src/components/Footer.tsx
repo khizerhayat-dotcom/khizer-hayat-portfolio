@@ -11,7 +11,7 @@ const SITEMAP = [
 ];
 
 const CONTACT = [
-  { label: "Email", href: "mailto:khizer8743@gmail.com", icon: mailIcon },
+  { label: "Email", href: "/contact", icon: mailIcon },
   { label: "LinkedIn", href: "https://linkedin.com/in/khizerdesigner/", icon: linkedinIcon },
   { label: "Behance", href: "https://www.behance.net/khizerhayat8743", icon: behanceIcon },
   { label: "Download CV", href: "/khizer-hayat-cv.pdf", icon: downloadIcon, download: true },

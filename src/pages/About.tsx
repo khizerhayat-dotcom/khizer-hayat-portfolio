@@ -113,7 +113,7 @@ export default function About() {
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1800);
     } catch {
-      window.location.href = `mailto:${EMAIL}`;
+      window.location.href = "/contact";
     }
   };
 
@@ -240,7 +240,7 @@ export default function About() {
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">Drop me an email:</p>
                 <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
                   <a
-                    href={`mailto:${EMAIL}`}
+                    href="/contact"
                     className="min-w-0 flex-1 rounded-2xl border border-white/15 bg-white/10 px-4 py-3 font-display text-xl font-bold leading-tight text-white underline-offset-4 transition-colors duration-200 hover:bg-white/15 hover:underline sm:text-2xl"
                   >
                     {EMAIL}

@@ -5,7 +5,7 @@ import linkedinIcon from "../assets/icons/linkedin.svg";
 import mailIcon from "../assets/icons/mail.svg";
 
 const CONTACT_LINKS = [
-  { label: "Email", href: "mailto:khizer8743@gmail.com", icon: mailIcon },
+  { label: "Email", href: "/contact", icon: mailIcon },
   { label: "LinkedIn", href: "https://linkedin.com/in/khizerdesigner/", icon: linkedinIcon },
   { label: "Behance", href: "https://www.behance.net/khizerhayat8743", icon: behanceIcon },
   { label: "Download CV", href: "/khizer-hayat-cv.pdf", icon: downloadIcon, download: true },
