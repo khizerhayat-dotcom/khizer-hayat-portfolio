@@ -1,0 +1,144 @@
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
+import Reveal from "./Reveal";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
+import aboutProfile from "../assets/about/about-profile.webp";
+
+const STATS = [
+  { value: "40+", label: "Products Shipped", accent: true },
+  { value: "10M+", label: "App Downloads", accent: false },
+  { value: "3+", label: "Years Experience", accent: false },
+];
+
+const BADGES = ["UI/UX Designer", "Lahore, Pakistan", "Mobile Apps", "Dashboards", "Web Apps", "Websites"];
+
+export function AboutPortrait() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const [canTilt, setCanTilt] = useState(false);
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const smoothX = useSpring(pointerX, { stiffness: 140, damping: 24, mass: 0.4 });
+  const smoothY = useSpring(pointerY, { stiffness: 140, damping: 24, mass: 0.4 });
+  const rotateX = useTransform(smoothY, [-0.5, 0.5], [5, -5]);
+  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-6, 6]);
+  const imageX = useTransform(smoothX, [-0.5, 0.5], [-8, 8]);
+  const imageY = useTransform(smoothY, [-0.5, 0.5], [-8, 8]);
+
+  useEffect(() => {
+    const media = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 1024px)");
+    const update = () => setCanTilt(media.matches && !prefersReducedMotion);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, [prefersReducedMotion]);
+
+  const resetTilt = () => {
+    pointerX.set(0);
+    pointerY.set(0);
+  };
+
+  return (
+    <motion.div
+      className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_24px_80px_rgba(20,10,0,0.12)] dark:border-white/10 dark:bg-coal dark:shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
+      style={canTilt ? { rotateX, rotateY, transformPerspective: 900 } : undefined}
+      onPointerMove={(event) => {
+        if (!canTilt) return;
+        const rect = event.currentTarget.getBoundingClientRect();
+        pointerX.set((event.clientX - rect.left) / rect.width - 0.5);
+        pointerY.set((event.clientY - rect.top) / rect.height - 0.5);
+      }}
+      onPointerLeave={resetTilt}
+    >
+      <motion.img
+        src={aboutProfile}
+        alt="Khizer Hayat"
+        loading="lazy"
+        decoding="async"
+        className="aspect-[4/5] w-full scale-[1.04] object-cover"
+        style={canTilt ? { x: imageX, y: imageY } : undefined}
+      />
+    </motion.div>
+  );
+}
+
+export default function About() {
+  return (
+    <section id="about" className="scroll-mt-28 bg-paper dark:bg-ink">
+      <div className="mx-auto max-w-[1200px] px-6 py-16 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start lg:gap-16">
+          <div>
+            <Reveal>
+              <p className="text-sm font-medium uppercase tracking-[0.22em] text-flame">About</p>
+              <h2 className="mt-6 max-w-[24ch] font-display text-3xl font-bold leading-[1.16] tracking-[-0.02em] text-ink dark:text-white sm:text-4xl lg:text-[44px]">
+                Khizer Hayat designs mobile apps, dashboards, web apps, and websites that are clear, polished, and ready to ship.
+              </h2>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <p className="mt-8 max-w-[60ch] text-[17px] leading-relaxed text-ink/65 dark:text-white/60">
+                I am a UI/UX designer focused on healthcare, AI, utilities, dashboards, web apps, websites, and consumer products. I turn product goals into usable flows, clean interfaces, prototypes, and developer-ready handoff so teams can ship with fewer gaps.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.16}>
+              <div className="mt-8 flex flex-wrap gap-3">
+                {BADGES.map((badge) => (
+                  <span
+                    key={badge}
+                    className="rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-medium uppercase tracking-[0.12em] text-ink/65 shadow-[0_10px_28px_rgba(20,10,0,0.05)] dark:border-white/10 dark:bg-coal dark:text-white/60 dark:shadow-none"
+                  >
+                    {badge}
+                  </span>
+                ))}
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <a
+                href="/about"
+                className="mt-9 inline-flex rounded-full bg-ink px-6 py-3 text-sm font-medium text-white transition-transform duration-300 ease-premium hover:scale-[1.03] active:scale-[0.98] dark:bg-white dark:text-black"
+              >
+                Explore About
+              </a>
+            </Reveal>
+          </div>
+
+          <Reveal delay={0.12}>
+            <AboutPortrait />
+          </Reveal>
+        </div>
+
+        <div className="mt-12 grid gap-5 sm:mt-16 sm:grid-cols-3 lg:gap-6">
+          {STATS.map((stat, i) => (
+            <Reveal key={stat.label} delay={i * 0.08}>
+              <div
+                className={
+                  stat.accent
+                    ? "flex h-full flex-col justify-between rounded-2xl bg-accent p-8"
+                    : "flex h-full flex-col justify-between rounded-2xl border border-black/10 bg-white p-8 shadow-[0_14px_40px_rgba(20,10,0,0.06)] dark:border-white/10 dark:bg-coal dark:shadow-none"
+                }
+              >
+                <span
+                  className={
+                    "font-display text-5xl font-bold tracking-[-0.02em] sm:text-6xl " +
+                    (stat.accent ? "text-white" : "text-ink dark:text-white")
+                  }
+                >
+                  {stat.value}
+                </span>
+                <span
+                  className={
+                    "mt-6 text-xs font-medium uppercase tracking-[0.16em] " +
+                    (stat.accent ? "text-white/80" : "text-ink/50 dark:text-white/50")
+                  }
+                >
+                  {stat.label}
+                </span>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

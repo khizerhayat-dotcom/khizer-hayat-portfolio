@@ -1,0 +1,17 @@
+{
+  "name": "Khizer Hayat Portfolio",
+  "short_name": "Khizer Hayat",
+  "description": "UI/UX Designer portfolio for mobile app design, product redesign, design systems, prototypes, and developer handoff.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff7f0",
+  "theme_color": "#7a0f02",
+  "icons": [
+    {
+      "src": "/assets/icons/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
