@@ -1,6 +1,7 @@
 ﻿import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Reveal from "../components/Reveal";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import aiVoiceChangerCover from "../assets/work/covers-optimized/ai-voice-changer.webp";
 import aspireThumbnail2Cover from "../assets/work/covers-optimized/aspire-thumbnail-2.webp";
 import betterBrainCover from "../assets/work/covers-optimized/better-brain.webp";
@@ -336,74 +337,67 @@ function LazyAssetImage({
 
 export default function Work() {
   const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const activeProject = activeProjectIndex === null ? null : WORK_PROJECTS[activeProjectIndex];
 
   return (
-    <main id="top" className="min-h-screen bg-paper pt-32 text-ink transition-colors duration-300 dark:bg-ink dark:text-white">
-      <section className="relative mx-auto max-w-[1320px] overflow-hidden px-6 pb-14 sm:px-10 lg:px-16 lg:pb-20">
-        <div className="pointer-events-none absolute right-[-14rem] top-16 h-96 w-96 rounded-full bg-flame/10 blur-3xl dark:bg-flame/15" />
+    <main id="top" className="min-h-screen bg-paper pt-24 text-ink transition-colors duration-300 dark:bg-ink dark:text-white sm:pt-28 lg:pt-28">
+      <section className="relative mx-auto max-w-[1320px] overflow-hidden px-6 pb-12 sm:px-10 lg:px-16 lg:pb-16">
         <Reveal>
-          <div className="relative flex flex-col gap-7 border-b border-black/10 pb-8 dark:border-white/10 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-[820px]">
-              <a
-                href="/"
-                className="mb-7 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-medium text-ink/70 transition-colors duration-200 hover:border-flame hover:text-flame dark:border-white/10 dark:bg-white/5 dark:text-white/70 dark:hover:border-flame dark:hover:text-flame"
-              >
-                <span aria-hidden="true">&larr;</span>
-                Home
-              </a>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Selected Work Archive</p>
-              <h1 className="mt-4 font-display text-5xl font-bold leading-[0.95] tracking-[-0.01em] text-ink dark:text-white sm:text-6xl lg:text-7xl">
-                Mobile products, dashboards, and shipped product visuals.
-              </h1>
-              <p className="mt-5 max-w-[62ch] text-base leading-relaxed text-ink/60 dark:text-white/60 sm:text-lg">
-                A focused gallery of product design work across AI apps, healthcare, utilities, media tools, and dashboards.
+          <div className="relative border-b border-black/10 pb-5 dark:border-white/10 sm:pb-6">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-[680px]">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Work</p>
+                <h1 className="mt-3 font-display text-4xl font-bold leading-none tracking-normal text-ink dark:text-white sm:text-5xl lg:text-6xl">
+                  Selected product work
+                </h1>
+                <p className="mt-3 max-w-[58ch] text-sm leading-relaxed text-ink/60 dark:text-white/60 sm:text-base">
+                  A focused gallery of mobile apps, healthcare products, utilities, dashboards, and visual systems.
+                </p>
+              </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/45 dark:text-white/45 sm:text-sm">
+                40+ Products Shipped <span className="mx-2 text-flame">·</span> 10M+ App Downloads
               </p>
-            </div>
-            <div className="grid max-w-[440px] grid-cols-2 gap-3 text-sm sm:min-w-[380px]">
-              <div className="rounded-[24px] border border-black/10 bg-white/85 p-5 shadow-[0_16px_45px_rgba(20,10,0,0.08)] backdrop-blur dark:border-white/10 dark:bg-white/[0.06] dark:shadow-none">
-                <p className="font-display text-3xl font-bold text-ink dark:text-white">40+</p>
-                <p className="mt-1 text-ink/55 dark:text-white/60">Products Shipped</p>
-              </div>
-              <div className="rounded-[24px] border border-black/10 bg-white/85 p-5 shadow-[0_16px_45px_rgba(20,10,0,0.08)] backdrop-blur dark:border-white/10 dark:bg-white/[0.06] dark:shadow-none">
-                <p className="font-display text-3xl font-bold text-ink dark:text-white">10M+</p>
-                <p className="mt-1 text-ink/55 dark:text-white/60">App Downloads</p>
-              </div>
             </div>
           </div>
         </Reveal>
 
-        <div className="relative mt-9 grid gap-6 sm:grid-cols-2 lg:gap-8">
+        <div className="relative mt-6 grid gap-5 sm:grid-cols-2 lg:gap-6">
           {WORK_PROJECTS.map((project, index) => (
-            <Reveal key={project.title} delay={index * 0.03}>
+            <Reveal key={project.title} delay={index * 0.025}>
               <motion.button
                 type="button"
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
+                whileHover={prefersReducedMotion ? undefined : { y: -4 }}
+                transition={{ duration: 0.24, ease: "easeOut" }}
                 onClick={() => setActiveProjectIndex(index)}
-                className="group h-full overflow-hidden rounded-[28px] border border-black/10 bg-white text-left shadow-[0_18px_50px_rgba(20,10,0,0.08)] transition-colors duration-300 hover:border-flame/35 hover:shadow-[0_24px_65px_rgba(20,10,0,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-4 focus-visible:ring-offset-paper dark:border-white/10 dark:bg-white/[0.06] dark:shadow-none dark:hover:border-flame/45 dark:focus-visible:ring-offset-ink"
+                className="group h-full overflow-hidden rounded-[22px] border border-black/10 bg-white text-left shadow-[0_14px_38px_rgba(20,10,0,0.07)] transition-colors duration-300 hover:border-flame/35 hover:shadow-[0_20px_55px_rgba(20,10,0,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-4 focus-visible:ring-offset-paper dark:border-white/10 dark:bg-white/[0.06] dark:shadow-none dark:hover:border-flame/45 dark:focus-visible:ring-offset-ink"
               >
-                <div className="aspect-[16/10] overflow-hidden bg-black/[0.04] dark:bg-white/[0.04]">
+                <div className="aspect-[16/7.8] overflow-hidden bg-black/[0.04] dark:bg-white/[0.04]">
                   <LazyAssetImage
                     image={project.cover}
                     alt={`${project.title} cover`}
-                    className="h-full w-full object-cover transition-transform duration-700 ease-premium group-hover:scale-[1.045]"
+                    className="h-full w-full object-cover transition-transform duration-700 ease-premium group-hover:scale-[1.035]"
                     loading={index < 2 ? "eager" : "lazy"}
                     fetchPriority={index < 2 ? "high" : "auto"}
                   />
                 </div>
-                <div className="p-5 sm:p-6">
-                  <p className="w-fit rounded-full bg-flame/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-flame">
-                    {project.category}
-                  </p>
-                  <h2 className="mt-4 font-display text-2xl font-bold leading-tight tracking-[-0.01em] text-ink transition-colors duration-300 group-hover:text-flame dark:text-white sm:text-3xl">
+                <div className="p-4 sm:p-5">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="w-fit rounded-full bg-flame/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-flame">
+                      {project.category}
+                    </p>
+                    <span className="text-xs font-medium text-ink/40 dark:text-white/40">
+                      {project.images.length} images
+                    </span>
+                  </div>
+                  <h2 className="mt-3 font-display text-2xl font-bold leading-tight tracking-normal text-ink transition-colors duration-300 group-hover:text-flame dark:text-white sm:text-[28px]">
                     {project.title}
                   </h2>
-                  <div className="mt-5 flex items-center justify-between gap-4">
+                  <div className="mt-4 flex items-center justify-between gap-4">
                     <span className="text-sm font-semibold text-flame">View Project</span>
                     <span
-                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/12 text-ink transition-all duration-300 group-hover:translate-x-1 group-hover:border-flame group-hover:bg-flame group-hover:text-white dark:border-white/15 dark:text-white"
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-black/12 text-ink transition-all duration-300 group-hover:translate-x-1 group-hover:border-flame group-hover:bg-flame group-hover:text-white dark:border-white/15 dark:text-white"
                       aria-hidden="true"
                     >
                       <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
@@ -428,10 +422,6 @@ export default function Work() {
         <ProjectGallery
           project={activeProject}
           onClose={() => setActiveProjectIndex(null)}
-          onNextProject={() => setActiveProjectIndex((index) => (index === null ? 0 : (index + 1) % WORK_PROJECTS.length))}
-          onPreviousProject={() =>
-            setActiveProjectIndex((index) => (index === null ? 0 : (index - 1 + WORK_PROJECTS.length) % WORK_PROJECTS.length))
-          }
         />
       )}
     </main>
@@ -441,13 +431,9 @@ export default function Work() {
 function ProjectGallery({
   project,
   onClose,
-  onNextProject,
-  onPreviousProject,
 }: {
   project: WorkProject;
   onClose: () => void;
-  onNextProject: () => void;
-  onPreviousProject: () => void;
 }) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -487,21 +473,34 @@ function ProjectGallery({
 
   return (
     <div
-      className="fixed inset-0 z-[120] overflow-y-auto bg-paper px-4 py-5 transition-colors duration-300 dark:bg-ink sm:px-6"
+      className="fixed inset-0 z-[120] overflow-y-auto bg-paper transition-colors duration-300 dark:bg-ink"
       role="dialog"
       aria-modal="true"
       aria-label={`${project.title} gallery`}
     >
-      <div className="mx-auto flex min-h-full max-w-[1320px] flex-col">
-        <div className="sticky top-0 z-20 -mx-4 border-b border-black/10 bg-paper/95 px-4 py-4 backdrop-blur-xl dark:border-white/10 dark:bg-ink/95 sm:-mx-6 sm:px-6">
-          <div className="mx-auto flex max-w-[1320px] flex-wrap items-center justify-between gap-3">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-flame">{project.category}</p>
-              <h2 className="mt-1 font-display text-3xl font-bold text-ink dark:text-white sm:text-4xl">
+      <div className="mx-auto flex min-h-dvh max-w-[1440px] flex-col px-4 py-3 sm:px-6 sm:py-5">
+        <div className="sticky top-0 z-20 -mx-4 border-b border-black/10 bg-paper/95 px-4 py-3 backdrop-blur-xl dark:border-white/10 dark:bg-ink/95 sm:-mx-6 sm:px-6">
+          <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-flame">{project.category}</p>
+                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/40 dark:text-white/40">
+                  {imageCountLabel}
+                </span>
+              </div>
+              <h2 className="mt-1 truncate font-display text-2xl font-bold text-ink dark:text-white sm:text-4xl">
                 {project.title}
               </h2>
+              <p className="mt-1 text-sm text-ink/50 dark:text-white/50">{activeImage.label}</p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={onClose}
+                className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-ink transition-colors duration-200 hover:border-flame hover:text-flame dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-flame dark:hover:text-flame"
+              >
+                Back to Work
+              </button>
               {project.behance && (
                 <a
                   href={project.behance}
@@ -512,34 +511,13 @@ function ProjectGallery({
                   View on Behance
                 </a>
               )}
-              <button
-                type="button"
-                onClick={onPreviousProject}
-                className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-medium text-ink/70 transition-colors duration-200 hover:border-flame hover:text-flame dark:border-white/10 dark:bg-white/5 dark:text-white/70 dark:hover:border-flame dark:hover:text-flame"
-              >
-                Prev Project
-              </button>
-              <button
-                type="button"
-                onClick={onNextProject}
-                className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-medium text-ink/70 transition-colors duration-200 hover:border-flame hover:text-flame dark:border-white/10 dark:bg-white/5 dark:text-white/70 dark:hover:border-flame dark:hover:text-flame"
-              >
-                Next Project
-              </button>
-              <button
-                type="button"
-                onClick={onClose}
-                className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-ink transition-colors duration-200 hover:border-flame hover:text-flame dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-flame dark:hover:text-flame"
-              >
-                Close
-              </button>
             </div>
           </div>
         </div>
 
-        <div className="grid flex-1 gap-5 py-6 lg:grid-cols-[minmax(0,1fr)_280px]">
+        <div className="grid flex-1 gap-4 py-4 lg:grid-cols-[minmax(0,1fr)_260px] lg:py-5">
           <div
-            className="relative overflow-hidden rounded-[30px] border border-black/10 bg-white shadow-[0_22px_70px_rgba(20,10,0,0.12)] dark:border-white/10 dark:bg-white/[0.06] dark:shadow-none"
+            className="relative overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_22px_70px_rgba(20,10,0,0.12)] dark:border-white/10 dark:bg-white/[0.06] dark:shadow-none"
             onTouchStart={(event) => setTouchStart(event.touches[0]?.clientX ?? null)}
             onTouchEnd={(event) => {
               if (touchStart === null) return;
@@ -551,12 +529,12 @@ function ProjectGallery({
               setTouchStart(null);
             }}
           >
-            <div className="flex min-h-[420px] items-center justify-center bg-black/[0.03] p-3 dark:bg-black/20 sm:min-h-[560px] sm:p-5">
+            <div className="flex min-h-[calc(100dvh-220px)] items-center justify-center bg-black/[0.03] p-3 dark:bg-black/20 sm:min-h-[620px] sm:p-5">
               <LazyAssetImage
                 key={activeImage.path}
                 image={activeImage}
                 alt={activeImage.alt}
-                className="max-h-[74vh] w-full rounded-[20px] object-contain"
+                className="max-h-[78vh] w-full rounded-[18px] object-contain"
                 loading="eager"
                 fetchPriority="high"
               />
@@ -564,7 +542,7 @@ function ProjectGallery({
             <button
               type="button"
               onClick={goToPreviousImage}
-              className="absolute left-3 top-1/2 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/95 text-ink shadow-[0_18px_45px_rgba(0,0,0,0.2)] backdrop-blur-md transition-all duration-200 hover:scale-[1.06] hover:border-flame hover:text-flame active:scale-[0.96] dark:border-white/10 dark:bg-ink/90 dark:text-white dark:hover:border-flame dark:hover:text-flame sm:left-5 sm:h-16 sm:w-16"
+              className="absolute left-3 top-1/2 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/95 text-ink shadow-[0_18px_45px_rgba(0,0,0,0.24)] backdrop-blur-md transition-all duration-200 hover:scale-[1.06] hover:border-flame hover:bg-flame hover:text-white active:scale-[0.96] dark:border-white/10 dark:bg-ink/90 dark:text-white dark:hover:border-flame dark:hover:bg-flame sm:left-5 sm:h-16 sm:w-16"
               aria-label="Previous image"
             >
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -574,7 +552,7 @@ function ProjectGallery({
             <button
               type="button"
               onClick={goToNextImage}
-              className="absolute right-3 top-1/2 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/95 text-ink shadow-[0_18px_45px_rgba(0,0,0,0.2)] backdrop-blur-md transition-all duration-200 hover:scale-[1.06] hover:border-flame hover:text-flame active:scale-[0.96] dark:border-white/10 dark:bg-ink/90 dark:text-white dark:hover:border-flame dark:hover:text-flame sm:right-5 sm:h-16 sm:w-16"
+              className="absolute right-3 top-1/2 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/95 text-ink shadow-[0_18px_45px_rgba(0,0,0,0.24)] backdrop-blur-md transition-all duration-200 hover:scale-[1.06] hover:border-flame hover:bg-flame hover:text-white active:scale-[0.96] dark:border-white/10 dark:bg-ink/90 dark:text-white dark:hover:border-flame dark:hover:bg-flame sm:right-5 sm:h-16 sm:w-16"
               aria-label="Next image"
             >
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -583,7 +561,7 @@ function ProjectGallery({
             </button>
           </div>
 
-          <aside className="rounded-[28px] border border-black/10 bg-white p-4 shadow-[0_18px_50px_rgba(20,10,0,0.08)] dark:border-white/10 dark:bg-white/[0.06] dark:shadow-none">
+          <aside className="rounded-[24px] border border-black/10 bg-white p-4 shadow-[0_18px_50px_rgba(20,10,0,0.08)] dark:border-white/10 dark:bg-white/[0.06] dark:shadow-none">
             <div className="flex items-center justify-between gap-3">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-flame">Gallery</p>

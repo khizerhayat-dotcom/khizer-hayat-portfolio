@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 import Reveal from "./Reveal";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
@@ -12,17 +12,25 @@ const STATS = [
 
 const BADGES = ["UI/UX Designer", "Lahore, Pakistan", "Mobile Apps", "Dashboards", "Web Apps", "Websites"];
 
-export function AboutPortrait() {
+interface AboutPortraitProps {
+  enableCursorGlow?: boolean;
+}
+
+export function AboutPortrait({ enableCursorGlow = false }: AboutPortraitProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const [canTilt, setCanTilt] = useState(false);
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
+  const glowX = useMotionValue(50);
+  const glowY = useMotionValue(50);
+  const glowOpacity = useMotionValue(0);
   const smoothX = useSpring(pointerX, { stiffness: 140, damping: 24, mass: 0.4 });
   const smoothY = useSpring(pointerY, { stiffness: 140, damping: 24, mass: 0.4 });
   const rotateX = useTransform(smoothY, [-0.5, 0.5], [5, -5]);
   const rotateY = useTransform(smoothX, [-0.5, 0.5], [-6, 6]);
   const imageX = useTransform(smoothX, [-0.5, 0.5], [-8, 8]);
   const imageY = useTransform(smoothY, [-0.5, 0.5], [-8, 8]);
+  const glowBackground = useMotionTemplate`radial-gradient(circle at ${glowX}% ${glowY}%, rgba(244, 98, 10, 0.24), rgba(255, 255, 255, 0.12) 18%, transparent 48%)`;
 
   useEffect(() => {
     const media = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 1024px)");
@@ -35,17 +43,25 @@ export function AboutPortrait() {
   const resetTilt = () => {
     pointerX.set(0);
     pointerY.set(0);
+    glowOpacity.set(0);
   };
 
   return (
     <motion.div
-      className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_24px_80px_rgba(20,10,0,0.12)] dark:border-white/10 dark:bg-coal dark:shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
+      className="relative overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_24px_80px_rgba(20,10,0,0.12)] dark:border-white/10 dark:bg-coal dark:shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
       style={canTilt ? { rotateX, rotateY, transformPerspective: 900 } : undefined}
       onPointerMove={(event) => {
         if (!canTilt) return;
         const rect = event.currentTarget.getBoundingClientRect();
-        pointerX.set((event.clientX - rect.left) / rect.width - 0.5);
-        pointerY.set((event.clientY - rect.top) / rect.height - 0.5);
+        const x = (event.clientX - rect.left) / rect.width;
+        const y = (event.clientY - rect.top) / rect.height;
+        pointerX.set(x - 0.5);
+        pointerY.set(y - 0.5);
+        if (enableCursorGlow) {
+          glowX.set(x * 100);
+          glowY.set(y * 100);
+          glowOpacity.set(1);
+        }
       }}
       onPointerLeave={resetTilt}
     >
@@ -57,6 +73,13 @@ export function AboutPortrait() {
         className="aspect-[4/5] w-full scale-[1.04] object-cover"
         style={canTilt ? { x: imageX, y: imageY } : undefined}
       />
+      {enableCursorGlow && (
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 mix-blend-soft-light"
+          style={canTilt ? { background: glowBackground, opacity: glowOpacity } : { opacity: 0 }}
+        />
+      )}
     </motion.div>
   );
 }
