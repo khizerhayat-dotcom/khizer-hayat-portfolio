@@ -125,7 +125,7 @@ export default function About() {
             <Reveal className="lg:col-span-8">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-flame">About Khizer Hayat</p>
               <h1 className="mt-6 font-display text-[42px] font-bold leading-[1.02] tracking-normal text-ink dark:text-white sm:text-6xl lg:text-[72px] xl:text-[86px]">
-                4+ years of experience crafting mobile products, digital interfaces, and scalable design systems.
+                3+ years of experience crafting mobile products, digital interfaces, and scalable design systems.
               </h1>
             </Reveal>
 
