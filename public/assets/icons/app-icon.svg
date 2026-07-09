@@ -1,7 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Khizer Hayat">
-  <rect width="512" height="512" rx="112" fill="#D8480F"/>
-  <path d="M126 122h74v132L304 122h88L266 280l134 110h-89L200 294v96h-74V122Z" fill="#fff"/>
-  <path d="M405 122h74v136h-74V122Z" fill="#0A0400"/>
-  <path d="M405 286h74v104h-74V286Z" fill="#0A0400"/>
-  <path d="M356 258h123l-70 28H286l70-28Z" fill="#F4620A"/>
+  <rect width="512" height="512" fill="#fff"/>
+  <g transform="translate(56 76) scale(20)">
+    <path d="M0 0H4V7.2L9.6 0H14.4L7.6 8.6L14.8 18H10L4 10.2V18H0V0Z" fill="#0A0400"/>
+    <path d="M16 0H20V7.4H16V0Z" fill="#0A0400"/>
+    <path d="M16 10.6H20V18H16V10.6Z" fill="#0A0400"/>
+    <path d="M13.4 7.4H20L16.2 10.6H9.6L13.4 7.4Z" fill="#F4620A"/>
+  </g>
 </svg>
