@@ -1,16 +1,6 @@
 ﻿import { type FormEvent, useState } from "react";
 import Reveal from "../components/Reveal";
-import behanceIcon from "../assets/icons/behance.svg";
-import downloadIcon from "../assets/icons/download.svg";
-import linkedinIcon from "../assets/icons/linkedin.svg";
-import mailIcon from "../assets/icons/mail.svg";
-
-const CONTACT_LINKS = [
-  { label: "Email", href: "#contact-form", icon: mailIcon },
-  { label: "LinkedIn", href: "https://linkedin.com/in/khizerdesigner/", icon: linkedinIcon },
-  { label: "Behance", href: "https://www.behance.net/khizerhayat8743", icon: behanceIcon },
-  { label: "Download CV", href: "/khizer-hayat-cv.pdf", icon: downloadIcon, download: true },
-];
+import { CTAButton, ContactLinks } from "../components/ui";
 
 const fieldClass =
   "min-h-13 rounded-2xl border border-black/10 bg-paper px-4 py-3 text-ink outline-none transition-all duration-200 placeholder:text-ink/35 focus:border-flame focus:bg-white focus:ring-4 focus:ring-flame/10 dark:border-white/10 dark:bg-ink dark:text-white dark:placeholder:text-white/35 dark:focus:border-flame dark:focus:bg-ink";
@@ -111,26 +101,7 @@ export default function Contact() {
                   <p className="border-t border-white/20 pt-6 text-xs font-semibold uppercase tracking-[0.22em] text-white/65">
                     Quick links
                   </p>
-                  <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                    {CONTACT_LINKS.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.href}
-                        target={link.href.startsWith("http") ? "_blank" : undefined}
-                        rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-                        download={link.download ? true : undefined}
-                        className="group inline-flex min-h-14 items-center justify-between gap-4 rounded-2xl border border-white/18 bg-white/10 px-4 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-white/35 hover:bg-white/18 active:translate-y-0"
-                      >
-                        <span className="inline-flex items-center gap-3">
-                          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-white transition-colors duration-200 group-hover:bg-flame">
-                            <img src={link.icon} alt="" className="h-4 w-4 invert" aria-hidden="true" />
-                          </span>
-                          {link.label}
-                        </span>
-                        <span aria-hidden="true" className="text-lg leading-none">&rarr;</span>
-                      </a>
-                    ))}
-                  </div>
+                  <ContactLinks variant="darkPanel" className="mt-5" />
                 </div>
               </div>
 
@@ -217,13 +188,13 @@ export default function Contact() {
                   </div>
                 )}
 
-                <button
+                <CTAButton
                   type="submit"
                   disabled={status === "sending"}
-                  className="mt-7 inline-flex min-h-14 w-full items-center justify-center rounded-full bg-accent px-6 py-4 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(216,72,15,0.24)] transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:bg-flame active:translate-y-0 disabled:cursor-wait disabled:opacity-70"
+                  className="mt-7 w-full"
                 >
                   {status === "sending" ? "Sending..." : "Send Email"}
-                </button>
+                </CTAButton>
               </form>
             </div>
           </div>

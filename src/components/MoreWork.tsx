@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import { LinkButton } from "./ui";
 import aiVoiceChangerIcon from "../assets/work/ai-voice-changer.png";
 import aspireIcon from "../assets/work/aspire-icon.png";
 import eshaafiIcon from "../assets/work/eshaafi.png";
@@ -112,9 +113,9 @@ export default function MoreWork({ preview = false }: { preview?: boolean }) {
             More shipped products
           </h2>
           {preview && (
-            <a href="/work" className="mt-6 inline-flex text-sm font-semibold text-flame underline-offset-4 hover:underline">
+            <LinkButton href="/work" variant="text" className="mt-6">
               Explore All Work
-            </a>
+            </LinkButton>
           )}
         </Reveal>
 

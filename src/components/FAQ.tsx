@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import Reveal from "./Reveal";
+import { LinkButton } from "./ui";
 
 const FAQ_ITEMS = [
   {
@@ -58,7 +59,7 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
       <div className="mx-auto max-w-[1240px] px-6 py-16 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
         <Reveal className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <div className="lg:sticky lg:top-32 lg:self-start">
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-flame">FAQ</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame sm:text-sm">FAQ</p>
             <h2 className="mt-5 max-w-[13ch] font-display text-5xl font-bold leading-[0.96] tracking-normal text-ink dark:text-white sm:text-6xl">
               Questions recruiters and clients usually ask
             </h2>
@@ -66,12 +67,9 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
               Quick answers about my UI/UX process, mobile app work, timelines, design systems, handoff, and collaboration.
             </p>
             {preview && (
-              <a
-                href="/faq"
-                className="mt-8 inline-flex rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition-transform duration-300 ease-premium hover:scale-[1.03] active:scale-[0.98] dark:bg-white dark:text-black"
-              >
+              <LinkButton href="/faq" className="mt-8">
                 View More
-              </a>
+              </LinkButton>
             )}
           </div>
 

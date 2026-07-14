@@ -1,4 +1,5 @@
 import Reveal from "../components/Reveal";
+import { Card, LinkButton, SectionHeader } from "../components/ui";
 
 const SERVICES = [
   {
@@ -32,22 +33,21 @@ export default function Services() {
     <main className="min-h-screen bg-paper pt-32 text-ink transition-colors duration-300 dark:bg-ink dark:text-white">
       <section className="relative mx-auto max-w-[1240px] overflow-hidden px-6 pb-20 sm:px-10 lg:px-16 lg:pb-24">
         <div className="pointer-events-none absolute right-[-12rem] top-16 h-80 w-80 rounded-full bg-flame/10 blur-3xl dark:bg-flame/15" />
-        <Reveal className="relative grid gap-7 border-b border-black/10 pb-9 dark:border-white/10 lg:grid-cols-[1.1fr_0.7fr] lg:items-end">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Services</p>
-            <h1 className="mt-5 max-w-[11ch] font-display text-5xl font-bold leading-[0.95] tracking-[-0.01em] text-ink dark:text-white sm:text-6xl lg:text-7xl">
-              UI/UX support for products ready to ship.
-            </h1>
-          </div>
-          <p className="max-w-[46ch] text-base leading-relaxed text-ink/60 dark:text-white/60 lg:justify-self-end">
-            Focused design help for mobile apps, redesigns, systems, prototypes, and developer-ready handoff.
-          </p>
+        <Reveal>
+          <SectionHeader
+            eyebrow="Services"
+            title="UI/UX support for products ready to ship."
+            titleAs="h1"
+            description="Focused design help for mobile apps, redesigns, systems, prototypes, and developer-ready handoff."
+            titleClassName="max-w-[11ch] text-5xl sm:text-6xl lg:text-7xl"
+            className="relative pb-9 lg:grid lg:grid-cols-[1.1fr_0.7fr] lg:items-end"
+          />
         </Reveal>
 
         <div className="relative mt-10 grid gap-5 md:grid-cols-2 lg:gap-6">
           {SERVICES.map((service, index) => (
             <Reveal key={service.title} delay={index * 0.06}>
-              <article className="group h-full rounded-[28px] border border-black/10 bg-white p-6 shadow-[0_18px_55px_rgba(20,10,0,0.07)] transition-all duration-300 ease-premium hover:-translate-y-1 hover:border-flame/35 hover:shadow-[0_26px_70px_rgba(20,10,0,0.1)] dark:border-white/10 dark:bg-coal dark:shadow-none dark:hover:border-flame/40 sm:p-7 lg:p-8">
+              <Card className="group h-full rounded-[24px] p-6 transition-all duration-300 ease-premium hover:-translate-y-1 hover:border-flame/35 hover:shadow-[0_26px_70px_rgba(20,10,0,0.1)] dark:hover:border-flame/40 sm:p-7 lg:p-8">
                 <div className="flex items-start justify-between gap-6">
                   <p className="font-display text-6xl font-bold leading-none tracking-[-0.04em] text-flame/90 sm:text-7xl">
                     {service.number}
@@ -69,10 +69,16 @@ export default function Services() {
                     </div>
                   ))}
                 </div>
-              </article>
+              </Card>
             </Reveal>
           ))}
         </div>
+
+        <Reveal>
+          <div className="mt-10 flex justify-center">
+            <LinkButton href="/contact">Start a Project</LinkButton>
+          </div>
+        </Reveal>
       </section>
     </main>
   );

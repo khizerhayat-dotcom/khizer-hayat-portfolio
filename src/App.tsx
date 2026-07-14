@@ -1,9 +1,10 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import type { ReactNode } from "react";
-import { MotionConfig } from "framer-motion";
+import { AnimatePresence, MotionConfig } from "framer-motion";
 import Navbar from "./components/Navbar";
 import ThemeToggle from "./components/ThemeToggle";
 import Footer from "./components/Footer";
+import { PageTransition } from "./components/ui";
 
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -18,36 +19,43 @@ const SITE_URL = "https://khizer-hayat-portfolio.vercel.app";
 
 const ROUTE_META: Record<string, { title: string; description: string }> = {
   "/": {
-    title: "Khizer Hayat - UI/UX Designer | Mobile App & Product Designer",
+    title: "Khizer Hayat Portfolio - UI UX Designer Lahore, Pakistan",
     description:
-      "Khizer Hayat is a UI/UX Designer from Lahore, Pakistan, crafting mobile app experiences, product redesigns, design systems, prototypes, and developer-ready handoff for shipped products.",
+      "Khizer Hayat is a UI UX Designer in Lahore, Pakistan, crafting mobile app UI UX, product design, design systems, Figma prototypes, and developer handoff.",
   },
   "/work": {
-    title: "Work - Khizer Hayat Portfolio",
+    title: "Work - Khizer Hayat UI UX Designer Portfolio",
     description:
-      "Explore UI/UX case studies and shipped mobile app, dashboard, healthcare, AI, and product design work by Khizer Hayat.",
+      "Explore UI UX case studies, mobile app design, product design, healthcare, AI, dashboards, and shipped product work by Khizer Hayat.",
   },
   "/about": {
-    title: "About - Khizer Hayat UI UX Designer",
+    title: "About - Khizer Hayat UI UX Designer Pakistan",
     description:
-      "Learn about Khizer Hayat, a UI/UX Designer in Lahore, Pakistan focused on mobile apps, product redesigns, design systems, Figma prototypes, and developer handoff.",
+      "Learn about Khizer Hayat, a Product Designer in Pakistan focused on mobile app UI UX, Figma, product redesign, design systems, and developer handoff.",
   },
   "/services": {
-    title: "Services - Mobile App UI UX, Product Redesign & Design Systems",
+    title: "Services - Mobile App UI UX, Figma & Design Systems",
     description:
-      "UI/UX services by Khizer Hayat covering mobile app UI, product redesign, design systems, Figma prototypes, and developer-ready handoff.",
+      "UI UX services by Khizer Hayat covering mobile app UI UX design, product redesign, Figma prototypes, design systems, and developer-ready handoff.",
   },
   "/faq": {
-    title: "FAQ - Khizer Hayat UI UX Designer",
+    title: "FAQ - Khizer Hayat Portfolio and UI UX Process",
     description:
-      "Answers about Khizer Hayat's UI/UX process, mobile app design work, design systems, timelines, prototypes, and developer handoff.",
+      "Answers about Khizer Hayat's UI UX design process, mobile app design, design systems, Figma handoff, timelines, and collaboration.",
   },
   "/contact": {
-    title: "Contact - Hire Khizer Hayat",
+    title: "Contact - Hire Khizer Hayat UI UX Designer",
     description:
-      "Contact Khizer Hayat for UI/UX roles, mobile app design, product redesign, design systems, prototypes, and developer-ready handoff.",
+      "Contact Khizer Hayat for UI UX roles, mobile app UI UX design, product redesign, design systems, Figma prototypes, and developer-ready handoff.",
   },
 };
+
+const ROUTE_PATHS = new Set(Object.keys(ROUTE_META));
+
+function normalizePath(pathname: string) {
+  if (pathname.length > 1 && pathname.endsWith("/")) return pathname.slice(0, -1);
+  return pathname;
+}
 
 function setMetaTag(selector: string, attribute: "content" | "href", value: string) {
   const element = document.head.querySelector(selector);
@@ -60,7 +68,7 @@ function App() {
     if (storedTheme === "dark" || storedTheme === "light") return storedTheme;
     return "light";
   });
-  const [path, setPath] = useState(() => window.location.pathname);
+  const [path, setPath] = useState(() => normalizePath(window.location.pathname));
 
   const toggleTheme = () => {
     setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"));
@@ -73,9 +81,56 @@ function App() {
   }, [theme]);
 
   useEffect(() => {
-    const handleNavigation = () => setPath(window.location.pathname);
+    const handleNavigation = () => setPath(normalizePath(window.location.pathname));
     window.addEventListener("popstate", handleNavigation);
     return () => window.removeEventListener("popstate", handleNavigation);
+  }, []);
+
+  useEffect(() => {
+    const handleDocumentClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const link = (event.target as Element | null)?.closest("a");
+      if (!link) return;
+      if (link.target || link.hasAttribute("download")) return;
+
+      const url = new URL(link.href);
+      if (url.origin !== window.location.origin) return;
+
+      const nextPath = normalizePath(url.pathname);
+      if (!ROUTE_PATHS.has(nextPath)) return;
+
+      if (nextPath === path && url.hash) return;
+
+      event.preventDefault();
+      if (nextPath !== path) {
+        window.history.pushState({}, "", `${nextPath}${url.hash}`);
+        setPath(nextPath);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    };
+
+    document.addEventListener("click", handleDocumentClick);
+    return () => document.removeEventListener("click", handleDocumentClick);
+  }, [path]);
+
+  useEffect(() => {
+    const warmRouteChunks = () => {
+      void import("./pages/About");
+      void import("./pages/Contact");
+      void import("./pages/FAQ");
+      void import("./pages/Home");
+      void import("./pages/Services");
+      void import("./pages/Work");
+    };
+
+    if ("requestIdleCallback" in window) {
+      const idleId = window.requestIdleCallback(warmRouteChunks, { timeout: 2500 });
+      return () => window.cancelIdleCallback(idleId);
+    }
+
+    const timeoutId = globalThis.setTimeout(warmRouteChunks, 1200);
+    return () => globalThis.clearTimeout(timeoutId);
   }, []);
 
   useEffect(() => {
@@ -105,9 +160,13 @@ function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <Navbar />
+      <Navbar currentPath={path} />
       <ThemeToggle theme={theme} onToggleTheme={toggleTheme} />
-      <Suspense fallback={null}>{page}</Suspense>
+      <AnimatePresence mode="wait">
+        <PageTransition key={path}>
+          <Suspense fallback={<div className="min-h-screen bg-paper dark:bg-ink" />}>{page}</Suspense>
+        </PageTransition>
+      </AnimatePresence>
       <Footer />
     </MotionConfig>
   );

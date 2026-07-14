@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import { LinkButton, SectionHeader } from "./ui";
 import aspireCover from "../assets/work/aspire-cover.webp";
 import voicifyCover from "../assets/work/voicify-cover.webp";
 import aurumCover from "../assets/work/aurum-cover.webp";
@@ -42,21 +43,14 @@ export default function Work() {
   return (
     <section id="work" className="scroll-mt-28 bg-paper dark:bg-ink">
       <div className="mx-auto max-w-[1200px] px-6 py-16 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-        <Reveal className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-          <div>
-            <p className="text-sm font-medium uppercase tracking-[0.22em] text-flame">Selected work</p>
-            <h2 className="mt-5 font-display text-4xl font-bold leading-[1.05] tracking-[-0.01em] text-ink dark:text-white sm:text-5xl uppercase">
-              Featured projects
-            </h2>
-          </div>
-          <div className="max-w-[36ch]">
-            <p className="text-[15px] leading-relaxed text-ink/60 dark:text-white/55">
-              A concise look at selected work across AI, mobile apps, dashboards, web apps, and product interfaces.
-            </p>
-            <a href="/work" className="mt-5 inline-flex text-sm font-semibold text-flame underline-offset-4 hover:underline">
-              View More
-            </a>
-          </div>
+        <Reveal>
+          <SectionHeader
+            eyebrow="Selected work"
+            title="Featured projects"
+            description="A concise look at selected work across AI, mobile apps, dashboards, web apps, and product interfaces."
+            action={<LinkButton href="/work" variant="text">View More</LinkButton>}
+            titleClassName="text-4xl uppercase sm:text-5xl"
+          />
         </Reveal>
 
         <div className="mt-12 grid gap-7 sm:mt-14 md:grid-cols-2 lg:gap-9">

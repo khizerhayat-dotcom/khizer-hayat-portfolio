@@ -26,6 +26,7 @@ type WorkImage = {
 type WorkProject = {
   title: string;
   category: string;
+  note?: string;
   behance?: string;
   cover: WorkImage | null;
   images: WorkImage[];
@@ -68,6 +69,22 @@ const behanceByProject: Record<string, string> = {
   "Tattoo Me": "https://www.behance.net/gallery/244577069/Tattoo-Me-AI-App-UI-UX-Design",
   Screenshots: "https://www.behance.net/gallery/245202699/Phone-Cleaner-App-Store-Screenshots",
   "Better Brain": "https://www.behance.net/khizerhayat8743",
+};
+
+const noteByProject: Record<string, string> = {
+  "AI Voice Changer": "A mobile AI audio product shaped around fast creation flows, clear controls, and polished result screens.",
+  "Aspire Webapp": "A complete AI platform interface with dashboard, creation, asset, and case study screens.",
+  "Better Brain": "A compact mobile experience for mental wellness and habit-led learning.",
+  "DRG Mining": "A crypto mining app interface focused on readable stats, wallet actions, and daily progress.",
+  eShaafi: "A healthcare product system covering patient care flows, dashboard surfaces, and telehealth touchpoints.",
+  "Fitness Logo": "A fitness identity exploration with app-ready marks, colors, and presentation assets.",
+  "HD Camera": "A camera utility concept with direct capture, editing, and AI-assisted enhancement screens.",
+  "Li Mining App": "A mobile mining experience with onboarding, earnings, wallet, and dashboard states.",
+  "PDF Signature": "A scanner and signature utility designed around quick document capture and completion.",
+  "Price Tracker Icon": "An app icon direction system built for a price tracking and shopping utility.",
+  Screenshots: "App store screenshot systems designed for clearer feature communication and conversion.",
+  Snaptune: "An AI photo editor case study with mobile editing flows, generation screens, and polished outputs.",
+  "Tattoo Me": "An AI tattoo preview app with creation, style selection, and result presentation screens.",
 };
 
 const projectOrder = [
@@ -242,6 +259,7 @@ const WORK_PROJECTS: WorkProject[] = Array.from(
       const project = projects.get(title) ?? {
         title,
         category: categoryByProject[title] ?? "Product Design",
+        note: noteByProject[title],
         behance: behanceByProject[title],
         cover: null,
         images: [],
@@ -473,51 +491,55 @@ function ProjectGallery({
 
   return (
     <div
-      className="fixed inset-0 z-[120] overflow-y-auto bg-paper transition-colors duration-300 dark:bg-ink"
+      className="fixed inset-0 z-[120] overflow-y-auto bg-paper text-ink transition-colors duration-300 dark:bg-ink dark:text-white"
       role="dialog"
       aria-modal="true"
       aria-label={`${project.title} gallery`}
     >
-      <div className="mx-auto flex min-h-dvh max-w-[1440px] flex-col px-4 py-3 sm:px-6 sm:py-5">
-        <div className="sticky top-0 z-20 -mx-4 border-b border-black/10 bg-paper/95 px-4 py-3 backdrop-blur-xl dark:border-white/10 dark:bg-ink/95 sm:-mx-6 sm:px-6">
-          <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-3">
-            <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-2">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-flame">{project.category}</p>
-                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/40 dark:text-white/40">
-                  {imageCountLabel}
-                </span>
-              </div>
-              <h2 className="mt-1 truncate font-display text-2xl font-bold text-ink dark:text-white sm:text-4xl">
-                {project.title}
-              </h2>
-              <p className="mt-1 text-sm text-ink/50 dark:text-white/50">{activeImage.label}</p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                type="button"
-                onClick={onClose}
-                className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-ink transition-colors duration-200 hover:border-flame hover:text-flame dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-flame dark:hover:text-flame"
-              >
-                Back to Work
-              </button>
-              {project.behance && (
-                <a
-                  href={project.behance}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white transition-transform duration-200 hover:scale-[1.03] dark:bg-white dark:text-black"
-                >
-                  View on Behance
-                </a>
-              )}
-            </div>
+      <div className="sticky top-0 z-30 border-b border-black/10 bg-paper/92 px-4 py-3 backdrop-blur-xl dark:border-white/10 dark:bg-ink/92 lg:absolute lg:right-6 lg:top-6 lg:border-0 lg:bg-transparent lg:p-0 lg:backdrop-blur-0">
+        <div className="ml-auto flex w-full items-center justify-between gap-3 lg:w-auto lg:justify-end">
+          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/45 dark:text-white/45 lg:hidden">
+            {imageCountLabel}
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={goToPreviousImage}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white/90 text-ink shadow-[0_12px_32px_rgba(20,10,0,0.12)] backdrop-blur-md transition-all duration-200 hover:border-flame hover:bg-flame hover:text-white active:scale-[0.96] dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:border-flame dark:hover:bg-flame"
+              aria-label="Previous image"
+            >
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M15 5L8 12L15 19" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={goToNextImage}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white/90 text-ink shadow-[0_12px_32px_rgba(20,10,0,0.12)] backdrop-blur-md transition-all duration-200 hover:border-flame hover:bg-flame hover:text-white active:scale-[0.96] dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:border-flame dark:hover:bg-flame"
+              aria-label="Next image"
+            >
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white text-ink shadow-[0_12px_32px_rgba(20,10,0,0.14)] transition-colors duration-200 hover:border-flame hover:text-flame dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:border-flame dark:hover:text-flame"
+              aria-label="Back to work"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" />
+              </svg>
+            </button>
           </div>
         </div>
+      </div>
 
-        <div className="grid flex-1 gap-4 py-4 lg:grid-cols-[minmax(0,1fr)_260px] lg:py-5">
+      <div className="mx-auto grid min-h-dvh max-w-[1500px] gap-0 px-4 pb-5 pt-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-5 lg:px-6 lg:py-6 xl:grid-cols-[minmax(0,1fr)_390px]">
+        <div className="flex min-w-0 flex-col gap-4 lg:pr-0 lg:pt-0">
           <div
-            className="relative overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_22px_70px_rgba(20,10,0,0.12)] dark:border-white/10 dark:bg-white/[0.06] dark:shadow-none"
+            className="relative flex min-h-[58dvh] items-center justify-center overflow-hidden rounded-[22px] bg-[#f4f1ec] p-3 dark:bg-white/[0.055] sm:min-h-[70dvh] sm:p-5 lg:min-h-[calc(100dvh-48px)] lg:p-8"
             onTouchStart={(event) => setTouchStart(event.touches[0]?.clientX ?? null)}
             onTouchEnd={(event) => {
               if (touchStart === null) return;
@@ -529,55 +551,102 @@ function ProjectGallery({
               setTouchStart(null);
             }}
           >
-            <div className="flex min-h-[calc(100dvh-220px)] items-center justify-center bg-black/[0.03] p-3 dark:bg-black/20 sm:min-h-[620px] sm:p-5">
-              <LazyAssetImage
-                key={activeImage.path}
-                image={activeImage}
-                alt={activeImage.alt}
-                className="max-h-[78vh] w-full rounded-[18px] object-contain"
-                loading="eager"
-                fetchPriority="high"
-              />
-            </div>
+            <LazyAssetImage
+              key={activeImage.path}
+              image={activeImage}
+              alt={activeImage.alt}
+              className="max-h-[68vh] w-full rounded-[18px] object-contain shadow-[0_22px_70px_rgba(20,10,0,0.16)] dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)] sm:max-h-[72vh] lg:max-h-[75vh]"
+              loading="eager"
+              fetchPriority="high"
+            />
             <button
               type="button"
               onClick={goToPreviousImage}
-              className="absolute left-3 top-1/2 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/95 text-ink shadow-[0_18px_45px_rgba(0,0,0,0.24)] backdrop-blur-md transition-all duration-200 hover:scale-[1.06] hover:border-flame hover:bg-flame hover:text-white active:scale-[0.96] dark:border-white/10 dark:bg-ink/90 dark:text-white dark:hover:border-flame dark:hover:bg-flame sm:left-5 sm:h-16 sm:w-16"
+              className="absolute left-3 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/90 text-ink shadow-[0_18px_45px_rgba(0,0,0,0.18)] backdrop-blur-md transition-all duration-200 hover:border-flame hover:bg-flame hover:text-white active:scale-[0.96] dark:border-white/10 dark:bg-ink/80 dark:text-white dark:hover:border-flame dark:hover:bg-flame sm:flex"
               aria-label="Previous image"
             >
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M15 5L8 12L15 19" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M15 5L8 12L15 19" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
             <button
               type="button"
               onClick={goToNextImage}
-              className="absolute right-3 top-1/2 z-10 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/95 text-ink shadow-[0_18px_45px_rgba(0,0,0,0.24)] backdrop-blur-md transition-all duration-200 hover:scale-[1.06] hover:border-flame hover:bg-flame hover:text-white active:scale-[0.96] dark:border-white/10 dark:bg-ink/90 dark:text-white dark:hover:border-flame dark:hover:bg-flame sm:right-5 sm:h-16 sm:w-16"
+              className="absolute right-3 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/90 text-ink shadow-[0_18px_45px_rgba(0,0,0,0.18)] backdrop-blur-md transition-all duration-200 hover:border-flame hover:bg-flame hover:text-white active:scale-[0.96] dark:border-white/10 dark:bg-ink/80 dark:text-white dark:hover:border-flame dark:hover:bg-flame sm:flex"
               aria-label="Next image"
             >
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
           </div>
 
-          <aside className="rounded-[24px] border border-black/10 bg-white p-4 shadow-[0_18px_50px_rgba(20,10,0,0.08)] dark:border-white/10 dark:bg-white/[0.06] dark:shadow-none">
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-flame">Gallery</p>
-                <p className="mt-1 text-sm text-ink/55 dark:text-white/60">{imageCountLabel}</p>
+          <div className="flex gap-2 overflow-x-auto pb-1 lg:hidden" aria-label="Project images">
+            {project.images.map((image, index) => (
+              <button
+                type="button"
+                key={image.path}
+                onClick={() => setActiveImageIndex(index)}
+                className={`h-20 w-20 shrink-0 overflow-hidden rounded-xl border transition-all duration-200 ${
+                  index === activeImageIndex
+                    ? "border-flame ring-2 ring-flame/35"
+                    : "border-black/10 opacity-65 hover:opacity-100 dark:border-white/10"
+                }`}
+                aria-label={`Show ${image.label}`}
+              >
+                <LazyAssetImage image={image} alt="" className="h-full w-full object-cover" loading="lazy" />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <aside className="mt-5 flex min-h-0 flex-col border-t border-black/10 pt-5 dark:border-white/10 lg:mt-0 lg:h-[calc(100dvh-48px)] lg:border-l lg:border-t-0 lg:pl-5 lg:pt-16 xl:pl-6">
+          <div className="min-w-0">
+            <div className="flex items-start justify-between gap-4">
+              <div className="min-w-0">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-flame">{project.category}</p>
+                <h2 className="mt-3 font-display text-3xl font-bold leading-tight tracking-normal text-ink dark:text-white sm:text-4xl lg:text-[42px]">
+                  {project.title}
+                </h2>
               </div>
-              <p className="text-sm font-medium text-ink dark:text-white">{activeImage.label}</p>
+              <span className="shrink-0 pt-1 text-xs font-semibold uppercase tracking-[0.16em] text-ink/40 dark:text-white/40">
+                {imageCountLabel}
+              </span>
             </div>
-            <div className="mt-4 grid max-h-[62vh] grid-cols-3 gap-2 overflow-y-auto pr-1 lg:grid-cols-2">
+
+            <p className="mt-3 text-sm font-medium text-ink/55 dark:text-white/55">{activeImage.label}</p>
+            {project.note && (
+              <p className="mt-5 text-[15px] leading-relaxed text-ink/62 dark:text-white/62">
+                {project.note}
+              </p>
+            )}
+
+            {project.behance && (
+              <a
+                href={project.behance}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] dark:bg-white dark:text-black sm:w-auto lg:w-full"
+              >
+                View on Behance
+              </a>
+            )}
+          </div>
+
+          <div className="mt-7 hidden min-h-0 flex-1 flex-col lg:flex">
+            <div className="mb-3 flex items-center justify-between">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/42 dark:text-white/42">Images</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-flame">{project.images.length} total</p>
+            </div>
+            <div className="grid min-h-0 flex-1 auto-rows-[86px] grid-cols-3 gap-2 overflow-y-auto pr-1 xl:auto-rows-[96px]">
               {project.images.map((image, index) => (
                 <button
                   type="button"
                   key={image.path}
                   onClick={() => setActiveImageIndex(index)}
-                  className={`aspect-square overflow-hidden rounded-2xl border transition-all duration-200 ${
+                  className={`overflow-hidden rounded-xl border bg-black/[0.03] transition-all duration-200 dark:bg-white/[0.04] ${
                     index === activeImageIndex
-                      ? "border-flame ring-2 ring-flame/25"
+                      ? "border-flame opacity-100 ring-2 ring-flame/35"
                       : "border-black/10 opacity-70 hover:opacity-100 dark:border-white/10"
                   }`}
                   aria-label={`Show ${image.label}`}
@@ -586,8 +655,8 @@ function ProjectGallery({
                 </button>
               ))}
             </div>
-          </aside>
-        </div>
+          </div>
+        </aside>
       </div>
     </div>
   );

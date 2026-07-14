@@ -5,12 +5,21 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 112px;
   }
 
   body {
     @apply bg-paper font-sans text-ink antialiased transition-colors duration-300 dark:bg-ink dark:text-white;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  img,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
   }
 
   ::selection {
@@ -18,7 +27,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid #ffffff;
+    outline: 2px solid #f4620a;
     outline-offset: 3px;
     border-radius: 4px;
   }
