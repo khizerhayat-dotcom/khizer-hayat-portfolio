@@ -80,7 +80,7 @@ export default function Navbar({ currentPath }: NavbarProps) {
           </svg>
         </a>
 
-        <ul className="hidden items-center gap-1 text-sm text-ink/70 dark:text-white/78 md:flex">
+        <ul className="hidden items-center gap-1 text-sm md:flex">
           {NAV_LINKS.map((link) => (
             <li key={link.label}>
               <a
@@ -88,8 +88,8 @@ export default function Navbar({ currentPath }: NavbarProps) {
                 aria-current={isActivePath(link.href) ? "page" : undefined}
                 className={`rounded-full px-3 py-2 transition-all duration-200 ${
                   isActivePath(link.href)
-                    ? "bg-flame/10 text-flame"
-                    : "hover:bg-black/[0.04] hover:text-ink dark:hover:bg-white/10 dark:hover:text-white"
+                    ? "bg-flame/10 text-flame dark:bg-flame/20 dark:!text-flame"
+                    : "text-ink/70 hover:bg-black/[0.04] hover:text-ink dark:!text-white/80 dark:hover:bg-white/10 dark:hover:!text-white"
                 }`}
               >
                 {link.label}
@@ -139,8 +139,8 @@ export default function Navbar({ currentPath }: NavbarProps) {
                       onClick={() => setIsMenuOpen(false)}
                       className={`block rounded-xl px-4 py-3.5 font-medium transition-colors duration-200 ${
                         isActivePath(link.href)
-                          ? "bg-flame/10 text-flame"
-                          : "text-ink/75 hover:bg-black/[0.04] hover:text-ink dark:text-white/80 dark:hover:bg-white/10 dark:hover:text-white"
+                          ? "bg-flame/10 text-flame dark:bg-flame/20 dark:!text-flame"
+                          : "text-ink/75 hover:bg-black/[0.04] hover:text-ink dark:!text-white/80 dark:hover:bg-white/10 dark:hover:!text-white"
                       }`}
                     >
                       {link.label}
