@@ -50,10 +50,11 @@ export default function Work() {
             description="A short preview of shipped product design work across AI, mobile, utility, and web app experiences."
             action={<LinkButton href="/work" variant="secondary">View all work</LinkButton>}
             titleClassName="text-[clamp(2.25rem,5vw,3.5rem)] uppercase"
+            className="[border-bottom-width:0] pb-0"
           />
         </Reveal>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:gap-6">
+        <div className="mt-7 grid gap-5 md:grid-cols-2 lg:mt-8 lg:gap-6">
           {PROJECTS.map((project, i) => (
             <Reveal key={project.name} delay={i * 0.08}>
               <a

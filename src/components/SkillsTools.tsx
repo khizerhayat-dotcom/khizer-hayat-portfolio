@@ -38,7 +38,7 @@ export default function SkillsTools() {
         <Reveal className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm font-medium uppercase tracking-[0.22em] text-flame">Skills & tools</p>
-            <h2 className="mt-5 max-w-[18ch] font-display text-4xl font-bold leading-[1.05] tracking-[-0.01em] text-ink dark:text-white sm:text-5xl uppercase">
+            <h2 className="mt-5 max-w-[18ch] font-display text-4xl font-bold leading-[1.05] tracking-normal text-ink dark:text-white sm:text-5xl uppercase">
               Built for product teams
             </h2>
           </div>

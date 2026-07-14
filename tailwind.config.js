@@ -5,8 +5,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ["'Space Grotesk'", "sans-serif"],
-        sans: ["'Inter'", "sans-serif"],
+        display: ["'Geist'", "'Geist Sans'", "'Inter'", "system-ui", "sans-serif"],
+        sans: ["'Geist'", "'Geist Sans'", "'Inter'", "system-ui", "sans-serif"],
       },
       colors: {
         ink: "#0A0400",

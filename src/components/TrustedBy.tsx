@@ -14,7 +14,7 @@ export default function TrustedBy() {
             {PRODUCTS.map((name) => (
               <li
                 key={name}
-                className="font-display text-xl font-bold tracking-tight text-ink/35 transition-colors duration-300 hover:text-ink dark:text-white/30 dark:hover:text-white sm:text-2xl"
+                className="font-display text-xl font-bold tracking-normal text-ink/35 transition-colors duration-300 hover:text-ink dark:text-white/30 dark:hover:text-white sm:text-2xl"
               >
                 {name}
               </li>

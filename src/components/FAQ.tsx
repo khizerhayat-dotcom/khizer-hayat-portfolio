@@ -54,16 +54,29 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
     <section id="faq" className="relative scroll-mt-28 overflow-hidden bg-paper dark:bg-ink">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-[-12rem] top-20 h-80 w-80 rounded-full bg-flame/10 blur-3xl dark:bg-flame/15"
+        className={`pointer-events-none absolute right-[-12rem] rounded-full bg-flame/10 blur-3xl dark:bg-flame/15 ${
+          preview ? "top-20 h-80 w-80" : "top-6 h-72 w-72"
+        }`}
       />
-      <div className={`mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-16 ${preview ? "py-14 sm:py-20 lg:py-20" : "py-16 sm:py-24 lg:py-28"}`}>
-        <Reveal className={`grid ${preview ? "gap-7 lg:grid-cols-[0.78fr_1.22fr] lg:gap-10" : "gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16"}`}>
-          <div className="lg:sticky lg:top-32 lg:self-start">
+      <div className={`mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-16 ${preview ? "py-14 sm:py-20 lg:py-20" : "py-8 sm:py-12 lg:py-14"}`}>
+        <Reveal className={`grid ${preview ? "gap-7 lg:grid-cols-[0.78fr_1.22fr] lg:gap-10" : "gap-7 lg:grid-cols-[0.72fr_1.28fr] lg:gap-12"}`}>
+          <div className="lg:sticky lg:top-28 lg:self-start">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame sm:text-sm">FAQ</p>
-            <h2 className={`${preview ? "mt-3 max-w-[13ch] text-[clamp(2rem,5vw,3.35rem)]" : "mt-5 max-w-[13ch] text-5xl sm:text-6xl"} font-display font-bold leading-[0.98] tracking-normal text-ink dark:text-white`}>
+            <h2 className={`${preview ? "mt-3 max-w-[13ch] text-[clamp(2rem,5vw,3.35rem)]" : "mt-4 max-w-[16ch] text-[clamp(2.05rem,4.4vw,3.3rem)]"} font-display font-bold leading-[1.04] tracking-normal text-ink dark:text-white`}>
               {preview ? "Common questions" : "Questions recruiters and clients usually ask"}
             </h2>
-            <p className={`${preview ? "mt-4 text-sm leading-[1.65]" : "mt-6 text-base leading-relaxed"} max-w-[44ch] text-ink/60 dark:text-white/60`}>
+            {!preview && (
+              <div className="mt-4 flex flex-wrap items-center gap-2.5">
+                <span className="rounded-full border border-flame/20 bg-flame/[0.08] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-flame dark:bg-flame/[0.12]">
+                  8 common questions
+                </span>
+                <span className="h-px w-10 bg-flame/35" aria-hidden="true" />
+                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/45 dark:text-white/45">
+                  Recruiter / client ready
+                </span>
+              </div>
+            )}
+            <p className={`${preview ? "mt-4 text-sm leading-[1.65]" : "mt-4 text-[15px] leading-[1.65]"} max-w-[42ch] text-ink/60 dark:text-white/60`}>
               Quick answers about my UI/UX process, mobile app work, timelines, design systems, handoff, and collaboration.
             </p>
             {preview && (
@@ -73,7 +86,7 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
             )}
           </div>
 
-          <div className={`grid ${preview ? "gap-2.5" : "gap-3"}`}>
+          <div className={`grid ${preview ? "gap-2.5" : "gap-2.5 lg:gap-3"}`}>
             {visibleItems.map((item, i) => {
               const isOpen = openIndex === i;
               const number = String(i + 1).padStart(2, "0");
@@ -83,45 +96,45 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
                   key={item.question}
                   layout
                   className={
-                    `group border p-1 transition-colors duration-300 ${preview ? "rounded-[18px]" : "rounded-[24px]"} ` +
+                    `group border p-1 transition-colors duration-300 ${preview ? "rounded-[18px]" : "rounded-[18px] sm:rounded-[20px]"} ` +
                     (isOpen
-                      ? "border-flame/40 bg-white shadow-[0_18px_55px_rgba(20,10,0,0.08)] dark:bg-coal dark:shadow-none"
-                      : "border-black/10 bg-white/70 hover:border-flame/25 hover:bg-white dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-flame/30 dark:hover:bg-white/[0.06]")
+                      ? "border-flame/28 bg-white shadow-[0_14px_42px_rgba(20,10,0,0.075)] dark:bg-white/[0.065] dark:shadow-none"
+                      : "border-black/10 bg-white/62 hover:border-flame/20 hover:bg-white dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-flame/25 dark:hover:bg-white/[0.055]")
                   }
                 >
                   <button
                     type="button"
                     onClick={() => setOpenIndex(isOpen ? -1 : i)}
                     className={`flex w-full items-start text-left outline-none transition-colors duration-200 focus-visible:ring-4 focus-visible:ring-flame/20 ${
-                      preview ? "gap-3 rounded-[14px] px-4 py-4 sm:gap-4 sm:px-5 sm:py-4" : "gap-4 rounded-[20px] px-5 py-5 sm:gap-5 sm:px-6 sm:py-6"
+                      preview ? "gap-3 rounded-[14px] px-4 py-4 sm:gap-4 sm:px-5 sm:py-4" : "gap-3 rounded-[14px] px-4 py-4 sm:gap-4 sm:rounded-[16px] sm:px-5 sm:py-[18px]"
                     }`}
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${i}`}
                   >
                     <span
                       className={
-                        `${preview ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl"} pt-1 font-display font-bold leading-none tracking-normal transition-colors duration-200 ` +
+                        `${preview ? "text-xl sm:text-2xl" : "text-lg sm:text-xl"} pt-0.5 font-display font-bold leading-none tracking-normal transition-colors duration-200 ` +
                         (isOpen ? "text-flame" : "text-ink/25 group-hover:text-flame/75 dark:text-white/25")
                       }
                     >
                       {number}
                     </span>
                     <span className="flex-1">
-                      <span className={`${preview ? "text-lg sm:text-xl" : "text-xl sm:text-2xl"} block font-display font-bold leading-tight tracking-normal text-ink dark:text-white`}>
+                      <span className={`${preview ? "text-lg sm:text-xl" : "text-base sm:text-lg"} block font-display font-bold leading-snug tracking-normal text-ink dark:text-white`}>
                         {item.question}
                       </span>
                     </span>
                     <span
                       className={
-                        `${preview ? "h-9 w-9" : "h-11 w-11"} mt-0.5 flex shrink-0 items-center justify-center rounded-full border transition-all duration-300 ` +
+                        `${preview ? "h-9 w-9" : "h-8 w-8 sm:h-9 sm:w-9"} mt-0.5 flex shrink-0 items-center justify-center rounded-full border transition-all duration-300 ` +
                         (isOpen
-                          ? "rotate-45 border-flame bg-flame text-white"
-                          : "border-black/10 bg-paper text-ink group-hover:border-flame group-hover:text-flame dark:border-white/10 dark:bg-ink dark:text-white")
+                          ? "rotate-45 border-flame/70 bg-flame text-white"
+                          : "border-black/10 bg-paper/80 text-ink/75 group-hover:border-flame/55 group-hover:text-flame dark:border-white/10 dark:bg-ink/80 dark:text-white/75")
                       }
                       aria-hidden="true"
                     >
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+                      <svg width={preview ? 18 : 15} height={preview ? 18 : 15} viewBox="0 0 24 24" fill="none">
+                        <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                       </svg>
                     </span>
                   </button>
@@ -133,10 +146,10 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                        transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
                         className="overflow-hidden"
                       >
-                        <p className={`${preview ? "px-4 pb-5 pl-[4rem] text-sm sm:px-5 sm:pl-[4.85rem]" : "px-5 pb-6 pl-[4.75rem] text-[15px] sm:px-6 sm:pb-7 sm:pl-[5.9rem]"} leading-relaxed text-ink/62 dark:text-white/62`}>
+                        <p className={`${preview ? "px-4 pb-5 pl-[4rem] text-sm sm:px-5 sm:pl-[4.85rem]" : "px-4 pb-4 pl-[3.55rem] text-sm sm:px-5 sm:pb-5 sm:pl-[4.45rem]"} leading-[1.65] text-ink/62 dark:text-white/62`}>
                           {item.answer}
                         </p>
                       </motion.div>

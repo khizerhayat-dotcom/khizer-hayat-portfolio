@@ -30,26 +30,26 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <main className="min-h-screen bg-paper pt-32 text-ink transition-colors duration-300 dark:bg-ink dark:text-white">
-      <section className="relative mx-auto max-w-[1240px] overflow-hidden px-6 pb-20 sm:px-10 lg:px-16 lg:pb-24">
-        <div className="pointer-events-none absolute right-[-12rem] top-16 h-80 w-80 rounded-full bg-flame/10 blur-3xl dark:bg-flame/15" />
+    <main className="min-h-screen bg-paper pt-28 text-ink transition-colors duration-300 dark:bg-ink dark:text-white lg:pt-[7.25rem]">
+      <section className="relative mx-auto max-w-[1240px] overflow-hidden px-6 pb-16 sm:px-10 lg:px-16 lg:pb-20">
+        <div className="pointer-events-none absolute right-[-12rem] top-8 h-72 w-72 rounded-full bg-flame/10 blur-3xl dark:bg-flame/15" />
         <Reveal>
           <SectionHeader
             eyebrow="Services"
             title="UI/UX support for products ready to ship."
             titleAs="h1"
             description="Focused design help for mobile apps, redesigns, systems, prototypes, and developer-ready handoff."
-            titleClassName="max-w-[11ch] text-5xl sm:text-6xl lg:text-7xl"
-            className="relative pb-9 lg:grid lg:grid-cols-[1.1fr_0.7fr] lg:items-end"
+            titleClassName="max-w-[19ch] text-[clamp(2.35rem,5.4vw,4rem)] leading-[1.02]"
+            className="relative gap-5 pb-6 md:grid md:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.7fr)] md:items-end lg:pb-7"
           />
         </Reveal>
 
-        <div className="relative mt-10 grid gap-5 md:grid-cols-2 lg:gap-6">
+        <div className="relative mt-6 grid gap-5 md:grid-cols-2 lg:mt-7 lg:gap-6">
           {SERVICES.map((service, index) => (
             <Reveal key={service.title} delay={index * 0.06}>
               <Card className="group h-full rounded-[24px] p-6 transition-all duration-300 ease-premium hover:-translate-y-1 hover:border-flame/35 hover:shadow-[0_26px_70px_rgba(20,10,0,0.1)] dark:hover:border-flame/40 sm:p-7 lg:p-8">
                 <div className="flex items-start justify-between gap-6">
-                  <p className="font-display text-6xl font-bold leading-none tracking-[-0.04em] text-flame/90 sm:text-7xl">
+                  <p className="font-display text-6xl font-bold leading-none tracking-normal text-flame/90 sm:text-7xl">
                     {service.number}
                   </p>
                   <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-black/10 bg-paper text-flame transition-colors duration-300 group-hover:border-flame group-hover:bg-flame group-hover:text-white dark:border-white/10 dark:bg-ink">
@@ -58,13 +58,13 @@ export default function Services() {
                     </svg>
                   </span>
                 </div>
-                <h2 className="mt-7 font-display text-3xl font-bold leading-tight tracking-[-0.02em] text-ink dark:text-white">
+                <h2 className="mt-7 font-display text-3xl font-bold leading-tight tracking-normal text-ink dark:text-white">
                   {service.title}
                 </h2>
                 <p className="mt-3 max-w-[44ch] text-[15px] leading-relaxed text-ink/60 dark:text-white/60">{service.summary}</p>
                 <div className="mt-7 grid gap-2 sm:grid-cols-2">
                   {service.included.map((item) => (
-                    <div key={item} className="rounded-2xl border border-black/5 bg-black/[0.035] px-4 py-3 text-sm font-medium text-ink/65 dark:border-white/10 dark:bg-white/10 dark:text-white/65">
+                    <div key={item} className="rounded-2xl border border-black/5 bg-black/[0.035] px-4 py-3 text-sm font-medium text-ink/68 transition-colors duration-200 group-hover:border-flame/20 group-hover:bg-flame/[0.045] dark:border-white/10 dark:bg-white/10 dark:text-white/76 dark:group-hover:border-flame/35 dark:group-hover:bg-flame/[0.1] dark:group-hover:text-white">
                       {item}
                     </div>
                   ))}

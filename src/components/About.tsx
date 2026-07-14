@@ -27,11 +27,11 @@ export function AboutPortrait({ enableCursorGlow = false }: AboutPortraitProps) 
   const glowOpacity = useMotionValue(0);
   const smoothX = useSpring(pointerX, { stiffness: 140, damping: 24, mass: 0.4 });
   const smoothY = useSpring(pointerY, { stiffness: 140, damping: 24, mass: 0.4 });
-  const rotateX = useTransform(smoothY, [-0.5, 0.5], [5, -5]);
-  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-6, 6]);
-  const imageX = useTransform(smoothX, [-0.5, 0.5], [-8, 8]);
-  const imageY = useTransform(smoothY, [-0.5, 0.5], [-8, 8]);
-  const glowBackground = useMotionTemplate`radial-gradient(circle at ${glowX}% ${glowY}%, rgba(244, 98, 10, 0.24), rgba(255, 255, 255, 0.12) 18%, transparent 48%)`;
+  const rotateX = useTransform(smoothY, [-0.5, 0.5], [3, -3]);
+  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-4, 4]);
+  const imageX = useTransform(smoothX, [-0.5, 0.5], [-5, 5]);
+  const imageY = useTransform(smoothY, [-0.5, 0.5], [-5, 5]);
+  const glowBackground = useMotionTemplate`radial-gradient(circle at ${glowX}% ${glowY}%, rgba(244, 98, 10, 0.18), rgba(255, 255, 255, 0.1) 18%, transparent 48%)`;
 
   useEffect(() => {
     const media = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 1024px)");
