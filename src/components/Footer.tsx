@@ -1,7 +1,4 @@
-﻿import behanceIcon from "../assets/icons/behance.svg";
-import downloadIcon from "../assets/icons/download.svg";
-import linkedinIcon from "../assets/icons/linkedin.svg";
-import mailIcon from "../assets/icons/mail.svg";
+import { LinkButton } from "./ui";
 
 const SITEMAP = [
   { label: "Work", href: "/work" },
@@ -10,56 +7,33 @@ const SITEMAP = [
   { label: "FAQ", href: "/faq" },
 ];
 
-const CONTACT = [
-  { label: "Email", href: "/contact", icon: mailIcon },
-  { label: "LinkedIn", href: "https://linkedin.com/in/khizerdesigner/", icon: linkedinIcon },
-  { label: "Behance", href: "https://www.behance.net/khizerhayat8743", icon: behanceIcon },
-  { label: "Download CV", href: "/khizer-hayat-cv.pdf", icon: downloadIcon, download: true },
-] satisfies Array<{
-  label: string;
-  href: string;
-  icon: string;
-  download?: boolean;
-}>;
-
 export default function Footer() {
   return (
     <footer className="bg-paper text-ink/60 transition-colors duration-300 dark:bg-ink dark:text-white/60">
-      <div className="mx-auto max-w-[1440px] px-6 pb-10 pt-14 sm:px-10 sm:pt-20 lg:px-16">
-        <div className="rounded-[28px] border border-black/10 bg-white/55 px-5 py-8 shadow-[0_24px_80px_rgba(20,10,0,0.06)] transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.04] dark:shadow-none sm:px-7 sm:py-10 lg:px-10">
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_430px] lg:items-end">
+      <div className="mx-auto max-w-[1440px] px-6 pb-10 pt-10 sm:px-10 sm:pt-14 lg:px-16">
+        <div className="rounded-[26px] border border-black/10 bg-white/55 px-5 py-7 shadow-[0_22px_70px_rgba(20,10,0,0.055)] transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.04] dark:shadow-none sm:px-7 sm:py-9 lg:px-10">
+          <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_430px] lg:items-end">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-flame">Let&apos;s connect.</p>
-              <p className="mt-4 max-w-[62ch] text-base leading-relaxed text-ink/65 dark:text-white/65">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Let&apos;s connect.</p>
+              <p className="mt-3 max-w-[58ch] text-sm leading-[1.65] text-ink/65 dark:text-white/65 sm:text-[15px]">
                 I&apos;m open to UI/UX roles, mobile app projects, redesigns, design systems, prototypes, and developer handoff.
               </p>
             </div>
 
-            <div className="grid gap-2 sm:grid-cols-2">
-              {CONTACT.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target={item.href.startsWith("http") ? "_blank" : undefined}
-                  rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-                  download={item.download ? true : undefined}
-                  className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-black/10 bg-paper/80 px-4 py-2 text-sm font-semibold text-ink/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-flame hover:bg-flame hover:text-white active:translate-y-0 dark:border-white/10 dark:bg-coal/80 dark:text-white/70 dark:hover:border-flame dark:hover:bg-flame dark:hover:text-white"
-                >
-                  <img src={item.icon} alt="" className="h-4 w-4 shrink-0 transition duration-200 group-hover:invert dark:invert" aria-hidden="true" />
-                  {item.label}
-                </a>
-              ))}
+            <div className="flex flex-wrap gap-2 lg:justify-end">
+              <LinkButton href="/contact">Contact Khizer</LinkButton>
+              <LinkButton href="/work" variant="secondary">View Work</LinkButton>
             </div>
           </div>
 
           <h2
-            className="select-none py-8 text-center font-display font-semibold leading-[0.88] tracking-normal text-ink [text-shadow:0_12px_34px_rgba(20,10,0,0.08)] dark:text-white dark:[text-shadow:0_18px_50px_rgba(0,0,0,0.35)] sm:whitespace-nowrap lg:py-10"
-            style={{ fontSize: "clamp(56px, 12.4vw, 188px)" }}
+            className="select-none py-7 text-center font-display font-semibold leading-[0.9] tracking-normal text-ink [text-shadow:0_12px_34px_rgba(20,10,0,0.08)] dark:text-white dark:[text-shadow:0_18px_50px_rgba(0,0,0,0.35)] sm:whitespace-nowrap lg:py-9"
+            style={{ fontSize: "clamp(52px, 11.5vw, 176px)" }}
           >
             Khizer Hayat
           </h2>
 
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
+          <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
             <div className="max-w-[48ch]">
               <a
                 href="/"
@@ -73,7 +47,7 @@ export default function Footer() {
                   <path d="M13.4 7.4H20L16.2 10.6H9.6L13.4 7.4Z" fill="#F4620A" />
                 </svg>
               </a>
-              <p className="mt-5 text-sm leading-relaxed text-ink/60 dark:text-white/60">
+              <p className="mt-4 text-sm leading-[1.65] text-ink/60 dark:text-white/60">
                 UI/UX designer for mobile apps, dashboards, AI products, healthcare platforms, and scalable design systems.
               </p>
             </div>
@@ -92,7 +66,7 @@ export default function Footer() {
             </nav>
           </div>
 
-          <div className="mt-8 flex flex-col gap-3 text-xs font-medium uppercase tracking-[0.14em] text-ink/45 dark:text-white/45 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+          <div className="mt-7 flex flex-col gap-3 text-xs font-medium uppercase tracking-[0.14em] text-ink/45 dark:text-white/45 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
             <p>© 2026 Khizer Hayat</p>
             <p>Built with care</p>
             <p>40+ Products Shipped · 10M+ App Downloads</p>
@@ -102,5 +76,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-

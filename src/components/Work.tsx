@@ -16,25 +16,25 @@ const PROJECTS: Project[] = [
   {
     name: "Aspire",
     category: "AI Platform",
-    description: "A cleaner AI creation experience for photos, videos, and creative templates.",
+    description: "AI creation flows for photos, videos, and templates.",
     image: aspireCover,
   },
   {
     name: "Voicify",
     category: "AI Audio App",
-    description: "A mobile toolkit for voice effects, text-to-speech, and translation flows.",
+    description: "Voice effects, text-to-speech, and translation tooling.",
     image: voicifyCover,
   },
   {
     name: "Aurum",
     category: "Web3 Mobile App",
-    description: "A rewards and wallet experience shaped around daily retention loops.",
+    description: "Wallet and rewards screens shaped around retention.",
     image: aurumCover,
   },
   {
     name: "HD Camera",
     category: "Photography App",
-    description: "A compact camera and editing interface for fast AI-assisted photo actions.",
+    description: "A compact camera and AI-assisted editing interface.",
     image: hdCameraCover,
   },
 ];
@@ -42,26 +42,26 @@ const PROJECTS: Project[] = [
 export default function Work() {
   return (
     <section id="work" className="scroll-mt-28 bg-paper dark:bg-ink">
-      <div className="mx-auto max-w-[1200px] px-6 py-16 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1200px] px-6 py-14 sm:px-10 sm:py-20 lg:px-16">
         <Reveal>
           <SectionHeader
             eyebrow="Selected work"
             title="Featured projects"
-            description="A concise look at selected work across AI, mobile apps, dashboards, web apps, and product interfaces."
-            action={<LinkButton href="/work" variant="text">View More</LinkButton>}
-            titleClassName="text-4xl uppercase sm:text-5xl"
+            description="A short preview of shipped product design work across AI, mobile, utility, and web app experiences."
+            action={<LinkButton href="/work" variant="secondary">View all work</LinkButton>}
+            titleClassName="text-[clamp(2.25rem,5vw,3.5rem)] uppercase"
           />
         </Reveal>
 
-        <div className="mt-12 grid gap-7 sm:mt-14 md:grid-cols-2 lg:gap-9">
+        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:gap-6">
           {PROJECTS.map((project, i) => (
             <Reveal key={project.name} delay={i * 0.08}>
               <a
                 href="/work"
-                className="group block rounded-2xl border border-black/10 bg-white p-3 shadow-[0_18px_55px_rgba(20,10,0,0.08)] transition-transform duration-300 ease-premium hover:-translate-y-1 dark:border-white/10 dark:bg-coal dark:shadow-none"
+                className="group block overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_16px_46px_rgba(20,10,0,0.075)] transition-all duration-300 ease-premium hover:-translate-y-1 hover:border-flame/35 hover:shadow-[0_22px_62px_rgba(20,10,0,0.1)] dark:border-white/10 dark:bg-coal dark:shadow-none dark:hover:border-flame/40"
                 aria-label={`View ${project.name} in work gallery`}
               >
-                <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-black/5 dark:bg-white/5">
+                <div className="relative aspect-[16/10] overflow-hidden bg-black/5 dark:bg-white/5">
                   <img
                     src={project.image}
                     alt={`${project.name} case study cover`}
@@ -71,21 +71,21 @@ export default function Work() {
                   <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
                 </div>
 
-                <div className="px-2 pb-3 pt-5">
+                <div className="p-5">
                   <p className="text-xs font-medium uppercase tracking-[0.14em] text-flame">
                     {project.category}
                   </p>
-                  <div className="mt-2 flex items-start justify-between gap-4">
+                  <div className="mt-2.5 flex items-start justify-between gap-4">
                     <div>
-                      <h3 className="font-display text-2xl font-bold tracking-[-0.01em] text-ink transition-colors duration-300 group-hover:text-flame dark:text-white">
+                      <h3 className="font-display text-[clamp(1.45rem,3vw,1.75rem)] font-bold leading-tight tracking-normal text-ink transition-colors duration-300 group-hover:text-flame dark:text-white">
                         {project.name}
                       </h3>
-                      <p className="mt-2 max-w-[42ch] text-[15px] leading-relaxed text-ink/60 dark:text-white/60">
+                      <p className="mt-2 max-w-[36ch] text-sm leading-[1.6] text-ink/58 dark:text-white/58">
                         {project.description}
                       </p>
                     </div>
                     <span
-                      className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/15 text-ink transition-all duration-300 group-hover:translate-x-1 group-hover:border-flame group-hover:text-flame dark:border-white/20 dark:text-white"
+                      className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-black/12 text-ink transition-all duration-300 group-hover:translate-x-1 group-hover:border-flame group-hover:bg-flame group-hover:text-white dark:border-white/15 dark:text-white"
                       aria-hidden="true"
                     >
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -99,7 +99,7 @@ export default function Work() {
                       </svg>
                     </span>
                   </div>
-                  <span className="mt-5 inline-flex text-sm font-medium text-flame underline-offset-4 group-hover:underline">
+                  <span className="mt-4 inline-flex text-sm font-semibold text-flame underline-offset-4 group-hover:underline">
                     View Project
                   </span>
                 </div>

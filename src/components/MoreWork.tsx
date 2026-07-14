@@ -102,35 +102,42 @@ const PROJECTS: Project[] = [
 ];
 
 export default function MoreWork({ preview = false }: { preview?: boolean }) {
-  const visibleProjects = preview ? PROJECTS.slice(0, 4) : PROJECTS;
+  const visibleProjects = preview ? PROJECTS.slice(0, 6) : PROJECTS;
 
   return (
     <section className="bg-paper dark:bg-ink">
-      <div className="mx-auto max-w-[1200px] px-6 py-16 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-        <Reveal>
-          <p className="text-sm font-medium uppercase tracking-[0.22em] text-flame">More work</p>
-          <h2 className="mt-5 max-w-[22ch] font-display text-4xl font-bold leading-[1.05] tracking-[-0.01em] text-ink dark:text-white sm:text-5xl uppercase">
-            More shipped products
-          </h2>
-          {preview && (
-            <LinkButton href="/work" variant="text" className="mt-6">
-              Explore All Work
-            </LinkButton>
-          )}
+      <div className="mx-auto max-w-[1200px] px-6 py-14 sm:px-10 sm:py-20 lg:px-16">
+        <Reveal className="flex flex-col justify-between gap-5 border-b border-black/10 pb-6 dark:border-white/10 md:flex-row md:items-end">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Proof wall</p>
+            <h2 className="mt-3 max-w-[18ch] font-display text-[clamp(2.1rem,5vw,3.4rem)] font-bold leading-[1.02] tracking-normal text-ink dark:text-white">
+              More shipped products
+            </h2>
+          </div>
+          <div className="max-w-[38ch]">
+            <p className="text-sm leading-[1.65] text-ink/60 dark:text-white/60">
+              A quick scan of live apps, product systems, and utility experiences designed for real users.
+            </p>
+            {preview && (
+              <LinkButton href="/work" variant="text" className="mt-4">
+                Explore all work
+              </LinkButton>
+            )}
+          </div>
         </Reveal>
 
-        <div className="mt-12 divide-y divide-black/10 border-t border-black/10 sm:mt-14 dark:divide-white/10 dark:border-white/10">
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {visibleProjects.map((project, i) => (
             <Reveal key={project.name} delay={i * 0.05}>
               <a
                 href={project.href ?? BEHANCE_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="group flex flex-col gap-4 py-8 sm:flex-row sm:items-center sm:gap-8"
+                className="group flex h-full items-start gap-3 rounded-[18px] border border-black/10 bg-white p-4 shadow-[0_12px_34px_rgba(20,10,0,0.055)] transition-all duration-300 hover:-translate-y-0.5 hover:border-flame/35 hover:shadow-[0_16px_44px_rgba(20,10,0,0.08)] dark:border-white/10 dark:bg-coal dark:shadow-none dark:hover:border-flame/40"
                 aria-label={`View ${project.name} on Behance`}
               >
                 <div
-                  className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl text-sm font-bold text-white"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl text-sm font-bold text-white shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
                   style={{ backgroundColor: project.color }}
                   aria-hidden="true"
                 >
@@ -146,25 +153,19 @@ export default function MoreWork({ preview = false }: { preview?: boolean }) {
                   )}
                 </div>
 
-                <div className="flex-1">
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <h3 className="font-display text-lg font-bold tracking-[-0.01em] text-ink transition-colors duration-300 group-hover:text-flame dark:text-white">
-                      {project.name}
-                    </h3>
-                    <span className="rounded-full bg-black/[0.05] px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.12em] text-ink/55 dark:bg-white/10 dark:text-white/55">
-                      {project.status}
-                    </span>
-                    <p className="text-xs font-medium uppercase tracking-[0.12em] text-ink/45 dark:text-white/45">
-                      {project.category}
-                    </p>
-                  </div>
-                  <p className="mt-2 max-w-[62ch] text-[15px] leading-relaxed text-ink/60 dark:text-white/55">
-                    {project.description}
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-display text-lg font-bold leading-tight tracking-normal text-ink transition-colors duration-300 group-hover:text-flame dark:text-white">
+                    {project.name}
+                  </h3>
+                  <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-flame/85">
+                    {project.status}
+                  </p>
+                  <p className="mt-2 line-clamp-2 text-sm leading-[1.55] text-ink/55 dark:text-white/55">
+                    {project.category}
                   </p>
                 </div>
 
-                <span className="flex shrink-0 items-center gap-1.5 text-sm font-medium text-flame underline-offset-4 group-hover:underline">
-                  View
+                <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-black/10 text-flame transition-all duration-300 group-hover:border-flame group-hover:bg-flame group-hover:text-white dark:border-white/10">
                   <svg
                     width="14"
                     height="14"
