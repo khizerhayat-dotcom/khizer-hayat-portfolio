@@ -1,5 +1,6 @@
 ﻿import { useEffect, useState } from "react";
 import { useRef } from "react";
+import type { PointerEvent } from "react";
 import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
 import MixedText from "../components/MixedText";
 import Reveal from "../components/Reveal";
@@ -93,16 +94,292 @@ const EXPERIENCE_TAGS = [
   "Handoff",
   "App Redesign",
   "Product Thinking",
+  "User Flows",
+  "Design QA",
+  "Figma Systems",
+  "Build Notes",
 ];
 
 const EXPERIENCE_TAG_POSITIONS = [
-  "lg:left-[4%] lg:top-[10%] lg:-rotate-2",
-  "lg:left-[42%] lg:top-[2%] lg:rotate-1",
-  "lg:left-[14%] lg:top-[42%] lg:rotate-1",
-  "lg:left-[58%] lg:top-[38%] lg:-rotate-1",
-  "lg:left-[3%] lg:top-[74%] lg:rotate-1",
-  "lg:left-[49%] lg:top-[72%] lg:-rotate-1",
+  { x: 0.08, y: -0.38, rotate: -2 },
+  { x: 0.34, y: -0.58, rotate: 1 },
+  { x: 0.62, y: -0.44, rotate: -1 },
+  { x: 0.2, y: -0.84, rotate: 2 },
+  { x: 0.48, y: -0.92, rotate: -2 },
+  { x: 0.7, y: -0.74, rotate: 1 },
+  { x: 0.05, y: -1.08, rotate: 1 },
+  { x: 0.42, y: -1.22, rotate: -1 },
+  { x: 0.6, y: -1.12, rotate: 2 },
+  { x: 0.26, y: -1.38, rotate: -2 },
 ];
+
+const EXPERIENCE_PILL_CLASS =
+  "relative z-10 inline-flex select-none rounded-full border border-white/30 bg-white/[0.14] px-3.5 py-2 text-xs font-semibold text-white/94 shadow-[0_12px_34px_rgba(72,17,0,0.14),inset_0_1px_0_rgba(255,255,255,0.25)] backdrop-blur-md transition-[border-color,background-color,box-shadow,color] duration-200 hover:border-white/46 hover:bg-white/[0.19] hover:text-white hover:shadow-[0_16px_42px_rgba(72,17,0,0.18),0_0_0_1px_rgba(255,255,255,0.06),inset_0_1px_0_rgba(255,255,255,0.32)] dark:border-flame/34 dark:bg-white/[0.075] dark:text-white/90 dark:hover:border-flame/55 dark:hover:bg-flame/[0.14] dark:hover:text-white sm:px-4 sm:text-sm";
+
+interface PhysicsPillBody {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  width: number;
+  height: number;
+  visualWidth: number;
+  visualHeight: number;
+  padX: number;
+  padY: number;
+  rotate: number;
+  dragging: boolean;
+}
+
+function PhysicsExperiencePills({ enabled }: { enabled: boolean }) {
+  const fieldRef = useRef<HTMLDivElement>(null);
+  const pillRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const bodiesRef = useRef<PhysicsPillBody[]>([]);
+  const frameRef = useRef<number | null>(null);
+  const pointerRef = useRef<{
+    index: number;
+    pointerId: number;
+    offsetX: number;
+    offsetY: number;
+    lastX: number;
+    lastY: number;
+    lastTime: number;
+  } | null>(null);
+  const isInView = useInView(fieldRef, { amount: 0.25 });
+
+  useEffect(() => {
+    if (!enabled || !isInView) return;
+
+    const field = fieldRef.current;
+    if (!field) return;
+
+    const createBodies = () => {
+      const bounds = field.getBoundingClientRect();
+      const edgePadding = 8;
+      bodiesRef.current = EXPERIENCE_TAGS.map((_, index) => {
+        const element = pillRefs.current[index];
+        const rect = element?.getBoundingClientRect();
+        const visualWidth = rect?.width ?? 112;
+        const visualHeight = rect?.height ?? 38;
+        const padX = 9;
+        const padY = 7;
+        const width = visualWidth + padX * 2;
+        const height = visualHeight + padY * 2;
+        const position = EXPERIENCE_TAG_POSITIONS[index] ?? { x: 0.2, y: -0.6, rotate: 0 };
+        const jitterX = (Math.random() - 0.5) * Math.min(bounds.width * 0.14, 88);
+        const jitterY = Math.random() * -64;
+        const maxX = Math.max(bounds.width - width - edgePadding, edgePadding);
+
+        return {
+          x: Math.min(Math.max(position.x * bounds.width + jitterX, edgePadding), maxX),
+          y: position.y * bounds.height + jitterY,
+          vx: ((Math.random() - 0.5) * 1.6) + (index % 2 === 0 ? 0.28 : -0.28),
+          vy: Math.random() * 0.6,
+          width,
+          height,
+          visualWidth,
+          visualHeight,
+          padX,
+          padY,
+          rotate: position.rotate,
+          dragging: false,
+        };
+      });
+    };
+
+    createBodies();
+    const resizeObserver = new ResizeObserver(createBodies);
+    resizeObserver.observe(field);
+
+    let lastTime = performance.now();
+    const gravity = 0.24;
+    const restitution = 0.2;
+    const friction = 0.986;
+    const floorFriction = 0.78;
+    const edgePadding = 8;
+
+    const applyTransforms = () => {
+      bodiesRef.current.forEach((body, index) => {
+        const element = pillRefs.current[index];
+        if (!element) return;
+        element.style.transform = `translate3d(${body.x + body.padX}px, ${body.y + body.padY}px, 0) rotate(${body.rotate}deg)`;
+      });
+    };
+
+    const resolveBodyCollisions = () => {
+      const bodies = bodiesRef.current;
+
+      for (let pass = 0; pass < 4; pass += 1) {
+        for (let i = 0; i < bodies.length; i += 1) {
+          for (let j = i + 1; j < bodies.length; j += 1) {
+            const a = bodies[i];
+            const b = bodies[j];
+            const dx = a.x + a.width / 2 - (b.x + b.width / 2);
+            const dy = a.y + a.height / 2 - (b.y + b.height / 2);
+            const overlapX = (a.width + b.width) / 2 - Math.abs(dx);
+            const overlapY = (a.height + b.height) / 2 - Math.abs(dy);
+
+            if (overlapX <= 0 || overlapY <= 0) continue;
+
+            if (overlapX < overlapY) {
+              const direction = dx < 0 ? -1 : 1;
+              const correction = overlapX / (a.dragging || b.dragging ? 1.25 : 2);
+              if (!a.dragging) a.x += direction * correction;
+              if (!b.dragging) b.x -= direction * correction;
+
+              const avx = a.vx;
+              if (!a.dragging) a.vx = b.vx * restitution;
+              if (!b.dragging) b.vx = avx * restitution;
+            } else {
+              const direction = dy < 0 ? -1 : 1;
+              const correction = overlapY / (a.dragging || b.dragging ? 1.25 : 2);
+              if (!a.dragging) a.y += direction * correction;
+              if (!b.dragging) b.y -= direction * correction;
+
+              const avy = a.vy;
+              if (!a.dragging) a.vy = b.vy * restitution;
+              if (!b.dragging) b.vy = avy * restitution;
+            }
+          }
+        }
+      }
+    };
+
+    const tick = (time: number) => {
+      const delta = Math.min((time - lastTime) / 16.67, 2);
+      lastTime = time;
+      const bounds = field.getBoundingClientRect();
+
+      bodiesRef.current.forEach((body) => {
+        if (!body.dragging) {
+          body.vy += gravity * delta;
+          body.x += body.vx * delta;
+          body.y += body.vy * delta;
+          body.vx *= friction;
+          body.vy *= friction;
+        }
+
+        if (body.x < edgePadding) {
+          body.x = edgePadding;
+          body.vx = Math.abs(body.vx) * restitution;
+        }
+
+        if (body.x + body.width > bounds.width - edgePadding) {
+          body.x = bounds.width - body.width - edgePadding;
+          body.vx = -Math.abs(body.vx) * restitution;
+        }
+
+        if (body.y < edgePadding) {
+          body.y = edgePadding;
+          body.vy = Math.abs(body.vy) * restitution;
+        }
+
+        if (body.y + body.height > bounds.height - edgePadding) {
+          body.y = bounds.height - body.height - edgePadding;
+          body.vy = -Math.abs(body.vy) * restitution;
+          body.vx *= floorFriction;
+          if (Math.abs(body.vy) < 0.16) body.vy = 0;
+          if (Math.abs(body.vx) < 0.055) body.vx = 0;
+        }
+      });
+
+      resolveBodyCollisions();
+      applyTransforms();
+      frameRef.current = window.requestAnimationFrame(tick);
+    };
+
+    applyTransforms();
+    frameRef.current = window.requestAnimationFrame(tick);
+
+    return () => {
+      resizeObserver.disconnect();
+      if (frameRef.current) window.cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+      pointerRef.current = null;
+    };
+  }, [enabled, isInView]);
+
+  const handlePointerDown = (event: PointerEvent<HTMLSpanElement>, index: number) => {
+    if (!enabled) return;
+    const field = fieldRef.current;
+    const body = bodiesRef.current[index];
+    if (!field || !body) return;
+
+    const bounds = field.getBoundingClientRect();
+    const pointerX = event.clientX - bounds.left;
+    const pointerY = event.clientY - bounds.top;
+
+    body.dragging = true;
+    body.vx = 0;
+    body.vy = 0;
+    pointerRef.current = {
+      index,
+      pointerId: event.pointerId,
+      offsetX: pointerX - (body.x + body.padX),
+      offsetY: pointerY - (body.y + body.padY),
+      lastX: pointerX,
+      lastY: pointerY,
+      lastTime: performance.now(),
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handlePointerMove = (event: PointerEvent<HTMLSpanElement>) => {
+    if (!enabled) return;
+    const pointer = pointerRef.current;
+    const field = fieldRef.current;
+    if (!pointer || pointer.pointerId !== event.pointerId || !field) return;
+
+    const body = bodiesRef.current[pointer.index];
+    if (!body) return;
+
+    const bounds = field.getBoundingClientRect();
+    const pointerX = event.clientX - bounds.left;
+    const pointerY = event.clientY - bounds.top;
+    const now = performance.now();
+    const dt = Math.max(now - pointer.lastTime, 16);
+
+    const edgePadding = 8;
+    body.x = Math.min(Math.max(pointerX - pointer.offsetX - body.padX, edgePadding), Math.max(bounds.width - body.width - edgePadding, edgePadding));
+    body.y = Math.min(Math.max(pointerY - pointer.offsetY - body.padY, edgePadding), Math.max(bounds.height - body.height - edgePadding, edgePadding));
+    body.vx = ((pointerX - pointer.lastX) / dt) * 16.67;
+    body.vy = ((pointerY - pointer.lastY) / dt) * 16.67;
+
+    pointer.lastX = pointerX;
+    pointer.lastY = pointerY;
+    pointer.lastTime = now;
+  };
+
+  const handlePointerUp = (event: PointerEvent<HTMLSpanElement>) => {
+    const pointer = pointerRef.current;
+    if (!pointer || pointer.pointerId !== event.pointerId) return;
+
+    const body = bodiesRef.current[pointer.index];
+    if (body) body.dragging = false;
+    pointerRef.current = null;
+    event.currentTarget.releasePointerCapture(event.pointerId);
+  };
+
+  return (
+    <div ref={fieldRef} className={enabled ? "relative h-[270px] overflow-hidden lg:-ml-6 xl:-ml-10" : "relative flex min-h-0 flex-wrap content-start gap-2.5 sm:gap-3"}>
+      {EXPERIENCE_TAGS.map((tag, index) => (
+        <span
+          key={tag}
+          ref={(element) => {
+            pillRefs.current[index] = element;
+          }}
+          onPointerDown={(event) => handlePointerDown(event, index)}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+          className={`${EXPERIENCE_PILL_CLASS} ${enabled ? "absolute left-0 top-0 cursor-grab active:z-20 active:cursor-grabbing" : ""}`}
+        >
+          {tag}
+        </span>
+      ))}
+    </div>
+  );
+}
 
 const CONTACT_LINKS = [
   { label: "LinkedIn", href: "https://linkedin.com/in/khizerdesigner/", icon: linkedinIcon },
@@ -156,12 +433,12 @@ function AnimatedStat({ stat, index }: { stat: AboutStat; index: number }) {
       whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.55 }}
       transition={{ duration: 0.62, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      className="h-full border-t border-black/15 py-3 transition-colors duration-300 hover:border-flame/45 dark:border-white/15 dark:hover:border-flame/55 sm:py-3.5 lg:py-4"
+      className="h-full border-t border-black/12 py-2.5 transition-colors duration-300 hover:border-flame/40 dark:border-white/14 dark:hover:border-flame/50 sm:py-3"
     >
-      <p className="font-display text-[clamp(1.35rem,5.5vw,1.75rem)] font-bold leading-none tracking-normal text-ink dark:text-white">
+      <p className="font-display text-[clamp(1.25rem,5vw,1.65rem)] font-bold leading-none tracking-normal text-ink dark:text-white">
         {displayValue}
       </p>
-      <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.13em] text-ink/50 dark:text-white/50 sm:text-xs">
+      <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-ink/50 dark:text-white/50 sm:text-[11px]">
         {stat.label}
       </p>
     </motion.div>
@@ -220,23 +497,30 @@ function ToolCardVisual({
 }: {
   title: string;
 }) {
+  const shellClass = "relative min-h-[168px] overflow-hidden rounded-[20px] border border-[#eaded2] bg-[#fbf7f1] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.82)] dark:border-white/[0.09] dark:bg-white/[0.045]";
+
   if (title === "Design") {
     return (
-      <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <span className="h-8 rounded-full bg-ink px-4 text-[11px] font-semibold leading-8 text-white dark:bg-white dark:text-ink">Primary</span>
-          <span className="h-8 rounded-full border border-black/10 bg-white px-4 text-[11px] font-semibold leading-8 text-ink/70 dark:border-white/10 dark:bg-white/[0.06] dark:text-white/72">Secondary</span>
-        </div>
-        <div className="grid grid-cols-[0.85fr_1.15fr] gap-3">
-          <div className="rounded-2xl border border-black/[0.08] bg-white p-3 dark:border-white/10 dark:bg-white/[0.055]">
-            <div className="h-2 w-12 rounded-full bg-flame/55" />
-            <div className="mt-3 h-14 rounded-xl bg-ink/[0.055] dark:bg-white/[0.08]" />
+      <div className={shellClass}>
+        <div className="pointer-events-none absolute right-[-3rem] top-[-3rem] h-28 w-28 rounded-full bg-flame/[0.12] blur-3xl dark:bg-flame/[0.16]" />
+        <div className="relative flex h-full gap-3">
+          <div className="flex w-16 shrink-0 flex-col gap-2 rounded-[16px] border border-black/[0.07] bg-white/78 p-2 dark:border-white/10 dark:bg-white/[0.055]">
+            {["bg-ink dark:bg-white", "bg-flame", "bg-[#e8ddd1] dark:bg-white/22"].map((color, index) => (
+              <span key={index} className={`h-8 rounded-xl ${color}`} />
+            ))}
           </div>
-          <div className="rounded-2xl border border-black/[0.08] bg-white p-3 dark:border-white/10 dark:bg-white/[0.055]">
-            <div className="space-y-2">
-              <span className="block h-2 w-20 rounded-full bg-ink/18 dark:bg-white/24" />
-              <span className="block h-2 w-28 rounded-full bg-ink/10 dark:bg-white/14" />
-              <span className="block h-8 rounded-xl bg-flame/[0.09] dark:bg-flame/[0.12]" />
+          <div className="min-w-0 flex-1 rounded-[18px] border border-black/[0.07] bg-white/78 p-3 dark:border-white/10 dark:bg-white/[0.055]">
+            <div className="flex items-center justify-between">
+              <span className="h-2 w-20 rounded-full bg-ink/22 dark:bg-white/24" />
+              <span className="h-6 w-6 rounded-full bg-flame/16 ring-1 ring-flame/20" />
+            </div>
+            <div className="mt-4 grid grid-cols-[1.2fr_0.8fr] gap-2">
+              <span className="h-16 rounded-2xl bg-ink/[0.055] dark:bg-white/[0.08]" />
+              <span className="h-16 rounded-2xl bg-flame/[0.095] dark:bg-flame/[0.13]" />
+            </div>
+            <div className="mt-3 space-y-2">
+              <span className="block h-2 w-full rounded-full bg-ink/12 dark:bg-white/14" />
+              <span className="block h-2 w-2/3 rounded-full bg-ink/8 dark:bg-white/10" />
             </div>
           </div>
         </div>
@@ -246,20 +530,21 @@ function ToolCardVisual({
 
   if (title === "Prototyping") {
     return (
-      <div className="space-y-3">
-        {["Entry", "Interaction", "Review"].map((step, stepIndex) => (
-          <div key={step} className="flex items-center gap-3">
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-flame/20 bg-flame/[0.08] text-[11px] font-bold text-flame">
-              {stepIndex + 1}
-            </span>
-            <span className="h-px flex-1 bg-black/10 dark:bg-white/10" />
-            <span className="min-w-[92px] rounded-xl border border-black/[0.08] bg-white px-3 py-2 text-xs font-semibold text-ink/65 dark:border-white/10 dark:bg-white/[0.055] dark:text-white/65">
-              {step}
-            </span>
-          </div>
-        ))}
-        <div className="rounded-2xl border border-dashed border-flame/24 bg-flame/[0.055] px-3 py-2 text-xs font-medium text-ink/58 dark:bg-flame/[0.08] dark:text-white/58">
-          Tap states, edge cases, and motion notes before build.
+      <div className={shellClass}>
+        <div className="pointer-events-none absolute left-[-2rem] bottom-[-3rem] h-28 w-28 rounded-full bg-flame/[0.11] blur-3xl dark:bg-flame/[0.15]" />
+        <div className="relative grid h-full grid-cols-[1fr_auto_1fr] items-center gap-3">
+          {["Flow", "Tap", "QA"].map((step, stepIndex) => (
+            <div key={step} className="contents">
+              <div className="rounded-[17px] border border-black/[0.07] bg-white/78 p-3 shadow-[0_10px_24px_rgba(70,38,18,0.035)] dark:border-white/10 dark:bg-white/[0.055]">
+                <span className="block h-2 w-10 rounded-full bg-flame/50" />
+                <span className="mt-3 block h-10 rounded-xl bg-ink/[0.055] dark:bg-white/[0.08]" />
+                <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-ink/42 dark:text-white/45">{step}</p>
+              </div>
+              {stepIndex < 2 && (
+                <div className="hidden h-px w-7 bg-gradient-to-r from-flame/40 to-transparent sm:block" aria-hidden="true" />
+              )}
+            </div>
+          ))}
         </div>
       </div>
     );
@@ -267,21 +552,21 @@ function ToolCardVisual({
 
   if (title === "Systems") {
     return (
-      <div className="grid grid-cols-[0.9fr_1.1fr] gap-3">
-        <div className="space-y-2">
-          {["8", "12", "16", "24"].map((space) => (
-            <div key={space} className="flex items-center gap-2">
-              <span className="w-5 text-[10px] font-semibold text-ink/45 dark:text-white/45">{space}</span>
-              <span className="h-2 rounded-full bg-flame/45" style={{ width: `${Number(space) * 3}px` }} />
+      <div className={shellClass}>
+        <div className="pointer-events-none absolute right-[-2rem] bottom-[-3rem] h-28 w-28 rounded-full bg-flame/[0.1] blur-3xl dark:bg-flame/[0.14]" />
+        <div className="relative grid h-full grid-cols-[0.95fr_1.05fr] gap-3">
+          <div className="rounded-[18px] border border-black/[0.07] bg-white/78 p-3 dark:border-white/10 dark:bg-white/[0.055]">
+            <div className="font-display text-3xl font-bold leading-none text-ink dark:text-white">Aa</div>
+            <div className="mt-4 space-y-2">
+              <span className="block h-2 w-16 rounded-full bg-ink/18 dark:bg-white/22" />
+              <span className="block h-2 w-24 rounded-full bg-ink/10 dark:bg-white/13" />
+              <span className="block h-2 w-12 rounded-full bg-flame/45" />
             </div>
-          ))}
-        </div>
-        <div className="rounded-2xl border border-black/[0.08] bg-white p-3 dark:border-white/10 dark:bg-white/[0.055]">
-          <div className="font-display text-2xl font-bold leading-none text-ink dark:text-white">Aa</div>
-          <div className="mt-3 grid grid-cols-3 gap-1.5">
-            <span className="h-7 rounded-lg bg-ink dark:bg-white" />
-            <span className="h-7 rounded-lg bg-flame" />
-            <span className="h-7 rounded-lg border border-black/10 bg-white dark:border-white/10 dark:bg-white/[0.06]" />
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {["bg-ink dark:bg-white", "bg-flame", "bg-[#e8ddd1] dark:bg-white/20", "bg-white ring-1 ring-black/10 dark:bg-white/[0.06] dark:ring-white/10"].map((color, index) => (
+              <span key={index} className={`rounded-2xl ${color}`} />
+            ))}
           </div>
         </div>
       </div>
@@ -289,21 +574,28 @@ function ToolCardVisual({
   }
 
   return (
-    <div className="space-y-3">
-      <div className="rounded-2xl border border-black/[0.08] bg-white p-3 dark:border-white/10 dark:bg-white/[0.055]">
-        {["Export states", "Name assets", "QA spacing"].map((item) => (
-          <div key={item} className="flex items-center gap-2 py-1.5 text-xs font-medium text-ink/62 dark:text-white/62">
-            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-flame text-[9px] font-bold text-white">✓</span>
-            {item}
+    <div className={shellClass}>
+      <div className="pointer-events-none absolute left-[-2rem] top-[-3rem] h-28 w-28 rounded-full bg-flame/[0.11] blur-3xl dark:bg-flame/[0.15]" />
+      <div className="relative grid h-full grid-cols-[1fr_0.9fr] gap-3">
+        <div className="rounded-[18px] border border-black/[0.07] bg-white/78 p-3 dark:border-white/10 dark:bg-white/[0.055]">
+          <div className="flex items-center justify-between border-b border-black/[0.07] pb-2 dark:border-white/10">
+            <span className="h-2 w-14 rounded-full bg-ink/18 dark:bg-white/22" />
+            <span className="h-5 w-5 rounded-full bg-flame/16 ring-1 ring-flame/24" />
           </div>
-        ))}
-      </div>
-      <div className="grid grid-cols-3 gap-2">
-        {["Spec", "Asset", "State"].map((item) => (
-          <span key={item} className="rounded-xl border border-black/[0.08] bg-white px-2.5 py-2 text-center text-[11px] font-semibold text-ink/58 dark:border-white/10 dark:bg-white/[0.055] dark:text-white/58">
-            {item}
-          </span>
-        ))}
+          {["States", "Specs", "Assets"].map((item) => (
+            <div key={item} className="flex items-center gap-2 py-2 text-xs font-medium text-ink/58 dark:text-white/58">
+              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-flame text-[9px] font-bold text-white">✓</span>
+              {item}
+            </div>
+          ))}
+        </div>
+        <div className="grid content-between gap-2">
+          {["Spec", "Asset", "QA"].map((item) => (
+            <span key={item} className="rounded-2xl border border-black/[0.07] bg-white/78 px-3 py-3 text-center text-[11px] font-semibold text-ink/58 dark:border-white/10 dark:bg-white/[0.055] dark:text-white/58">
+              {item}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -313,12 +605,11 @@ export default function About() {
   const [copied, setCopied] = useState(false);
   const [activeService, setActiveService] = useState<string | null>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [canDragTags, setCanDragTags] = useState(false);
-  const tagFieldRef = useRef<HTMLDivElement>(null);
+  const [canRunExperiencePhysics, setCanRunExperiencePhysics] = useState(false);
 
   useEffect(() => {
-    const media = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 900px)");
-    const update = () => setCanDragTags(media.matches && !prefersReducedMotion);
+    const media = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 1024px)");
+    const update = () => setCanRunExperiencePhysics(media.matches && !prefersReducedMotion);
     update();
     media.addEventListener("change", update);
     return () => media.removeEventListener("change", update);
@@ -336,23 +627,27 @@ export default function About() {
 
   return (
     <main className="min-h-screen bg-paper text-ink transition-colors duration-300 dark:bg-ink dark:text-white">
-      <section className="bg-[#f3f1ed] px-5 pb-7 pt-[6.25rem] transition-colors duration-300 dark:bg-[#100b07] sm:px-8 sm:pb-9 sm:pt-[7rem] lg:px-14 lg:pb-11 lg:pt-[7.5rem] xl:px-16">
-        <div className="mx-auto grid w-full max-w-[1240px] gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)] lg:items-end lg:gap-10 xl:gap-14">
+      <section className="bg-[#f3f1ed] px-5 pb-12 pt-[6.25rem] transition-colors duration-300 dark:bg-[#100b07] sm:px-8 sm:pb-14 sm:pt-[7rem] lg:px-14 lg:pb-16 lg:pt-[7.5rem] xl:px-16">
+        <div className="mx-auto grid w-full max-w-[1240px] gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(260px,320px)] lg:items-center lg:gap-10 xl:gap-12">
           <div className="min-w-0">
             <Reveal>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-flame">About Khizer Hayat</p>
-              <h1 className="mt-4 max-w-[18ch] font-display text-[clamp(1.85rem,4.8vw,3.75rem)] font-bold leading-[1.05] tracking-normal text-ink dark:text-white sm:mt-5">
-                <MixedText text="3+ years of experience crafting mobile products, digital interfaces, and scalable design systems." accent="crafting" />
+              <h1 className="mt-4 max-w-[19ch] font-display text-[clamp(1.75rem,4.15vw,3.2rem)] font-bold leading-[1.08] tracking-normal text-ink dark:text-white sm:mt-5">
+                <MixedText
+                  text="3+ years of experience crafting mobile products, digital interfaces, and scalable design systems."
+                  accent="crafting"
+                  accentClassName="text-flame/80 dark:text-flame/85"
+                />
               </h1>
             </Reveal>
 
             <Reveal delay={0.08}>
-              <p className="mt-4 max-w-[52ch] text-[15px] leading-[1.6] text-ink/62 dark:text-white/62 sm:text-base">
+              <p className="mt-5 max-w-[50ch] cursor-default text-[15px] leading-[1.65] text-ink/62 dark:text-white/62 sm:text-base" contentEditable={false}>
                 I design clean, usable, developer-ready product experiences across mobile app UI/UX, redesigns, systems, prototypes, and handoff.
               </p>
             </Reveal>
 
-            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:mt-8">
+            <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-4 lg:mt-7">
               {STATS.map((stat, index) => (
                 <AnimatedStat key={`${stat.value}-${stat.label}`} stat={stat} index={index} />
               ))}
@@ -360,26 +655,30 @@ export default function About() {
           </div>
 
           <Reveal delay={0.12}>
-            <div className="mx-auto w-full max-w-[220px] sm:max-w-[280px] lg:mx-0 lg:ml-auto lg:max-w-[340px]">
+            <div className="mx-auto w-full max-w-[210px] sm:max-w-[260px] lg:mx-0 lg:ml-auto lg:max-w-[300px]">
               <AboutPortrait enableCursorGlow />
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-accent px-5 py-8 text-white shadow-[0_18px_60px_rgba(216,72,15,0.18)] transition-colors duration-300 dark:bg-gradient-to-br dark:from-[#210905] dark:via-[#351006] dark:to-[#090403] dark:shadow-[0_18px_60px_rgba(0,0,0,0.32)] sm:px-8 sm:py-9 lg:px-14 lg:py-10 xl:px-16">
+      <section className="relative mt-4 overflow-hidden bg-gradient-to-br from-[#f4620a] via-[#d8480f] to-[#9f2308] px-5 py-9 text-white shadow-[0_20px_70px_rgba(216,72,15,0.22)] transition-colors duration-300 dark:bg-gradient-to-br dark:from-[#240904] dark:via-[#4a1307] dark:to-[#090403] dark:shadow-[0_22px_70px_rgba(0,0,0,0.38)] sm:mt-6 sm:px-8 sm:py-10 lg:px-14 lg:py-12 xl:px-16">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-20 dark:opacity-[0.1]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_10%,rgba(255,255,255,0.26),transparent_28%),radial-gradient(circle_at_86%_18%,rgba(255,185,116,0.24),transparent_30%),radial-gradient(circle_at_50%_110%,rgba(80,10,0,0.28),transparent_42%)] dark:bg-[radial-gradient(circle_at_18%_10%,rgba(244,98,10,0.28),transparent_30%),radial-gradient(circle_at_86%_18%,rgba(255,100,38,0.18),transparent_30%),radial-gradient(circle_at_50%_110%,rgba(0,0,0,0.42),transparent_44%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-[0.14] dark:opacity-[0.08]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.16) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px)",
-            backgroundSize: "44px 44px",
+              "linear-gradient(rgba(255,255,255,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px)",
+            backgroundSize: "52px 52px",
           }}
         />
         <Reveal className="mx-auto max-w-[1240px]">
           <div className="relative">
-            <div className="relative grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center xl:grid-cols-[minmax(0,1fr)_400px]">
+            <div className="relative grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(460px,540px)] lg:items-center xl:grid-cols-[minmax(0,1fr)_minmax(560px,620px)]">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">Experience</p>
                 <h2 className="mt-4 max-w-[18ch] font-display text-[clamp(2rem,5.6vw,3.7rem)] font-bold leading-[1] tracking-normal sm:max-w-[16ch]">
@@ -387,40 +686,8 @@ export default function About() {
                 </h2>
               </div>
 
-              <div className="relative lg:min-h-[190px]">
-                <div ref={tagFieldRef} className="relative flex min-h-0 flex-wrap content-start gap-2.5 sm:gap-3 lg:h-[190px] lg:block">
-                  {EXPERIENCE_TAGS.map((tag, index) => (
-                    <motion.span
-                      key={tag}
-                      drag={canDragTags}
-                      dragConstraints={tagFieldRef}
-                      dragElastic={0.22}
-                      dragMomentum={false}
-                      dragSnapToOrigin={canDragTags}
-                      dragTransition={{ bounceStiffness: 260, bounceDamping: 15 }}
-                      whileHover={canDragTags ? { y: -2, scale: 1.015 } : undefined}
-                      whileDrag={canDragTags ? { scale: 1.025, cursor: "grabbing", zIndex: 20 } : undefined}
-                      animate={
-                        canDragTags
-                          ? {
-                              y: index % 2 === 0 ? [0, -5, 0] : [0, 4, 0],
-                            }
-                          : undefined
-                      }
-                      transition={{
-                        y: { duration: 4 + (index % 3), repeat: Infinity, ease: "easeInOut" },
-                        default: { type: "spring", stiffness: 280, damping: 18 },
-                      }}
-                      className={
-                        "relative z-10 inline-flex select-none rounded-full border border-white/28 bg-white/12 px-3.5 py-2 text-xs font-semibold text-white/92 backdrop-blur-md transition-colors duration-200 hover:border-white/44 hover:bg-white/18 hover:text-white dark:border-flame/35 dark:bg-[#120806]/45 dark:text-white/88 dark:hover:border-flame/55 dark:hover:bg-flame/[0.14] sm:px-4 sm:text-sm lg:absolute " +
-                        (EXPERIENCE_TAG_POSITIONS[index] ?? "") +
-                        (canDragTags ? " cursor-grab active:cursor-grabbing" : "")
-                      }
-                    >
-                      {tag}
-                    </motion.span>
-                  ))}
-                </div>
+              <div className="relative lg:min-h-[250px]">
+                <PhysicsExperiencePills enabled={canRunExperiencePhysics} />
               </div>
             </div>
           </div>
@@ -514,14 +781,15 @@ export default function About() {
             return (
               <Reveal key={group.title} delay={index * 0.05}>
                 <motion.article
-                  whileHover={prefersReducedMotion ? undefined : { y: -3 }}
+                  whileHover={prefersReducedMotion ? undefined : { y: -5 }}
                   transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                  className="group relative h-full overflow-hidden rounded-[22px] border border-black/[0.08] bg-white p-4 shadow-[0_16px_42px_rgba(20,10,0,0.055)] transition-colors duration-300 hover:border-flame/[0.28] hover:shadow-[0_20px_54px_rgba(20,10,0,0.075)] dark:border-white/10 dark:bg-[#11100f] dark:shadow-none dark:hover:border-flame/35 sm:p-5"
+                  className="group relative h-full overflow-hidden rounded-[26px] border border-[#e7dbcf] bg-[#fffdf9] p-4 shadow-[0_18px_54px_rgba(70,38,18,0.06)] transition-all duration-300 hover:border-flame/[0.26] hover:bg-white hover:shadow-[0_24px_72px_rgba(70,38,18,0.09)] dark:border-white/[0.09] dark:bg-[#11100f] dark:shadow-none dark:hover:border-flame/34 dark:hover:bg-[#15120f] sm:p-5"
                 >
                   <div className={`pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${style.accent}`} />
+                  <div className="pointer-events-none absolute right-[-4rem] top-[-4rem] h-36 w-36 rounded-full bg-flame/[0.07] opacity-0 blur-3xl transition-opacity duration-300 group-hover:opacity-100 dark:bg-flame/[0.12]" />
 
                   <motion.div
-                    className="relative overflow-hidden rounded-[18px] border border-black/[0.08] bg-[#f7f5f1] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.045] sm:p-5"
+                    className="relative"
                     whileHover={prefersReducedMotion ? undefined : { y: -2 }}
                     transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
                   >
@@ -531,24 +799,24 @@ export default function About() {
                   <div className="relative mt-5">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-flame">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.17em] text-flame/80">
                           {String(index + 1).padStart(2, "0")} / Capability
                         </p>
-                        <h3 className="mt-2 font-display text-xl font-bold leading-tight text-ink dark:text-white sm:text-2xl">
+                        <h3 className="mt-2 font-display text-[1.45rem] font-bold leading-tight text-ink dark:text-white sm:text-[1.7rem]">
                           {group.title}
                         </h3>
                       </div>
                       <span className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${style.dot} shadow-[0_0_0_6px_rgba(244,98,10,0.1)]`} />
                     </div>
-                    <p className="mt-3 max-w-[42ch] text-sm leading-[1.58] text-ink/60 dark:text-white/60">
+                    <p className="mt-3 max-w-[42ch] text-sm leading-[1.62] text-ink/58 dark:text-white/58">
                       {group.description}
                     </p>
 
-                    <div className="mt-4 grid grid-cols-2 gap-2">
+                    <div className="mt-5 grid grid-cols-2 gap-2">
                       {group.items.map((item) => (
                         <span
                           key={item}
-                          className="rounded-[10px] border border-black/[0.08] bg-[#faf8f4] px-3 py-2 text-xs font-semibold text-ink/[0.66] transition-colors duration-200 group-hover:border-flame/[0.24] group-hover:bg-flame/[0.045] dark:border-white/10 dark:bg-white/[0.045] dark:text-white/[0.76] dark:group-hover:border-flame/35 dark:group-hover:bg-flame/[0.1] dark:group-hover:text-white"
+                          className="rounded-[12px] border border-[#e4d8cc] bg-[#fbf7f1] px-3 py-2.5 text-xs font-semibold text-ink/[0.64] shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] transition-colors duration-200 group-hover:border-flame/[0.22] group-hover:bg-[#fff7ef] group-hover:text-ink/75 dark:border-white/[0.09] dark:bg-white/[0.045] dark:text-white/[0.72] dark:shadow-none dark:group-hover:border-flame/32 dark:group-hover:bg-flame/[0.09] dark:group-hover:text-white"
                         >
                           {item}
                         </span>
@@ -564,8 +832,10 @@ export default function About() {
 
       <section className="mx-auto max-w-[1320px] px-5 pb-10 sm:px-8 sm:pb-12 lg:px-14 lg:pb-14 xl:px-16 xl:pb-16">
         <Reveal>
-            <div className="overflow-hidden rounded-[24px] bg-gradient-to-br from-accent via-flame to-[#8f1b08] px-5 py-6 text-white shadow-[0_18px_54px_rgba(216,72,15,0.2)] transition-colors duration-300 dark:border dark:border-flame/18 dark:from-[#240a04] dark:via-[#3a1207] dark:to-[#090403] dark:shadow-[0_22px_64px_rgba(0,0,0,0.34)] sm:px-7 sm:py-7 lg:px-10 lg:py-8 xl:px-12">
-            <div className="mx-auto flex max-w-[1040px] flex-col items-center text-center">
+            <div className="relative overflow-hidden rounded-[24px] border border-white/20 bg-[linear-gradient(135deg,#ff8a22_0%,#f4620a_34%,#d94811_68%,#9f2308_100%)] px-5 py-6 text-white shadow-[0_22px_70px_rgba(216,72,15,0.24)] transition-colors duration-300 dark:border-flame/18 dark:bg-[linear-gradient(135deg,#2a0803_0%,#551606_42%,#8f2209_76%,#160604_100%)] dark:shadow-[0_24px_76px_rgba(0,0,0,0.4)] sm:px-7 sm:py-7 lg:px-10 lg:py-8 xl:px-12">
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_24%_8%,rgba(255,232,190,0.34),transparent_30%),radial-gradient(circle_at_78%_0%,rgba(255,170,74,0.24),transparent_28%),radial-gradient(circle_at_50%_115%,rgba(103,16,0,0.28),transparent_45%)] dark:bg-[radial-gradient(circle_at_24%_8%,rgba(255,124,42,0.2),transparent_32%),radial-gradient(circle_at_78%_0%,rgba(255,93,28,0.16),transparent_30%),radial-gradient(circle_at_50%_115%,rgba(0,0,0,0.42),transparent_48%)]" />
+            <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent dark:via-flame/36" />
+            <div className="relative mx-auto flex max-w-[1040px] flex-col items-center text-center">
               <h2 className="font-display text-[clamp(2.2rem,8vw,5rem)] font-bold leading-[0.9] tracking-normal">
                 <MixedText text="Let's work" accent="work" accentClassName="text-white" />
               </h2>
@@ -577,7 +847,7 @@ export default function About() {
               </h2>
             </div>
 
-            <div className="mx-auto mt-5 flex max-w-[1060px] flex-col gap-4 border-t border-white/20 pt-5 sm:mt-6 sm:items-center lg:mt-7 lg:flex-row lg:items-end lg:justify-between">
+            <div className="relative mx-auto mt-5 flex max-w-[1060px] flex-col gap-4 border-t border-white/16 pt-5 sm:mt-6 sm:items-center lg:mt-7 lg:flex-row lg:items-end lg:justify-between">
               <div className="text-center lg:text-left">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/65">Drop me an email</p>
                 <div className="mt-2 flex flex-wrap items-center justify-center gap-2 lg:justify-start">

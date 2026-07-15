@@ -148,9 +148,33 @@ export function ContactLinks({
   className,
 }: {
   links?: typeof CONTACT_LINKS;
-  variant?: "neutral" | "darkPanel" | "footer";
+  variant?: "neutral" | "darkPanel" | "footer" | "compact";
   className?: string;
 }) {
+  if (variant === "compact") {
+    return (
+      <div className={cn("grid grid-cols-4 gap-3", className)}>
+        {links.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            target={link.href.startsWith("http") ? "_blank" : undefined}
+            rel={link.href.startsWith("http") ? "noreferrer" : undefined}
+            download={link.download ? true : undefined}
+            aria-label={link.label}
+            title={link.label}
+            className="group flex min-w-0 flex-col items-center gap-2 text-center text-[11px] font-semibold text-ink/52 transition-all duration-200 ease-premium hover:-translate-y-0.5 hover:text-ink active:translate-y-0 dark:text-white/56 dark:hover:text-white"
+          >
+            <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#e2d5c8] bg-white/60 shadow-[0_10px_28px_rgba(70,38,18,0.045)] backdrop-blur-sm transition-all duration-200 group-hover:border-flame/34 group-hover:bg-white group-hover:shadow-[0_14px_34px_rgba(216,72,15,0.12)] dark:border-white/[0.09] dark:bg-white/[0.045] dark:shadow-none dark:group-hover:border-flame/40 dark:group-hover:bg-white/[0.075]">
+              <img src={link.icon} alt="" className="h-4 w-4 opacity-75 transition duration-200 group-hover:opacity-90 dark:invert dark:opacity-85 dark:group-hover:opacity-100" aria-hidden="true" />
+            </span>
+            <span className="truncate leading-none">{link.label}</span>
+          </a>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div className={cn("grid gap-3 sm:grid-cols-2", className)}>
       {links.map((link) => (
@@ -161,12 +185,12 @@ export function ContactLinks({
           rel={link.href.startsWith("http") ? "noreferrer" : undefined}
           download={link.download ? true : undefined}
           className={cn(
-            "group inline-flex min-h-14 items-center justify-center gap-3 rounded-full px-5 py-3 text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0",
+            "group inline-flex items-center text-sm font-semibold transition-all duration-200 ease-premium hover:-translate-y-0.5 active:translate-y-0",
             variant === "darkPanel"
-              ? "border border-white/18 bg-white/10 text-white backdrop-blur-sm hover:border-white/35 hover:bg-white/18"
+              ? "min-h-14 justify-center gap-3 rounded-full border border-white/18 bg-white/10 px-5 py-3 text-white backdrop-blur-sm hover:border-white/35 hover:bg-white/18"
               : variant === "footer"
-                ? "border border-black/10 bg-paper/80 text-ink/70 hover:border-flame hover:bg-flame hover:text-white dark:border-white/10 dark:bg-coal/80 dark:text-white/70 dark:hover:border-flame dark:hover:bg-flame dark:hover:text-white"
-                : "border border-black/10 bg-paper text-ink hover:border-flame hover:bg-flame hover:text-white dark:border-white/10 dark:bg-ink dark:text-white dark:hover:border-flame dark:hover:bg-flame dark:hover:text-white",
+                ? "min-h-14 justify-center gap-3 rounded-full border border-black/10 bg-paper/80 px-5 py-3 text-ink/70 hover:border-flame hover:bg-flame hover:text-white dark:border-white/10 dark:bg-coal/80 dark:text-white/70 dark:hover:border-flame dark:hover:bg-flame dark:hover:text-white"
+                : "min-h-14 justify-center gap-3 rounded-full border border-black/10 bg-paper px-5 py-3 text-ink hover:border-flame hover:bg-flame hover:text-white dark:border-white/10 dark:bg-ink dark:text-white dark:hover:border-flame dark:hover:bg-flame dark:hover:text-white",
           )}
         >
           <img

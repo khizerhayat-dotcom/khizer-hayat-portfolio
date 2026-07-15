@@ -104,24 +104,26 @@ export default function Contact() {
                 </div>
 
                 <div className="relative mt-12">
-                  <p className="border-t border-black/10 pt-6 text-xs font-semibold uppercase tracking-[0.22em] text-ink/45 dark:border-white/10 dark:text-white/48">
-                    Quick links
-                  </p>
-                  <ContactLinks className="mt-5" />
+                  <div className="flex items-center justify-between gap-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink/45 dark:text-white/48">
+                      Quick links
+                    </p>
+                  </div>
+                  <ContactLinks variant="compact" className="mt-5 max-w-[22rem]" />
                 </div>
               </div>
 
               <form id="contact-form" onSubmit={handleSubmit} noValidate className="bg-white p-7 dark:bg-coal sm:p-10 lg:p-12">
-                <div className="mb-8 flex flex-col gap-4 border-b border-black/10 pb-7 dark:border-white/10 sm:flex-row sm:items-end sm:justify-between">
-                  <div>
+                <div className="mb-7 border-b border-black/[0.08] pb-6 dark:border-white/10">
+                  <div className="max-w-[35rem]">
                     <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Project note</p>
-                    <h2 className="mt-3 font-display text-3xl font-bold leading-none text-ink dark:text-white sm:text-4xl">
-                      <MixedText text="Tell me what you're building." accent="building" />
+                    <h2 className="mt-3 font-display text-[clamp(1.8rem,4vw,2.5rem)] font-bold leading-[1.04] tracking-normal text-ink dark:text-white">
+                      <MixedText text="Tell me what you're building." accent="building" accentClassName="text-flame/82 dark:text-flame/88" />
                     </h2>
+                    <p className="mt-3 max-w-[44ch] text-sm leading-[1.65] text-ink/52 dark:text-white/56">
+                      A short note is enough — share the goal, timeline, or product challenge.
+                    </p>
                   </div>
-                  <p className="max-w-[24ch] text-sm leading-relaxed text-ink/55 dark:text-white/55">
-                    A short note is enough to start.
-                  </p>
                 </div>
 
                 <div className="grid gap-5 sm:grid-cols-2">
