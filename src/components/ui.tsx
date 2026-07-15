@@ -54,7 +54,7 @@ export function SectionHeader({
   const TitleTag = titleAs;
 
   return (
-    <div className={cn("flex flex-col justify-between gap-6 border-b border-black/10 pb-8 dark:border-white/10 md:flex-row md:items-end", className)}>
+    <div className={cn("flex flex-col justify-between gap-5 md:flex-row md:items-end", className)}>
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame sm:text-sm">{eyebrow}</p>
         <TitleTag className={cn("mt-4 font-display text-4xl font-bold leading-[0.98] tracking-normal text-ink dark:text-white sm:text-5xl", titleClassName)}>
@@ -63,8 +63,8 @@ export function SectionHeader({
       </div>
       {(description || action) && (
         <div className="max-w-[42ch]">
-          {description && <p className="text-[15px] leading-relaxed text-ink/60 dark:text-white/60 sm:text-base">{description}</p>}
-          {action && <div className="mt-5">{action}</div>}
+          {description && <p className="text-[15px] leading-[1.65] text-ink/58 dark:text-white/58 sm:text-base">{description}</p>}
+          {action && <div className="mt-4">{action}</div>}
         </div>
       )}
     </div>
@@ -76,6 +76,19 @@ export function Card({ children, className }: { children: ReactNode; className?:
     <div
       className={cn(
         "rounded-[24px] border border-black/10 bg-white shadow-[0_18px_55px_rgba(20,10,0,0.07)] transition-colors duration-300 dark:border-white/10 dark:bg-coal dark:shadow-none",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+export function PremiumCard({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <div
+      className={cn(
+        "group relative overflow-hidden rounded-[22px] border border-black/[0.075] bg-white/86 shadow-[0_14px_44px_rgba(20,10,0,0.055)] transition-all duration-300 ease-premium hover:-translate-y-1 hover:border-flame/28 hover:bg-white hover:shadow-[0_22px_62px_rgba(20,10,0,0.08)] dark:border-white/10 dark:bg-[#11100f] dark:shadow-none dark:hover:border-flame/35 dark:hover:bg-[#15120f]",
         className,
       )}
     >

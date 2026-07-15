@@ -1,3 +1,4 @@
+import MixedText from "./MixedText";
 import Reveal from "./Reveal";
 
 const STEPS = [
@@ -30,7 +31,7 @@ export default function Process() {
         <Reveal>
           <p className="text-sm font-medium uppercase tracking-[0.22em] text-flame">Process</p>
           <h2 className="mt-5 max-w-[20ch] font-display text-4xl font-bold leading-[1.05] tracking-normal text-ink dark:text-white sm:text-5xl uppercase">
-            Four stages, every project
+            <MixedText text="Four stages, every project" accent="stages" />
           </h2>
         </Reveal>
 

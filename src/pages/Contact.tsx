@@ -1,4 +1,5 @@
 ﻿import { type FormEvent, useState } from "react";
+import MixedText from "../components/MixedText";
 import Reveal from "../components/Reveal";
 import { CTAButton, ContactLinks } from "../components/ui";
 
@@ -84,24 +85,29 @@ export default function Contact() {
     <main className="min-h-screen bg-paper pt-32 text-ink transition-colors duration-300 dark:bg-ink dark:text-white">
       <section className="mx-auto max-w-[1320px] px-6 pb-20 sm:px-10 lg:px-16">
         <Reveal>
-          <div className="overflow-hidden rounded-[36px] border border-black/10 bg-white shadow-[0_28px_90px_rgba(20,10,0,0.10)] dark:border-white/10 dark:bg-coal dark:shadow-none">
+          <div className="overflow-hidden rounded-[34px] border border-black/[0.08] bg-white shadow-[0_28px_90px_rgba(20,10,0,0.09)] dark:border-white/10 dark:bg-coal dark:shadow-none">
             <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
-              <div className="relative flex min-h-[620px] flex-col justify-between bg-gradient-to-br from-accent via-flame to-[#8f1b08] p-7 text-white sm:p-10 lg:p-12">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/70">Contact</p>
-                  <h1 className="mt-6 max-w-[11ch] font-display text-5xl font-bold leading-[0.94] tracking-normal sm:text-6xl lg:text-[76px]">
-                    Let&apos;s design a product that feels ready to ship.
+              <div className="relative flex min-h-[560px] flex-col justify-between overflow-hidden bg-[#fbf7f1] p-7 text-ink transition-colors duration-300 dark:bg-[#100d0b] dark:text-white sm:p-10 lg:p-12">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_24%_0%,rgba(244,98,10,0.18),transparent_36%),radial-gradient(circle_at_94%_78%,rgba(216,72,15,0.12),transparent_32%),linear-gradient(135deg,rgba(255,255,255,0.68),rgba(244,98,10,0.055)_46%,rgba(255,255,255,0.26))] dark:bg-[radial-gradient(circle_at_24%_0%,rgba(244,98,10,0.22),transparent_36%),radial-gradient(circle_at_94%_78%,rgba(172,32,10,0.22),transparent_32%),linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.015))]" />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-flame/35 to-transparent dark:via-flame/50"
+                />
+                <div className="relative">
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-flame">Contact</p>
+                  <h1 className="mt-6 max-w-[11ch] font-display text-5xl font-bold leading-[0.94] tracking-normal sm:text-6xl lg:text-[72px]">
+                    <MixedText text="Let's design a product that feels ready to ship." accent="design" />
                   </h1>
-                  <p className="mt-7 max-w-[58ch] text-base leading-relaxed text-white/75 sm:text-lg">
-                    I&apos;m open to UI/UX roles, mobile app design projects, redesigns, design systems, prototypes, and developer handoff.
+                  <p className="mt-7 max-w-[52ch] text-base leading-relaxed text-ink/62 dark:text-white/64 sm:text-lg">
+                    UI/UX direction for mobile apps, redesigns, design systems, prototypes, and developer handoff.
                   </p>
                 </div>
 
-                <div className="mt-12">
-                  <p className="border-t border-white/20 pt-6 text-xs font-semibold uppercase tracking-[0.22em] text-white/65">
+                <div className="relative mt-12">
+                  <p className="border-t border-black/10 pt-6 text-xs font-semibold uppercase tracking-[0.22em] text-ink/45 dark:border-white/10 dark:text-white/48">
                     Quick links
                   </p>
-                  <ContactLinks variant="darkPanel" className="mt-5" />
+                  <ContactLinks className="mt-5" />
                 </div>
               </div>
 
@@ -110,7 +116,7 @@ export default function Contact() {
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Project note</p>
                     <h2 className="mt-3 font-display text-3xl font-bold leading-none text-ink dark:text-white sm:text-4xl">
-                      Tell me what you&apos;re building.
+                      <MixedText text="Tell me what you're building." accent="building" />
                     </h2>
                   </div>
                   <p className="max-w-[24ch] text-sm leading-relaxed text-ink/55 dark:text-white/55">

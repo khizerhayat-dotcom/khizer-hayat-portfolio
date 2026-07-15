@@ -1,6 +1,7 @@
 ﻿import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
+import MixedText from "../components/MixedText";
 import Reveal from "../components/Reveal";
 import { AboutPortrait } from "../components/About";
 import behanceIcon from "../assets/icons/behance.svg";
@@ -86,27 +87,21 @@ const TOOL_CARD_STYLES = [
 ];
 
 const EXPERIENCE_TAGS = [
-  "UX Flow",
   "Mobile UI",
   "Design Systems",
   "Prototypes",
   "Handoff",
   "App Redesign",
-  "Figma",
-  "Usability",
   "Product Thinking",
 ];
 
 const EXPERIENCE_TAG_POSITIONS = [
-  "lg:left-[4%] lg:top-[8%] lg:-rotate-2",
-  "lg:left-[39%] lg:top-[2%] lg:rotate-1",
-  "lg:left-[12%] lg:top-[32%] lg:rotate-1",
-  "lg:left-[55%] lg:top-[30%] lg:-rotate-1",
-  "lg:left-[2%] lg:top-[58%] lg:rotate-1",
-  "lg:left-[36%] lg:top-[60%] lg:-rotate-1",
-  "lg:left-[68%] lg:top-[10%] lg:rotate-2",
-  "lg:left-[17%] lg:top-[82%] lg:-rotate-1",
-  "lg:left-[57%] lg:top-[82%] lg:rotate-1",
+  "lg:left-[4%] lg:top-[10%] lg:-rotate-2",
+  "lg:left-[42%] lg:top-[2%] lg:rotate-1",
+  "lg:left-[14%] lg:top-[42%] lg:rotate-1",
+  "lg:left-[58%] lg:top-[38%] lg:-rotate-1",
+  "lg:left-[3%] lg:top-[74%] lg:rotate-1",
+  "lg:left-[49%] lg:top-[72%] lg:-rotate-1",
 ];
 
 const CONTACT_LINKS = [
@@ -347,13 +342,13 @@ export default function About() {
             <Reveal>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-flame">About Khizer Hayat</p>
               <h1 className="mt-4 max-w-[18ch] font-display text-[clamp(1.85rem,4.8vw,3.75rem)] font-bold leading-[1.05] tracking-normal text-ink dark:text-white sm:mt-5">
-                3+ years of experience crafting mobile products, digital interfaces, and scalable design systems.
+                <MixedText text="3+ years of experience crafting mobile products, digital interfaces, and scalable design systems." accent="crafting" />
               </h1>
             </Reveal>
 
             <Reveal delay={0.08}>
-              <p className="mt-4 max-w-[58ch] text-[15px] leading-[1.6] text-ink/62 dark:text-white/62 sm:text-base">
-                I help teams design clean, usable, and developer-ready product experiences, from mobile app UI/UX and redesigns to prototypes, systems, and handoff.
+              <p className="mt-4 max-w-[52ch] text-[15px] leading-[1.6] text-ink/62 dark:text-white/62 sm:text-base">
+                I design clean, usable, developer-ready product experiences across mobile app UI/UX, redesigns, systems, prototypes, and handoff.
               </p>
             </Reveal>
 
@@ -372,7 +367,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-accent px-5 py-9 text-white shadow-[0_18px_60px_rgba(216,72,15,0.18)] transition-colors duration-300 dark:bg-gradient-to-br dark:from-[#210905] dark:via-[#351006] dark:to-[#090403] dark:shadow-[0_18px_60px_rgba(0,0,0,0.32)] sm:px-8 sm:py-10 lg:px-14 lg:py-12 xl:px-16">
+      <section className="relative overflow-hidden bg-accent px-5 py-8 text-white shadow-[0_18px_60px_rgba(216,72,15,0.18)] transition-colors duration-300 dark:bg-gradient-to-br dark:from-[#210905] dark:via-[#351006] dark:to-[#090403] dark:shadow-[0_18px_60px_rgba(0,0,0,0.32)] sm:px-8 sm:py-9 lg:px-14 lg:py-10 xl:px-16">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 opacity-20 dark:opacity-[0.1]"
@@ -384,16 +379,16 @@ export default function About() {
         />
         <Reveal className="mx-auto max-w-[1240px]">
           <div className="relative">
-            <div className="relative grid gap-7 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-center xl:grid-cols-[minmax(0,1fr)_440px]">
+            <div className="relative grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center xl:grid-cols-[minmax(0,1fr)_400px]">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">Experience</p>
-                <h2 className="mt-4 max-w-[18ch] font-display text-[clamp(2.1rem,6.4vw,4.3rem)] font-bold leading-[1] tracking-normal sm:max-w-[16ch]">
-                  I design interfaces that look polished, feel simple, and are ready to ship.
+                <h2 className="mt-4 max-w-[18ch] font-display text-[clamp(2rem,5.6vw,3.7rem)] font-bold leading-[1] tracking-normal sm:max-w-[16ch]">
+                  <MixedText text="I design interfaces that look polished, feel simple, and are ready to ship." accent="design" accentClassName="text-white" />
                 </h2>
               </div>
 
-              <div className="relative lg:min-h-[238px]">
-                <div ref={tagFieldRef} className="relative flex min-h-0 flex-wrap content-start gap-2.5 sm:gap-3 lg:h-[238px] lg:block">
+              <div className="relative lg:min-h-[190px]">
+                <div ref={tagFieldRef} className="relative flex min-h-0 flex-wrap content-start gap-2.5 sm:gap-3 lg:h-[190px] lg:block">
                   {EXPERIENCE_TAGS.map((tag, index) => (
                     <motion.span
                       key={tag}
@@ -433,11 +428,11 @@ export default function About() {
       </section>
 
       <section className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8 sm:py-12 lg:px-14 lg:py-14 xl:px-16">
-        <Reveal className="flex flex-col justify-between gap-4 border-b border-black/10 pb-5 dark:border-white/10 md:flex-row md:items-end">
+        <Reveal className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Services</p>
             <h2 className="mt-3 max-w-[15ch] font-display text-[clamp(2rem,5vw,3.25rem)] font-bold leading-[1.02] text-ink dark:text-white">
-              I can help you with
+              <MixedText text="I can help you with" accent="help" />
             </h2>
           </div>
           <p className="max-w-[42ch] text-sm leading-[1.65] text-ink/55 dark:text-white/55">
@@ -504,7 +499,7 @@ export default function About() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Tools / Skills</p>
             <h2 className="mt-3 max-w-[16ch] font-display text-[clamp(1.9rem,5vw,3rem)] font-bold leading-[1.04] text-ink dark:text-white">
-              Built around product craft, systems, and handoff.
+              <MixedText text="Built around product craft, systems, and handoff." accent="craft" />
             </h2>
           </div>
           <p className="max-w-[40ch] text-sm leading-[1.65] text-ink/58 dark:text-white/58">
@@ -569,16 +564,16 @@ export default function About() {
 
       <section className="mx-auto max-w-[1320px] px-5 pb-10 sm:px-8 sm:pb-12 lg:px-14 lg:pb-14 xl:px-16 xl:pb-16">
         <Reveal>
-          <div className="overflow-hidden rounded-[22px] bg-gradient-to-br from-accent via-flame to-[#8f1b08] px-5 py-6 text-white shadow-[0_20px_62px_rgba(216,72,15,0.22)] transition-colors duration-300 dark:border dark:border-flame/18 dark:from-[#240a04] dark:via-[#3a1207] dark:to-[#090403] dark:shadow-[0_24px_70px_rgba(0,0,0,0.36)] sm:rounded-[28px] sm:px-7 sm:py-8 lg:px-10 lg:py-10 xl:px-12 xl:py-12">
+            <div className="overflow-hidden rounded-[24px] bg-gradient-to-br from-accent via-flame to-[#8f1b08] px-5 py-6 text-white shadow-[0_18px_54px_rgba(216,72,15,0.2)] transition-colors duration-300 dark:border dark:border-flame/18 dark:from-[#240a04] dark:via-[#3a1207] dark:to-[#090403] dark:shadow-[0_22px_64px_rgba(0,0,0,0.34)] sm:px-7 sm:py-7 lg:px-10 lg:py-8 xl:px-12">
             <div className="mx-auto flex max-w-[1040px] flex-col items-center text-center">
-              <h2 className="font-display text-[clamp(2.35rem,10vw,6.75rem)] font-bold leading-[0.9] tracking-normal">
-                Let&apos;s work
+              <h2 className="font-display text-[clamp(2.2rem,8vw,5rem)] font-bold leading-[0.9] tracking-normal">
+                <MixedText text="Let's work" accent="work" accentClassName="text-white" />
               </h2>
               <div className="my-1 sm:-my-1 lg:-my-2 xl:-my-3">
                 <WorkTogetherPortrait />
               </div>
-              <h2 className="font-display text-[clamp(2.35rem,10vw,6.75rem)] font-bold leading-[0.9] tracking-normal">
-                together
+              <h2 className="font-display text-[clamp(2.2rem,8vw,5rem)] font-bold leading-[0.9] tracking-normal">
+                <MixedText text="together" accent="together" accentClassName="text-white" />
               </h2>
             </div>
 

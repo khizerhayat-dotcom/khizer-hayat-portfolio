@@ -1,29 +1,38 @@
 import Reveal from "./Reveal";
-import { LinkButton, SectionHeader } from "./ui";
+import MixedText from "./MixedText";
+import { LinkButton, PremiumCard, SectionHeader } from "./ui";
 
 const SERVICES = [
   {
     number: "01",
     title: "Mobile App UI/UX",
-    description: "Clear app flows, polished screens, and mobile-first interaction patterns.",
+    help: "Flows, screens, onboarding, and key states.",
+    solves: "Makes complex app ideas easier to use.",
+    deliverable: "Figma UI, prototype, and handoff notes.",
     visual: "mobile",
   },
   {
     number: "02",
     title: "Product Redesign",
-    description: "Sharper hierarchy, cleaner journeys, and stronger visual polish.",
+    help: "Audit, hierarchy, journeys, and polish.",
+    solves: "Reduces friction in dated or unclear products.",
+    deliverable: "Priority screens, rationale, and specs.",
     visual: "redesign",
   },
   {
     number: "03",
     title: "Design Systems",
-    description: "Reusable components, typography, spacing, color, and scalable UI rules.",
+    help: "Components, type, color, spacing, and states.",
+    solves: "Keeps teams consistent as products grow.",
+    deliverable: "Foundations, variants, and usage rules.",
     visual: "systems",
   },
   {
     number: "04",
     title: "Prototype & Handoff",
-    description: "Clickable flows, organized Figma files, specs, assets, and build notes.",
+    help: "Clickable flows, specs, assets, and notes.",
+    solves: "Removes ambiguity before implementation.",
+    deliverable: "Prototype, assets, states, and clean Figma.",
     visual: "handoff",
   },
 ];
@@ -102,8 +111,8 @@ export default function Services() {
         <Reveal>
           <SectionHeader
             eyebrow="Services"
-            title="Design support that helps products ship."
-            description="Focused UI/UX support for mobile apps, redesigns, design systems, prototypes, and developer-ready handoff."
+            title={<MixedText text="Clear design capabilities for product teams." accent="design" />}
+            description="Four focused ways I help teams move from product idea to build-ready UI."
             action={<LinkButton href="/services" variant="secondary">Explore services</LinkButton>}
             titleClassName="max-w-[16ch] text-[clamp(2rem,5vw,3.35rem)]"
             className="pb-6"
@@ -113,7 +122,7 @@ export default function Services() {
         <div className="mt-6 grid gap-4 md:grid-cols-2 lg:gap-5">
           {SERVICES.map((service, i) => (
             <Reveal key={service.title} delay={i * 0.07}>
-              <article className="group relative h-full overflow-hidden rounded-[22px] border border-black/[0.08] bg-white p-5 shadow-[0_14px_38px_rgba(20,10,0,0.055)] transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:border-flame/28 hover:shadow-[0_18px_48px_rgba(20,10,0,0.075)] dark:border-white/10 dark:bg-[#11100f] dark:shadow-none dark:hover:border-flame/32 sm:p-6">
+              <PremiumCard className="h-full p-5 sm:p-6">
                 <div className="flex items-start justify-between gap-4">
                   <ServiceVisual type={service.visual} />
                   <div className="rounded-full border border-black/[0.08] bg-[#faf8f4] px-2.5 py-1 text-[10px] font-bold text-ink/48 transition-colors duration-300 group-hover:border-flame/24 group-hover:text-flame dark:border-white/10 dark:bg-white/[0.045] dark:text-white/48 dark:group-hover:text-flame">
@@ -126,10 +135,20 @@ export default function Services() {
                     {service.title}
                   </h3>
                   <p className="mt-2 max-w-[38ch] text-sm leading-[1.6] text-ink/58 dark:text-white/60">
-                    {service.description}
+                    {service.help}
                   </p>
+                  <dl className="mt-5 grid gap-2.5 text-sm">
+                    <div>
+                      <dt className="text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/40 dark:text-white/40">Solves</dt>
+                      <dd className="mt-1 leading-[1.55] text-ink/62 dark:text-white/62">{service.solves}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/40 dark:text-white/40">Output</dt>
+                      <dd className="mt-1 leading-[1.55] text-ink/62 dark:text-white/62">{service.deliverable}</dd>
+                    </div>
+                  </dl>
                 </div>
-              </article>
+              </PremiumCard>
             </Reveal>
           ))}
         </div>

@@ -21,12 +21,12 @@ const ROUTE_META: Record<string, { title: string; description: string }> = {
   "/": {
     title: "Khizer Hayat Portfolio - UI UX Designer Lahore, Pakistan",
     description:
-      "Khizer Hayat is a UI UX Designer in Lahore, Pakistan, crafting mobile app UI UX, product design, design systems, Figma prototypes, and developer handoff.",
+      "Khizer Hayat is a UI UX Designer, Mobile App Designer, and Product Designer in Lahore, Pakistan with 40+ Products Shipped, 10M+ App Downloads, design systems, and developer handoff experience.",
   },
   "/work": {
     title: "Work - Khizer Hayat UI UX Designer Portfolio",
     description:
-      "Explore UI UX case studies, mobile app design, product design, healthcare, AI, dashboards, and shipped product work by Khizer Hayat.",
+      "Explore UI UX case studies, mobile app design, product design, healthcare, AI, dashboards, design systems, and shipped product work by Khizer Hayat.",
   },
   "/about": {
     title: "About - Khizer Hayat UI UX Designer Pakistan",

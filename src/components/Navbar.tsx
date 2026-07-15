@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import type { MouseEvent } from "react";
 
 const NAV_LINKS: { label: string; href: string }[] = [
   { label: "Work", href: "/work" },
@@ -47,6 +48,20 @@ export default function Navbar({ currentPath }: NavbarProps) {
   }, [currentPath]);
 
   const isActivePath = (href: string) => currentPath === href;
+  const handleLogoClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (currentPath !== "/") return;
+
+    event.preventDefault();
+    setIsMenuOpen(false);
+
+    if (window.scrollY > 80) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    window.location.reload();
+  };
 
   return (
     <motion.header
@@ -69,6 +84,7 @@ export default function Navbar({ currentPath }: NavbarProps) {
       >
         <a
           href="/"
+          onClick={handleLogoClick}
           className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97] sm:h-[38px] sm:w-[38px]"
           aria-label="Home"
         >

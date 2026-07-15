@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import MixedText from "./MixedText";
 import Reveal from "./Reveal";
 import { LinkButton } from "./ui";
 
@@ -58,26 +59,22 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
           preview ? "top-20 h-80 w-80" : "top-6 h-72 w-72"
         }`}
       />
-      <div className={`mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-16 ${preview ? "py-14 sm:py-20 lg:py-20" : "py-8 sm:py-12 lg:py-14"}`}>
-        <Reveal className={`grid ${preview ? "gap-7 lg:grid-cols-[0.78fr_1.22fr] lg:gap-10" : "gap-7 lg:grid-cols-[0.72fr_1.28fr] lg:gap-12"}`}>
+      <div className={`mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-16 ${preview ? "py-12 sm:py-16 lg:py-18" : "py-6 sm:py-10 lg:py-12"}`}>
+        <Reveal className={`grid ${preview ? "gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:gap-9" : "gap-6 lg:grid-cols-[0.7fr_1.3fr] lg:gap-10"}`}>
           <div className="lg:sticky lg:top-28 lg:self-start">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame sm:text-sm">FAQ</p>
             <h2 className={`${preview ? "mt-3 max-w-[13ch] text-[clamp(2rem,5vw,3.35rem)]" : "mt-4 max-w-[16ch] text-[clamp(2.05rem,4.4vw,3.3rem)]"} font-display font-bold leading-[1.04] tracking-normal text-ink dark:text-white`}>
-              {preview ? "Common questions" : "Questions recruiters and clients usually ask"}
+              {preview ? <MixedText text="Common questions" accent="questions" /> : <MixedText text="Questions recruiters and clients usually ask" accent="Questions" />}
             </h2>
             {!preview && (
-              <div className="mt-4 flex flex-wrap items-center gap-2.5">
+              <div className="mt-3 flex flex-wrap items-center gap-2.5">
                 <span className="rounded-full border border-flame/20 bg-flame/[0.08] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-flame dark:bg-flame/[0.12]">
                   8 common questions
                 </span>
-                <span className="h-px w-10 bg-flame/35" aria-hidden="true" />
-                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/45 dark:text-white/45">
-                  Recruiter / client ready
-                </span>
               </div>
             )}
-            <p className={`${preview ? "mt-4 text-sm leading-[1.65]" : "mt-4 text-[15px] leading-[1.65]"} max-w-[42ch] text-ink/60 dark:text-white/60`}>
-              Quick answers about my UI/UX process, mobile app work, timelines, design systems, handoff, and collaboration.
+            <p className={`${preview ? "mt-4 text-sm leading-[1.6]" : "mt-4 text-[15px] leading-[1.6]"} max-w-[38ch] text-ink/58 dark:text-white/58`}>
+              Quick answers about process, timelines, systems, handoff, and collaboration.
             </p>
             {preview && (
               <LinkButton href="/faq" variant="secondary" className="mt-6">
@@ -96,7 +93,7 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
                   key={item.question}
                   layout
                   className={
-                    `group border p-1 transition-colors duration-300 ${preview ? "rounded-[18px]" : "rounded-[18px] sm:rounded-[20px]"} ` +
+                    `group border p-1 transition-colors duration-300 ${preview ? "rounded-[16px]" : "rounded-[16px] sm:rounded-[18px]"} ` +
                     (isOpen
                       ? "border-flame/28 bg-white shadow-[0_14px_42px_rgba(20,10,0,0.075)] dark:bg-white/[0.065] dark:shadow-none"
                       : "border-black/10 bg-white/62 hover:border-flame/20 hover:bg-white dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-flame/25 dark:hover:bg-white/[0.055]")
@@ -106,21 +103,21 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
                     type="button"
                     onClick={() => setOpenIndex(isOpen ? -1 : i)}
                     className={`flex w-full items-start text-left outline-none transition-colors duration-200 focus-visible:ring-4 focus-visible:ring-flame/20 ${
-                      preview ? "gap-3 rounded-[14px] px-4 py-4 sm:gap-4 sm:px-5 sm:py-4" : "gap-3 rounded-[14px] px-4 py-4 sm:gap-4 sm:rounded-[16px] sm:px-5 sm:py-[18px]"
+                      preview ? "gap-3 rounded-[13px] px-4 py-3.5 sm:gap-4 sm:px-5" : "gap-3 rounded-[13px] px-4 py-3.5 sm:gap-4 sm:rounded-[15px] sm:px-5 sm:py-4"
                     }`}
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${i}`}
                   >
                     <span
                       className={
-                        `${preview ? "text-xl sm:text-2xl" : "text-lg sm:text-xl"} pt-0.5 font-display font-bold leading-none tracking-normal transition-colors duration-200 ` +
+                        `${preview ? "text-lg sm:text-xl" : "text-base sm:text-lg"} pt-0.5 font-display font-bold leading-none tracking-normal transition-colors duration-200 ` +
                         (isOpen ? "text-flame" : "text-ink/25 group-hover:text-flame/75 dark:text-white/25")
                       }
                     >
                       {number}
                     </span>
                     <span className="flex-1">
-                      <span className={`${preview ? "text-lg sm:text-xl" : "text-base sm:text-lg"} block font-display font-bold leading-snug tracking-normal text-ink dark:text-white`}>
+                      <span className={`${preview ? "text-base sm:text-lg" : "text-[15px] sm:text-base"} block font-display font-bold leading-snug tracking-normal text-ink dark:text-white`}>
                         {item.question}
                       </span>
                     </span>

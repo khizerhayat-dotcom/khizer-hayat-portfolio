@@ -33,9 +33,16 @@ export default function HeroContent() {
 
       <motion.h1
         variants={item}
-        className="text-balance font-display text-[clamp(40px,12vw,58px)] font-bold leading-[1.03] tracking-normal text-white sm:text-6xl lg:mt-[26px] lg:text-[62px] lg:leading-[1.1]"
+        className="text-balance font-display text-[clamp(40px,11.5vw,58px)] font-bold leading-[1.03] tracking-normal text-white sm:text-6xl lg:mt-[26px] lg:text-[62px] lg:leading-[1.08]"
       >
-        Designing<br className="hidden lg:block" /> products that<br className="hidden lg:block" /> reach millions
+        Designing<br className="hidden lg:block" />{" "}
+        <span
+          className="italic font-normal tracking-normal text-white"
+          style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
+        >
+          products
+        </span>{" "}
+        that<br className="hidden lg:block" /> reach millions
       </motion.h1>
 
       <motion.p

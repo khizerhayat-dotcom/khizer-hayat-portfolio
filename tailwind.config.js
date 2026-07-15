@@ -5,6 +5,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        accent: ["'Instrument Serif'", "'Playfair Display'", "Georgia", "serif"],
         display: ["'Geist'", "'Geist Sans'", "'Inter'", "system-ui", "sans-serif"],
         sans: ["'Geist'", "'Geist Sans'", "'Inter'", "system-ui", "sans-serif"],
       },

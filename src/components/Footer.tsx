@@ -10,30 +10,29 @@ const SITEMAP = [
 export default function Footer() {
   return (
     <footer className="bg-paper text-ink/60 transition-colors duration-300 dark:bg-ink dark:text-white/60">
-      <div className="mx-auto max-w-[1440px] px-6 pb-10 pt-10 sm:px-10 sm:pt-14 lg:px-16">
-        <div className="rounded-[26px] border border-black/10 bg-white/55 px-5 py-7 shadow-[0_22px_70px_rgba(20,10,0,0.055)] transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.04] dark:shadow-none sm:px-7 sm:py-9 lg:px-10">
-          <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_430px] lg:items-end">
+      <div className="mx-auto max-w-[1440px] px-6 pb-8 pt-8 sm:px-10 sm:pt-10 lg:px-16">
+        <div className="rounded-[24px] border border-black/[0.08] bg-white/50 px-5 py-6 shadow-[0_16px_50px_rgba(20,10,0,0.045)] transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.035] dark:shadow-none sm:px-7 sm:py-8 lg:px-9">
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Let&apos;s connect.</p>
-              <p className="mt-3 max-w-[58ch] text-sm leading-[1.65] text-ink/65 dark:text-white/65 sm:text-[15px]">
-                I&apos;m open to UI/UX roles, mobile app projects, redesigns, design systems, prototypes, and developer handoff.
+              <p className="mt-3 max-w-[46ch] text-sm leading-[1.6] text-ink/62 dark:text-white/62">
+                UI/UX designer in Lahore, Pakistan. Mobile apps, redesigns, systems, prototypes, and handoff.
               </p>
             </div>
 
             <div className="flex flex-wrap gap-2 lg:justify-end">
               <LinkButton href="/contact">Contact Khizer</LinkButton>
-              <LinkButton href="/work" variant="secondary">View Work</LinkButton>
             </div>
           </div>
 
           <h2
-            className="select-none py-7 text-center font-display font-semibold leading-[0.9] tracking-normal text-ink [text-shadow:0_12px_34px_rgba(20,10,0,0.08)] dark:text-white dark:[text-shadow:0_18px_50px_rgba(0,0,0,0.35)] sm:whitespace-nowrap lg:py-9"
-            style={{ fontSize: "clamp(52px, 11.5vw, 176px)" }}
+            className="select-none py-5 text-center font-display font-semibold leading-[0.9] tracking-normal text-ink/90 [text-shadow:0_12px_34px_rgba(20,10,0,0.06)] dark:text-white/92 dark:[text-shadow:0_18px_50px_rgba(0,0,0,0.3)] sm:whitespace-nowrap lg:py-7"
+            style={{ fontSize: "clamp(44px, 10vw, 148px)" }}
           >
             Khizer Hayat
           </h2>
 
-          <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
             <div className="max-w-[48ch]">
               <a
                 href="/"
@@ -47,9 +46,7 @@ export default function Footer() {
                   <path d="M13.4 7.4H20L16.2 10.6H9.6L13.4 7.4Z" fill="#F4620A" />
                 </svg>
               </a>
-              <p className="mt-4 text-sm leading-[1.65] text-ink/60 dark:text-white/60">
-                UI/UX designer for mobile apps, dashboards, AI products, healthcare platforms, and scalable design systems.
-              </p>
+              <p className="mt-4 text-sm leading-[1.6] text-ink/58 dark:text-white/58">40+ Products Shipped · 10M+ App Downloads</p>
             </div>
 
             <nav aria-label="Footer" className="lg:justify-self-end">

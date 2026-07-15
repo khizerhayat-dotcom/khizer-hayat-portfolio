@@ -1,5 +1,6 @@
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
+import MixedText from "./MixedText";
 import Reveal from "./Reveal";
 import { LinkButton } from "./ui";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
@@ -11,7 +12,7 @@ const STATS = [
   { value: "3+", label: "Years Experience", accent: false },
 ];
 
-const BADGES = ["UI/UX Designer", "Lahore, Pakistan", "Mobile Apps", "Dashboards", "Web Apps", "Websites"];
+const BADGES = ["UI/UX Designer", "Product Designer", "Lahore, Pakistan", "Mobile App Designer", "Design Systems", "Developer Handoff"];
 
 interface AboutPortraitProps {
   enableCursorGlow?: boolean;
@@ -94,13 +95,13 @@ export default function About() {
             <Reveal>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">About</p>
               <h2 className="mt-3 max-w-[20ch] font-display text-[clamp(2rem,5vw,3.4rem)] font-bold leading-[1.04] tracking-normal text-ink dark:text-white">
-                Product UI/UX for teams that need clarity, polish, and handoff-ready files.
+                <MixedText text="Product UI/UX for teams that need shipped craft, clarity, and handoff-ready files." accent="craft" />
               </h2>
             </Reveal>
 
             <Reveal delay={0.1}>
               <p className="mt-5 max-w-[58ch] text-[15px] leading-[1.7] text-ink/65 dark:text-white/60">
-                I design mobile apps, dashboards, AI tools, healthcare products, and utility experiences with a practical focus on usable flows, polished UI, and clean developer handoff.
+                I am Khizer Hayat, a UI/UX Designer in Lahore, Pakistan designing mobile apps, dashboards, AI tools, healthcare products, and utility experiences with practical product craft and clean developer handoff.
               </p>
             </Reveal>
 

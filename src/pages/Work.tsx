@@ -1,5 +1,6 @@
 ﻿import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import MixedText from "../components/MixedText";
 import Reveal from "../components/Reveal";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import aiVoiceChangerCover from "../assets/work/covers-optimized/ai-voice-changer.webp";
@@ -368,10 +369,10 @@ export default function Work() {
               <div className="max-w-[680px]">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Work</p>
                 <h1 className="mt-3 font-display text-4xl font-bold leading-none tracking-normal text-ink dark:text-white sm:text-5xl lg:text-6xl">
-                  Selected product work
+                  <MixedText text="Selected product work" accent="product" />
                 </h1>
                 <p className="mt-3 max-w-[58ch] text-sm leading-relaxed text-ink/60 dark:text-white/60 sm:text-base">
-                  A focused gallery of mobile apps, healthcare products, utilities, dashboards, and visual systems.
+                  A focused gallery of mobile app UI/UX, healthcare products, utilities, dashboards, design systems, and shipped product design.
                 </p>
               </div>
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/45 dark:text-white/45 sm:text-sm">
@@ -412,6 +413,11 @@ export default function Work() {
                   <h2 className="mt-3 font-display text-2xl font-bold leading-tight tracking-normal text-ink transition-colors duration-300 group-hover:text-flame dark:text-white sm:text-[28px]">
                     {project.title}
                   </h2>
+                  {project.note && (
+                    <p className="mt-2 line-clamp-2 max-w-[58ch] text-sm leading-[1.55] text-ink/58 dark:text-white/58">
+                      {project.note}
+                    </p>
+                  )}
                   <div className="mt-4 flex items-center justify-between gap-4">
                     <span className="text-sm font-semibold text-flame">View Project</span>
                     <span

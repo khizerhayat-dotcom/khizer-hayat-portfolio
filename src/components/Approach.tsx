@@ -1,3 +1,4 @@
+import MixedText from "./MixedText";
 import Reveal from "./Reveal";
 
 const PRINCIPLES = [
@@ -25,7 +26,7 @@ export default function Approach() {
         <Reveal>
           <p className="text-sm font-medium uppercase tracking-[0.22em] text-flame">Approach</p>
           <h2 className="mt-5 max-w-[20ch] font-display text-4xl font-bold leading-[1.05] tracking-normal text-ink dark:text-white sm:text-5xl uppercase">
-            How I work
+            <MixedText text="How I work" accent="work" />
           </h2>
         </Reveal>
 

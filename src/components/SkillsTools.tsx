@@ -1,3 +1,4 @@
+import MixedText from "./MixedText";
 import Reveal from "./Reveal";
 
 const SKILL_GROUPS = [
@@ -39,7 +40,7 @@ export default function SkillsTools() {
           <div>
             <p className="text-sm font-medium uppercase tracking-[0.22em] text-flame">Skills & tools</p>
             <h2 className="mt-5 max-w-[18ch] font-display text-4xl font-bold leading-[1.05] tracking-normal text-ink dark:text-white sm:text-5xl uppercase">
-              Built for product teams
+              <MixedText text="Built for product teams" accent="product" />
             </h2>
           </div>
           <div className="flex max-w-[42ch] flex-wrap gap-2">
