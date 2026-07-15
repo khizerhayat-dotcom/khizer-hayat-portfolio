@@ -29,7 +29,7 @@ const SERVICES = [
   },
   {
     number: "04",
-    title: "Prototype & Handoff",
+    title: "Prototypes & Developer Handoff",
     help: "Clickable flows, specs, assets, and notes.",
     solves: "Removes ambiguity before implementation.",
     deliverable: "Prototype, assets, states, and clean Figma.",
@@ -112,7 +112,7 @@ export default function Services() {
           <SectionHeader
             eyebrow="Services"
             title={<MixedText text="Clear design capabilities for product teams." accent="design" />}
-            description="Four focused ways I help teams move from product idea to build-ready UI."
+            description="Focused support from product structure to polished, build-ready UI."
             action={<LinkButton href="/services" variant="secondary">Explore services</LinkButton>}
             titleClassName="max-w-[16ch] text-[clamp(2rem,5vw,3.35rem)]"
             className="pb-6"

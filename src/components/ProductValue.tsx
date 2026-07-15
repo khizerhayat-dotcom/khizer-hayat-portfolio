@@ -3,24 +3,24 @@ import MixedText from "./MixedText";
 
 const PROOF_POINTS = [
   {
-    title: "Shipped product mindset",
-    text: "Clear flows and product decisions shaped for real release.",
+    title: "Release-minded product design",
+    text: "Clear flows, practical hierarchy, and decisions shaped for real product teams.",
     proof: "40+ Products Shipped",
-    detail: "Release-ready decisions",
+    detail: "Product clarity",
     icon: "ship",
   },
   {
     title: "Mobile-first UI/UX craft",
-    text: "Polished app experiences for consumer, AI, healthcare, and utility products.",
+    text: "Polished app interfaces across consumer, healthcare, utility, and AI products.",
     proof: "10M+ App Downloads",
-    detail: "Mobile product craft",
+    detail: "App experience",
     icon: "mobile",
   },
   {
     title: "Developer-ready handoff",
-    text: "Organized Figma files, states, specs, assets, and handoff notes.",
+    text: "Organized Figma systems, states, specs, assets, and build notes.",
     proof: "Design Systems",
-    detail: "Cleaner implementation",
+    detail: "Cleaner build",
     icon: "handoff",
   },
 ];
@@ -73,12 +73,8 @@ export default function ProductValue() {
   return (
     <section className="bg-paper dark:bg-ink">
       <div className="mx-auto max-w-[1240px] px-6 py-12 sm:px-10 sm:py-14 lg:px-16">
-        <Reveal className="relative overflow-hidden rounded-[30px] border border-[#e5d7ca] bg-[#f6efe6] px-5 py-8 shadow-[0_22px_70px_rgba(70,38,18,0.07)] dark:border-white/[0.085] dark:bg-[#100d0b] dark:shadow-none sm:px-7 sm:py-9 lg:px-9 lg:py-10">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_0%,rgba(244,98,10,0.14),transparent_34%),radial-gradient(circle_at_92%_18%,rgba(216,72,15,0.075),transparent_28%),linear-gradient(135deg,rgba(255,252,247,0.72),rgba(244,98,10,0.035)_46%,rgba(246,239,230,0.42))] dark:bg-[radial-gradient(circle_at_16%_0%,rgba(244,98,10,0.16),transparent_34%),radial-gradient(circle_at_92%_18%,rgba(172,32,10,0.14),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.052),rgba(255,255,255,0.012))]" />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-flame/35 to-transparent dark:via-flame/50"
-          />
+        <Reveal className="relative overflow-hidden rounded-[28px] border border-[#e5d8cb] bg-[#f7f1e9] px-5 py-8 shadow-[0_18px_58px_rgba(70,38,18,0.06)] dark:border-white/[0.085] dark:bg-[#100d0b] dark:shadow-none sm:px-7 sm:py-9 lg:px-9 lg:py-10">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(244,98,10,0.12),transparent_34%),linear-gradient(135deg,rgba(255,252,247,0.68),rgba(244,98,10,0.03)_48%,rgba(246,239,230,0.42))] dark:bg-[radial-gradient(circle_at_18%_0%,rgba(244,98,10,0.14),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.052),rgba(255,255,255,0.012))]" />
 
           <div className="relative grid gap-8 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-center lg:gap-12">
           <div className="max-w-[560px]">
@@ -87,44 +83,26 @@ export default function ProductValue() {
               <MixedText text="Product value for teams hiring a UI/UX Designer." accent="value" />
             </h2>
             <p className="mt-5 max-w-[39ch] text-[15px] leading-[1.7] text-ink/62 dark:text-white/62">
-              Focused on shipped mobile products, scalable systems, and developer-ready design.
+              Focused product design for shipped mobile apps, scalable systems, and developer-ready handoff.
             </p>
-
-            <div className="mt-7 grid max-w-[460px] grid-cols-3 gap-2.5">
-              {["Products", "Mobile", "Handoff"].map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-[#ded0c3] bg-[#fffaf4]/72 px-3 py-2 text-center text-[10px] font-semibold uppercase tracking-[0.12em] text-ink/52 shadow-[0_8px_22px_rgba(70,38,18,0.035)] backdrop-blur-sm dark:border-white/[0.09] dark:bg-white/[0.045] dark:text-white/56 dark:shadow-none"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
+            <p className="mt-3 max-w-[42ch] text-sm leading-[1.65] text-ink/50 dark:text-white/50">
+              Khizer Hayat - UI/UX Designer in Lahore, Pakistan with 40+ Products Shipped and 10M+ App Downloads.
+            </p>
           </div>
 
           <div className="grid gap-3.5">
-            {PROOF_POINTS.map((point, index) => (
+            {PROOF_POINTS.map((point) => (
               <article
                 key={point.title}
-                className="group relative min-w-0 overflow-hidden rounded-[22px] border border-[#e3d6ca] bg-[#fffdf9] p-4 shadow-[0_16px_46px_rgba(70,38,18,0.055)] transition-all duration-300 ease-premium hover:-translate-y-1 hover:border-flame/28 hover:bg-white hover:shadow-[0_22px_64px_rgba(70,38,18,0.085)] dark:border-white/[0.095] dark:bg-[#171311] dark:shadow-none dark:hover:border-flame/34 dark:hover:bg-[#1b1512] sm:p-5"
+                className="group relative min-w-0 overflow-hidden rounded-[20px] border border-[#e3d6ca] bg-[#fffdf9] p-4 shadow-[0_12px_34px_rgba(70,38,18,0.045)] transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:border-flame/24 hover:bg-white dark:border-white/[0.095] dark:bg-[#171311] dark:shadow-none dark:hover:border-flame/30 dark:hover:bg-[#1b1512] sm:p-5"
               >
-                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <div className="absolute right-[-5rem] top-[-5rem] h-40 w-40 rounded-full bg-flame/[0.12] blur-3xl dark:bg-flame/[0.16]" />
-                </div>
-
                 <div className="relative flex items-start gap-4">
-                  <div className="relative flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-[18px] border border-[#e2d4c8] bg-gradient-to-br from-white to-[#f8f0e9] text-flame shadow-[0_10px_28px_rgba(70,38,18,0.06),inset_0_1px_0_rgba(255,255,255,0.86)] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-flame/22 group-hover:text-[#d84b12] dark:border-white/[0.1] dark:from-white/[0.08] dark:to-flame/[0.045] dark:text-flame/90 dark:shadow-none dark:group-hover:border-flame/30">
-                    <div className="absolute inset-[7px] rounded-[13px] border border-white/55 dark:border-white/[0.045]" />
-                    <span className="relative">
-                      <ValueIcon type={point.icon} />
-                    </span>
+                  <div className="flex h-[50px] w-[50px] shrink-0 items-center justify-center rounded-[16px] border border-[#e2d4c8] bg-white text-flame shadow-[0_8px_22px_rgba(70,38,18,0.045)] transition-all duration-300 group-hover:border-flame/22 dark:border-white/[0.1] dark:bg-white/[0.055] dark:text-flame/90 dark:shadow-none">
+                    <ValueIcon type={point.icon} />
                   </div>
 
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center justify-between gap-3">
-                      <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-flame/75">
-                        0{index + 1}
-                      </span>
                       <span className="rounded-full border border-[#e0d2c5] bg-[#f8f1ea] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-ink/58 transition-colors duration-300 group-hover:border-flame/20 group-hover:bg-[#fff8f1] group-hover:text-ink/70 dark:border-white/[0.095] dark:bg-white/[0.06] dark:text-white/64 dark:group-hover:border-flame/28 dark:group-hover:bg-flame/[0.08] dark:group-hover:text-white/76">
                         {point.proof}
                       </span>

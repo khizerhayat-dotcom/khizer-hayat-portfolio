@@ -26,7 +26,7 @@ const PROJECTS: Project[] = [
     initials: "AI",
     color: "#191919",
     name: "AI Voice Changer",
-    category: "AI Audio · Mobile App",
+    category: "AI Audio - Mobile App",
     tag: "Live App",
     icon: aiVoiceChangerIcon,
     href: BEHANCE_URL,
@@ -35,7 +35,7 @@ const PROJECTS: Project[] = [
     initials: "AS",
     color: "#1F2430",
     name: "Aspire",
-    category: "AI Platform · Web & Mobile",
+    category: "AI Platform - Web & Mobile",
     tag: "Case Study",
     icon: aspireIcon,
     href: BEHANCE_URL,
@@ -44,7 +44,7 @@ const PROJECTS: Project[] = [
     initials: "eS",
     color: "#0E7C7B",
     name: "eShaafi",
-    category: "Healthcare · Web & Mobile",
+    category: "Healthcare - Web & Mobile",
     tag: "Product Ecosystem",
     icon: eshaafiIcon,
     href: BEHANCE_URL,
@@ -53,7 +53,7 @@ const PROJECTS: Project[] = [
     initials: "ZM",
     color: "#C4291C",
     name: "ZM Player",
-    category: "Mobile App · 1M+ Downloads",
+    category: "Mobile App",
     tag: "Live App",
     icon: zmPlayerIcon,
     href: BEHANCE_URL,
@@ -62,7 +62,7 @@ const PROJECTS: Project[] = [
     initials: "Sn",
     color: "#6B3FA0",
     name: "Snaptune",
-    category: "Mobile App · 5M+ Downloads",
+    category: "Mobile App",
     tag: "Live App",
     icon: snaptuneIcon,
     href: BEHANCE_URL,
@@ -71,7 +71,7 @@ const PROJECTS: Project[] = [
     initials: "QR",
     color: "#1F2430",
     name: "GoQR",
-    category: "Utility · Mobile App",
+    category: "Utility - Mobile App",
     tag: "Utility",
     icon: goQrIcon,
     href: BEHANCE_URL,
@@ -80,7 +80,7 @@ const PROJECTS: Project[] = [
     initials: "WH",
     color: "#2A5C8A",
     name: "Wall Hub",
-    category: "Wallpaper App · 1M+ Downloads",
+    category: "Wallpaper App",
     tag: "Live App",
     icon: wallHubIcon,
     href: BEHANCE_URL,
@@ -88,8 +88,6 @@ const PROJECTS: Project[] = [
 ];
 
 export default function MoreWork({ preview = false }: { preview?: boolean }) {
-  const visibleProjects = PROJECTS;
-
   return (
     <section className="bg-paper dark:bg-ink">
       <div className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 sm:py-16 lg:px-16">
@@ -100,54 +98,42 @@ export default function MoreWork({ preview = false }: { preview?: boolean }) {
               <MixedText text="More shipped products" accent="shipped" />
             </h2>
           </div>
-          <div className="max-w-[40ch]">
-            <p className="text-sm leading-[1.65] text-ink/60 dark:text-white/60">
-              Compact proof of shipped mobile apps, utilities, healthcare, and AI product work.
-            </p>
-            {preview && (
-              <LinkButton href="/work" variant="text" className="group mt-4 gap-1.5">
-                Explore all work
-                <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">→</span>
-              </LinkButton>
-            )}
-          </div>
+          {preview && (
+            <LinkButton href="/work" variant="text" className="group gap-1.5">
+              Explore all work
+              <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">
+                -&gt;
+              </span>
+            </LinkButton>
+          )}
         </Reveal>
 
         <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {visibleProjects.map((project, i) => (
-            <Reveal key={project.name} delay={i * 0.05}>
+          {PROJECTS.map((project, i) => (
+            <Reveal key={project.name} delay={i * 0.04}>
               <a
                 href={project.href ?? BEHANCE_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="group relative flex h-full min-h-[158px] flex-col overflow-hidden rounded-[22px] border border-black/[0.075] bg-[#fbf7f1]/78 p-5 shadow-[0_14px_42px_rgba(20,10,0,0.045)] transition-all duration-300 ease-premium hover:-translate-y-1 hover:border-flame/28 hover:bg-white/90 hover:shadow-[0_22px_62px_rgba(20,10,0,0.075)] dark:border-white/10 dark:bg-[#11100f] dark:shadow-none dark:hover:border-flame/35 dark:hover:bg-[#15120f]"
+                className="group relative flex h-full min-h-[132px] flex-col overflow-hidden rounded-[20px] border border-black/[0.075] bg-[#fbf7f1]/72 p-4 shadow-[0_10px_32px_rgba(20,10,0,0.04)] transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:border-flame/24 hover:bg-white/90 dark:border-white/10 dark:bg-[#11100f] dark:shadow-none dark:hover:border-flame/32 dark:hover:bg-[#15120f] sm:p-5"
                 aria-label={`View ${project.name} on Behance`}
               >
-                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <div className="absolute right-[-4rem] top-[-4rem] h-36 w-36 rounded-full bg-flame/[0.12] blur-3xl dark:bg-flame/[0.16]" />
-                </div>
-
                 <div className="relative flex items-start justify-between gap-4">
                   <div className="flex min-w-0 items-start gap-4">
                     <div
-                      className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-[17px] border border-black/[0.06] bg-white text-xs font-bold text-white shadow-[0_10px_26px_rgba(20,10,0,0.08)] ring-1 ring-white/70 transition-transform duration-300 group-hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.07] dark:shadow-none dark:ring-white/5"
+                      className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-[15px] border border-black/[0.06] bg-white text-xs font-bold text-white shadow-[0_8px_20px_rgba(20,10,0,0.06)] ring-1 ring-white/70 transition-transform duration-300 group-hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.07] dark:shadow-none dark:ring-white/5"
                       style={{ backgroundColor: project.icon ? undefined : project.color }}
                       aria-hidden="true"
                     >
                       {project.icon ? (
-                        <img
-                          src={project.icon}
-                          alt=""
-                          loading="lazy"
-                          className="h-full w-full object-cover"
-                        />
+                        <img src={project.icon} alt="" loading="lazy" className="h-full w-full object-cover" />
                       ) : (
                         project.initials
                       )}
                     </div>
 
                     <div className="min-w-0">
-                      <h3 className="font-display text-xl font-bold leading-tight tracking-normal text-ink transition-colors duration-300 group-hover:text-flame dark:text-white">
+                      <h3 className="font-display text-lg font-bold leading-tight tracking-normal text-ink transition-colors duration-300 group-hover:text-flame dark:text-white">
                         {project.name}
                       </h3>
                       <p className="mt-1.5 text-sm leading-[1.45] text-ink/58 dark:text-white/58">
@@ -156,26 +142,14 @@ export default function MoreWork({ preview = false }: { preview?: boolean }) {
                     </div>
                   </div>
 
-                  <span className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-black/[0.08] bg-white/50 text-ink/42 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-flame/40 group-hover:bg-flame/[0.08] group-hover:text-flame dark:border-white/10 dark:bg-white/[0.045] dark:text-white/42">
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M4 8H12M12 8L8.75 4.75M12 8L8.75 11.25"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
+                  <span className="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-black/[0.08] bg-white/50 text-ink/42 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-flame/40 group-hover:bg-flame/[0.08] group-hover:text-flame dark:border-white/10 dark:bg-white/[0.045] dark:text-white/42">
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M4 8H12M12 8L8.75 4.75M12 8L8.75 11.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </span>
                 </div>
 
-                <div className="relative mt-auto pt-5">
+                <div className="relative mt-auto pt-4">
                   <span className="inline-flex rounded-full border border-black/[0.07] bg-white/62 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink/58 transition-colors duration-300 group-hover:border-flame/20 group-hover:bg-flame/[0.055] group-hover:text-ink/70 dark:border-white/10 dark:bg-white/[0.055] dark:text-white/66 dark:group-hover:border-flame/30 dark:group-hover:bg-flame/[0.09] dark:group-hover:text-white">
                     {project.tag}
                   </span>

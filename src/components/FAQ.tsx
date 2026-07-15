@@ -53,26 +53,13 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
 
   return (
     <section id="faq" className="relative scroll-mt-28 overflow-hidden bg-paper dark:bg-ink">
-      <div
-        aria-hidden="true"
-        className={`pointer-events-none absolute right-[-12rem] rounded-full bg-flame/10 blur-3xl dark:bg-flame/15 ${
-          preview ? "top-20 h-80 w-80" : "top-6 h-72 w-72"
-        }`}
-      />
-      <div className={`mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-16 ${preview ? "py-12 sm:py-16 lg:py-18" : "py-6 sm:py-10 lg:py-12"}`}>
+      <div className={`mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-16 ${preview ? "py-12 sm:py-16" : "py-5 sm:py-8 lg:py-10"}`}>
         <Reveal className={`grid ${preview ? "gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:gap-9" : "gap-6 lg:grid-cols-[0.7fr_1.3fr] lg:gap-10"}`}>
           <div className="lg:sticky lg:top-28 lg:self-start">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame sm:text-sm">FAQ</p>
             <h2 className={`${preview ? "mt-3 max-w-[13ch] text-[clamp(2rem,5vw,3.35rem)]" : "mt-4 max-w-[16ch] text-[clamp(2.05rem,4.4vw,3.3rem)]"} font-display font-bold leading-[1.04] tracking-normal text-ink dark:text-white`}>
               {preview ? <MixedText text="Common questions" accent="questions" /> : <MixedText text="Questions recruiters and clients usually ask" accent="Questions" />}
             </h2>
-            {!preview && (
-              <div className="mt-3 flex flex-wrap items-center gap-2.5">
-                <span className="rounded-full border border-flame/20 bg-flame/[0.08] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-flame dark:bg-flame/[0.12]">
-                  8 common questions
-                </span>
-              </div>
-            )}
             <p className={`${preview ? "mt-4 text-sm leading-[1.6]" : "mt-4 text-[15px] leading-[1.6]"} max-w-[38ch] text-ink/58 dark:text-white/58`}>
               Quick answers about process, timelines, systems, handoff, and collaboration.
             </p>
@@ -95,7 +82,7 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
                   className={
                     `group border p-1 transition-colors duration-300 ${preview ? "rounded-[16px]" : "rounded-[16px] sm:rounded-[18px]"} ` +
                     (isOpen
-                      ? "border-flame/28 bg-white shadow-[0_14px_42px_rgba(20,10,0,0.075)] dark:bg-white/[0.065] dark:shadow-none"
+                      ? "border-flame/24 bg-white shadow-[0_10px_32px_rgba(20,10,0,0.055)] dark:bg-white/[0.065] dark:shadow-none"
                       : "border-black/10 bg-white/62 hover:border-flame/20 hover:bg-white dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-flame/25 dark:hover:bg-white/[0.055]")
                   }
                 >
@@ -125,7 +112,7 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
                       className={
                         `${preview ? "h-9 w-9" : "h-8 w-8 sm:h-9 sm:w-9"} mt-0.5 flex shrink-0 items-center justify-center rounded-full border transition-all duration-300 ` +
                         (isOpen
-                          ? "rotate-45 border-flame/70 bg-flame text-white"
+                          ? "rotate-45 border-flame/55 bg-flame/10 text-flame dark:bg-flame/15"
                           : "border-black/10 bg-paper/80 text-ink/75 group-hover:border-flame/55 group-hover:text-flame dark:border-white/10 dark:bg-ink/80 dark:text-white/75")
                       }
                       aria-hidden="true"

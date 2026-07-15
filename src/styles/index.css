@@ -53,6 +53,24 @@
   }
 }
 
+@layer components {
+  .footer-wordmark {
+    color: rgba(10, 4, 0, 0.26);
+  }
+
+  .footer-wordmark:hover {
+    color: rgba(10, 4, 0, 0.38);
+  }
+
+  .dark .footer-wordmark {
+    color: rgba(255, 255, 255, 0.28);
+  }
+
+  .dark .footer-wordmark:hover {
+    color: rgba(255, 255, 255, 0.42);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

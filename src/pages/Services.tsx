@@ -26,7 +26,7 @@ const SERVICES = [
   },
   {
     number: "04",
-    title: "Prototype & Handoff",
+    title: "Prototypes & Developer Handoff",
     help: "Clickable flows, specs, assets, and build notes.",
     solves: "Reduces uncertainty before implementation.",
     deliverable: "Prototype, assets, edge states, clean Figma.",
@@ -37,19 +37,18 @@ export default function Services() {
   return (
     <main className="min-h-screen bg-paper pt-28 text-ink transition-colors duration-300 dark:bg-ink dark:text-white lg:pt-[7.25rem]">
       <section className="relative mx-auto max-w-[1240px] overflow-hidden px-6 pb-16 sm:px-10 lg:px-16 lg:pb-20">
-        <div className="pointer-events-none absolute right-[-12rem] top-8 h-72 w-72 rounded-full bg-flame/10 blur-3xl dark:bg-flame/15" />
         <Reveal>
           <SectionHeader
             eyebrow="Services"
             title={<MixedText text="UI/UX services for products ready to ship." accent="ship" />}
             titleAs="h1"
-            description="Focused support for mobile app UI/UX, redesigns, systems, prototypes, and developer-ready handoff."
+            description="Short, practical services for mobile app UI/UX, redesigns, systems, prototypes, and developer-ready handoff."
             titleClassName="max-w-[19ch] text-[clamp(2.35rem,5.4vw,4rem)] leading-[1.02]"
             className="relative gap-5 pb-6 md:grid md:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.7fr)] md:items-end lg:pb-7"
           />
         </Reveal>
 
-        <div className="relative mt-6 grid gap-5 md:grid-cols-2 lg:mt-7 lg:gap-6">
+        <div className="relative mt-6 grid gap-4 md:grid-cols-2 lg:mt-7 lg:gap-5">
           {SERVICES.map((service, index) => (
             <Reveal key={service.title} delay={index * 0.06}>
               <PremiumCard className="h-full p-5 sm:p-6">
@@ -57,17 +56,17 @@ export default function Services() {
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-flame/80">
                     {service.number}
                   </p>
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/10 bg-paper text-flame transition-colors duration-300 group-hover:border-flame group-hover:bg-flame group-hover:text-white dark:border-white/10 dark:bg-ink">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-black/10 bg-paper text-flame transition-colors duration-300 group-hover:border-flame/60 group-hover:bg-flame group-hover:text-white dark:border-white/10 dark:bg-ink">
                     <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                       <path d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </span>
                 </div>
-                <h2 className="mt-6 font-display text-2xl font-bold leading-tight tracking-normal text-ink dark:text-white">
+                <h2 className="mt-5 font-display text-2xl font-bold leading-tight tracking-normal text-ink dark:text-white">
                   {service.title}
                 </h2>
                 <p className="mt-2 max-w-[40ch] text-[15px] leading-[1.6] text-ink/60 dark:text-white/60">{service.help}</p>
-                <dl className="mt-6 grid gap-3 text-sm">
+                <dl className="mt-5 grid gap-3 text-sm">
                   <div>
                     <dt className="text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/40 dark:text-white/40">Solves</dt>
                     <dd className="mt-1 leading-[1.55] text-ink/64 dark:text-white/66">{service.solves}</dd>

@@ -16,26 +16,26 @@ interface Project {
 const PROJECTS: Project[] = [
   {
     name: "Aspire",
-    category: "AI Platform - Web & Mobile",
-    value: "Designed a scalable AI product experience from interface structure to polished screens.",
+    category: "Web & Mobile Product",
+    value: "Scalable product experience from structure to polished screens.",
     image: aspireCover,
   },
   {
     name: "Voicify",
-    category: "AI Audio - Mobile App",
-    value: "Shaped fast mobile creation flows for voice effects, text-to-speech, and translation tools.",
+    category: "Mobile App",
+    value: "Fast creation flows for voice tools and mobile audio features.",
     image: voicifyCover,
   },
   {
     name: "Aurum",
-    category: "Web3 - Mobile App",
-    value: "Structured wallet, rewards, and activity screens around clarity, trust, and retention.",
+    category: "Mobile App",
+    value: "Wallet, rewards, and activity screens shaped around clarity.",
     image: aurumCover,
   },
   {
     name: "HD Camera",
-    category: "Photography - Mobile App",
-    value: "Created a compact camera and AI editing interface for quick capture-to-result workflows.",
+    category: "Mobile App",
+    value: "Compact camera and editing flows for quick capture-to-result use.",
     image: hdCameraCover,
   },
 ];
@@ -48,7 +48,7 @@ export default function Work() {
           <SectionHeader
             eyebrow="Selected work"
             title={<MixedText text="Featured product work" accent="product" />}
-            description="Image-led product work across mobile apps, AI tools, utilities, and web products."
+            description="Image-led mobile app UI/UX, redesign, product, and system work."
             action={<LinkButton href="/work" variant="secondary">View all work</LinkButton>}
             titleClassName="text-[clamp(2.25rem,5vw,3.5rem)] uppercase"
             className="[border-bottom-width:0] pb-0"
@@ -60,7 +60,7 @@ export default function Work() {
             <Reveal key={project.name} delay={i * 0.08}>
               <a
                 href="/work"
-                className="group block overflow-hidden rounded-[22px] border border-black/[0.075] bg-white/86 shadow-[0_16px_48px_rgba(20,10,0,0.06)] transition-all duration-300 ease-premium hover:-translate-y-1 hover:border-flame/28 hover:bg-white hover:shadow-[0_24px_70px_rgba(20,10,0,0.09)] dark:border-white/10 dark:bg-[#11100f] dark:shadow-none dark:hover:border-flame/35"
+                className="group block overflow-hidden rounded-[22px] border border-black/[0.075] bg-white/88 shadow-[0_14px_42px_rgba(20,10,0,0.055)] transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:border-flame/24 hover:bg-white hover:shadow-[0_20px_58px_rgba(20,10,0,0.08)] dark:border-white/10 dark:bg-[#11100f] dark:shadow-none dark:hover:border-flame/32"
                 aria-label={`View ${project.name} in work gallery`}
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-black/5 dark:bg-white/5">

@@ -376,7 +376,7 @@ export default function Work() {
                 </p>
               </div>
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/45 dark:text-white/45 sm:text-sm">
-                40+ Products Shipped <span className="mx-2 text-flame">·</span> 10M+ App Downloads
+                40+ Products Shipped <span className="mx-2 text-flame">-</span> 10M+ App Downloads
               </p>
             </div>
           </div>
@@ -390,7 +390,7 @@ export default function Work() {
                 whileHover={prefersReducedMotion ? undefined : { y: -4 }}
                 transition={{ duration: 0.24, ease: "easeOut" }}
                 onClick={() => setActiveProjectIndex(index)}
-                className="group h-full overflow-hidden rounded-[22px] border border-black/10 bg-white text-left shadow-[0_14px_38px_rgba(20,10,0,0.07)] transition-colors duration-300 hover:border-flame/35 hover:shadow-[0_20px_55px_rgba(20,10,0,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-4 focus-visible:ring-offset-paper dark:border-white/10 dark:bg-white/[0.06] dark:shadow-none dark:hover:border-flame/45 dark:focus-visible:ring-offset-ink"
+                className="group h-full overflow-hidden rounded-[22px] border border-black/[0.075] bg-white text-left shadow-[0_12px_36px_rgba(20,10,0,0.055)] transition-colors duration-300 hover:border-flame/28 hover:shadow-[0_18px_52px_rgba(20,10,0,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-4 focus-visible:ring-offset-paper dark:border-white/10 dark:bg-white/[0.055] dark:shadow-none dark:hover:border-flame/38 dark:focus-visible:ring-offset-ink"
               >
                 <div className="aspect-[16/7.8] overflow-hidden bg-black/[0.04] dark:bg-white/[0.04]">
                   <LazyAssetImage
@@ -406,9 +406,6 @@ export default function Work() {
                     <p className="w-fit rounded-full bg-flame/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-flame">
                       {project.category}
                     </p>
-                    <span className="text-xs font-medium text-ink/40 dark:text-white/40">
-                      {project.images.length} images
-                    </span>
                   </div>
                   <h2 className="mt-3 font-display text-2xl font-bold leading-tight tracking-normal text-ink transition-colors duration-300 group-hover:text-flame dark:text-white sm:text-[28px]">
                     {project.title}
@@ -511,7 +508,7 @@ function ProjectGallery({
             <button
               type="button"
               onClick={goToPreviousImage}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white/90 text-ink shadow-[0_12px_32px_rgba(20,10,0,0.12)] backdrop-blur-md transition-all duration-200 hover:border-flame hover:bg-flame hover:text-white active:scale-[0.96] dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:border-flame dark:hover:bg-flame"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white/90 text-ink shadow-[0_10px_28px_rgba(20,10,0,0.1)] backdrop-blur-md transition-all duration-200 hover:border-flame hover:text-flame active:scale-[0.96] dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:border-flame dark:hover:text-flame"
               aria-label="Previous image"
             >
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -521,7 +518,7 @@ function ProjectGallery({
             <button
               type="button"
               onClick={goToNextImage}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white/90 text-ink shadow-[0_12px_32px_rgba(20,10,0,0.12)] backdrop-blur-md transition-all duration-200 hover:border-flame hover:bg-flame hover:text-white active:scale-[0.96] dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:border-flame dark:hover:bg-flame"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white/90 text-ink shadow-[0_10px_28px_rgba(20,10,0,0.1)] backdrop-blur-md transition-all duration-200 hover:border-flame hover:text-flame active:scale-[0.96] dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:border-flame dark:hover:text-flame"
               aria-label="Next image"
             >
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">

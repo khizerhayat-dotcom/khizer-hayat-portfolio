@@ -7,15 +7,42 @@ const SITEMAP = [
   { label: "FAQ", href: "/faq" },
 ];
 
+const WORDMARK = "Khizer Hayat";
+
+function FooterWordmark() {
+  return (
+    <h2
+      className="footer-wordmark group/wordmark flex select-none flex-wrap justify-center gap-x-[0.08em] py-5 text-center font-display font-semibold leading-[0.9] tracking-normal transition-colors duration-300 sm:flex-nowrap lg:py-7"
+      style={{ fontSize: "clamp(3rem, 10vw, 9.25rem)" }}
+      aria-label={WORDMARK}
+    >
+      {WORDMARK.split("").map((letter, index) => (
+        <span
+          key={`${letter}-${index}`}
+          aria-hidden="true"
+          className={
+            letter === " "
+              ? "w-[0.18em]"
+              : "inline-block transition-transform duration-300 ease-premium motion-reduce:transform-none md:group-hover/wordmark:-translate-y-1"
+          }
+          style={{ transitionDelay: `${index * 16}ms` }}
+        >
+          {letter}
+        </span>
+      ))}
+    </h2>
+  );
+}
+
 export default function Footer() {
   return (
     <footer className="bg-paper text-ink/60 transition-colors duration-300 dark:bg-ink dark:text-white/60">
-      <div className="mx-auto max-w-[1440px] px-6 pb-8 pt-8 sm:px-10 sm:pt-10 lg:px-16">
-        <div className="rounded-[24px] border border-black/[0.08] bg-white/50 px-5 py-6 shadow-[0_16px_50px_rgba(20,10,0,0.045)] transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.035] dark:shadow-none sm:px-7 sm:py-8 lg:px-9">
+      <div className="mx-auto max-w-[1440px] px-6 pb-24 pt-8 sm:px-10 sm:pb-24 sm:pt-10 lg:px-16 lg:pb-12 lg:pr-24 xl:pr-28">
+        <div className="rounded-[24px] border border-black/[0.08] bg-[#fffdf9]/74 px-5 py-6 shadow-[0_16px_50px_rgba(20,10,0,0.045)] transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.04] dark:shadow-none sm:px-7 sm:py-8 lg:px-9">
           <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Let&apos;s connect.</p>
-              <p className="mt-3 max-w-[46ch] text-sm leading-[1.6] text-ink/62 dark:text-white/62">
+              <p className="mt-3 max-w-[46ch] text-sm leading-[1.6] text-ink/66 dark:text-white/66">
                 UI/UX designer in Lahore, Pakistan. Mobile apps, redesigns, systems, prototypes, and handoff.
               </p>
             </div>
@@ -25,14 +52,9 @@ export default function Footer() {
             </div>
           </div>
 
-          <h2
-            className="select-none py-5 text-center font-display font-semibold leading-[0.9] tracking-normal text-ink/90 [text-shadow:0_12px_34px_rgba(20,10,0,0.06)] dark:text-white/92 dark:[text-shadow:0_18px_50px_rgba(0,0,0,0.3)] sm:whitespace-nowrap lg:py-7"
-            style={{ fontSize: "clamp(44px, 10vw, 148px)" }}
-          >
-            Khizer Hayat
-          </h2>
+          <FooterWordmark />
 
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
+          <div className="grid gap-6 border-t border-black/[0.08] pt-6 dark:border-white/10 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
             <div className="max-w-[48ch]">
               <a
                 href="/"
@@ -46,15 +68,17 @@ export default function Footer() {
                   <path d="M13.4 7.4H20L16.2 10.6H9.6L13.4 7.4Z" fill="#F4620A" />
                 </svg>
               </a>
-              <p className="mt-4 text-sm leading-[1.6] text-ink/58 dark:text-white/58">40+ Products Shipped · 10M+ App Downloads</p>
+              <p className="mt-4 text-sm font-semibold leading-[1.6] text-ink/68 dark:text-white/70">
+                40+ Products Shipped <span className="text-flame">·</span> 10M+ App Downloads
+              </p>
             </div>
 
             <nav aria-label="Footer" className="lg:justify-self-end">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-flame">Navigate</p>
-              <ul className="mt-4 grid grid-cols-2 gap-x-7 gap-y-3 text-sm sm:flex sm:flex-wrap lg:grid lg:grid-cols-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-flame dark:text-flame">Navigate</p>
+              <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm lg:grid lg:grid-cols-1 lg:gap-y-2.5">
                 {SITEMAP.map((item) => (
                   <li key={item.label}>
-                    <a href={item.href} className="transition-colors duration-200 hover:text-ink dark:hover:text-white">
+                    <a href={item.href} className="font-semibold text-ink/76 transition-colors duration-200 hover:text-flame dark:text-white/78 dark:hover:text-flame">
                       {item.label}
                     </a>
                   </li>
@@ -63,10 +87,9 @@ export default function Footer() {
             </nav>
           </div>
 
-          <div className="mt-7 flex flex-col gap-3 text-xs font-medium uppercase tracking-[0.14em] text-ink/45 dark:text-white/45 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-            <p>© 2026 Khizer Hayat</p>
+          <div className="mt-7 flex flex-col gap-3 text-xs font-medium uppercase tracking-[0.14em] text-ink/48 dark:text-white/48 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+            <p>(c) 2026 Khizer Hayat</p>
             <p>Built with care</p>
-            <p>40+ Products Shipped · 10M+ App Downloads</p>
           </div>
         </div>
       </div>
