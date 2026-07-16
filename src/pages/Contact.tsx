@@ -99,7 +99,7 @@ export default function Contact() {
                     <MixedText text="Let's design a product that feels ready to ship." accent="design" />
                   </h1>
                   <p className="mt-7 max-w-[52ch] text-base leading-relaxed text-ink/62 dark:text-white/64 sm:text-lg">
-                    UI/UX direction for mobile apps, redesigns, design systems, prototypes, and developer handoff.
+                    UI/UX direction for mobile apps, web apps, SaaS dashboards, design systems, prototypes, and developer handoff.
                   </p>
                 </div>
 

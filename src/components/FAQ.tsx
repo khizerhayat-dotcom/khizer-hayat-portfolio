@@ -8,17 +8,17 @@ const FAQ_ITEMS = [
   {
     question: "What type of products do you design?",
     answer:
-      "Mobile apps, dashboards, AI tools, healthcare products, utilities, scanner apps, media products, and design systems.",
+      "Mobile apps, web apps, SaaS dashboards, admin panels, AI products, healthcare platforms, and design systems.",
   },
   {
-    question: "Do you design complete mobile apps or only screens?",
+    question: "Do you design complete products or only screens?",
     answer:
-      "Complete apps. I can cover flows, wireframes, UI, prototypes, edge states, and developer-ready Figma handoff.",
+      "Complete product flows. I can cover wireframes, UI, prototypes, edge states, and developer-ready Figma handoff.",
   },
   {
     question: "Can you improve an existing app UI?",
     answer:
-      "Yes. I redesign structure, hierarchy, onboarding, navigation, visual polish, and key user journeys.",
+      "Yes. I redesign structure, hierarchy, navigation, visual polish, and key journeys across mobile and web.",
   },
   {
     question: "What does your design process look like?",
@@ -26,9 +26,9 @@ const FAQ_ITEMS = [
       "I clarify goals, map flows, design high-fidelity screens, prototype important paths, then prepare handoff.",
   },
   {
-    question: "How long does a mobile app design project take?",
+    question: "How long does a product design project take?",
     answer:
-      "Focused redesigns often take one to three weeks. Larger apps usually need three to six weeks depending on scope.",
+      "Focused redesigns often take one to three weeks. Larger apps, dashboards, or platforms usually need three to six weeks depending on scope.",
   },
   {
     question: "Do you provide developer handoff?",
@@ -43,7 +43,7 @@ const FAQ_ITEMS = [
   {
     question: "Are you available for full-time roles or freelance projects?",
     answer:
-      "Yes. I am open to UI/UX roles, mobile app projects, redesigns, systems, prototypes, and handoff work.",
+      "Yes. I am open to UI/UX roles, mobile apps, web apps, SaaS dashboards, redesigns, systems, prototypes, and handoff work.",
   },
 ];
 
@@ -53,15 +53,15 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
 
   return (
     <section id="faq" className="relative scroll-mt-28 overflow-hidden bg-paper dark:bg-ink">
-      <div className={`mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-16 ${preview ? "py-12 sm:py-16" : "py-5 sm:py-8 lg:py-10"}`}>
-        <Reveal className={`grid ${preview ? "gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:gap-9" : "gap-6 lg:grid-cols-[0.7fr_1.3fr] lg:gap-10"}`}>
+      <div className={`mx-auto max-w-[1240px] px-6 sm:px-10 lg:px-16 ${preview ? "py-12 sm:py-16" : "py-4 sm:py-7 lg:py-9"}`}>
+        <Reveal className={`grid ${preview ? "gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:gap-9" : "gap-5 lg:grid-cols-[0.68fr_1.32fr] lg:gap-9"}`}>
           <div className="lg:sticky lg:top-28 lg:self-start">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame sm:text-sm">FAQ</p>
             <h2 className={`${preview ? "mt-3 max-w-[13ch] text-[clamp(2rem,5vw,3.35rem)]" : "mt-4 max-w-[16ch] text-[clamp(2.05rem,4.4vw,3.3rem)]"} font-display font-bold leading-[1.04] tracking-normal text-ink dark:text-white`}>
               {preview ? <MixedText text="Common questions" accent="questions" /> : <MixedText text="Questions recruiters and clients usually ask" accent="Questions" />}
             </h2>
-            <p className={`${preview ? "mt-4 text-sm leading-[1.6]" : "mt-4 text-[15px] leading-[1.6]"} max-w-[38ch] text-ink/58 dark:text-white/58`}>
-              Quick answers about process, timelines, systems, handoff, and collaboration.
+            <p className={`${preview ? "mt-4 text-sm leading-[1.65]" : "mt-3 text-[15px] leading-[1.65]"} max-w-[34ch] font-normal text-ink/56 dark:text-white/58`}>
+              Process, timelines, systems, handoff, and collaboration in short answers.
             </p>
             {preview && (
               <LinkButton href="/faq" variant="secondary" className="mt-6">
@@ -82,7 +82,7 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
                   className={
                     `group border p-1 transition-colors duration-300 ${preview ? "rounded-[16px]" : "rounded-[16px] sm:rounded-[18px]"} ` +
                     (isOpen
-                      ? "border-flame/24 bg-white shadow-[0_10px_32px_rgba(20,10,0,0.055)] dark:bg-white/[0.065] dark:shadow-none"
+                      ? "border-flame/20 bg-white shadow-[0_8px_26px_rgba(20,10,0,0.045)] dark:bg-white/[0.06] dark:shadow-none"
                       : "border-black/10 bg-white/62 hover:border-flame/20 hover:bg-white dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-flame/25 dark:hover:bg-white/[0.055]")
                   }
                 >
@@ -90,21 +90,21 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
                     type="button"
                     onClick={() => setOpenIndex(isOpen ? -1 : i)}
                     className={`flex w-full items-start text-left outline-none transition-colors duration-200 focus-visible:ring-4 focus-visible:ring-flame/20 ${
-                      preview ? "gap-3 rounded-[13px] px-4 py-3.5 sm:gap-4 sm:px-5" : "gap-3 rounded-[13px] px-4 py-3.5 sm:gap-4 sm:rounded-[15px] sm:px-5 sm:py-4"
+                      preview ? "gap-3 rounded-[13px] px-4 py-3.5 sm:gap-4 sm:px-5" : "gap-3 rounded-[13px] px-4 py-3 sm:gap-4 sm:rounded-[15px] sm:px-5 sm:py-3.5"
                     }`}
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${i}`}
                   >
                     <span
                       className={
-                        `${preview ? "text-lg sm:text-xl" : "text-base sm:text-lg"} pt-0.5 font-display font-bold leading-none tracking-normal transition-colors duration-200 ` +
+                        `${preview ? "text-lg sm:text-xl" : "text-base sm:text-lg"} pt-0.5 font-display font-semibold leading-none tracking-normal transition-colors duration-200 ` +
                         (isOpen ? "text-flame" : "text-ink/25 group-hover:text-flame/75 dark:text-white/25")
                       }
                     >
                       {number}
                     </span>
                     <span className="flex-1">
-                      <span className={`${preview ? "text-base sm:text-lg" : "text-[15px] sm:text-base"} block font-display font-bold leading-snug tracking-normal text-ink dark:text-white`}>
+                      <span className={`${preview ? "text-base sm:text-lg" : "text-[15px] sm:text-base"} block font-display font-semibold leading-snug tracking-normal text-ink dark:text-white`}>
                         {item.question}
                       </span>
                     </span>
@@ -133,7 +133,7 @@ export default function FAQ({ preview = false }: { preview?: boolean }) {
                         transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
                         className="overflow-hidden"
                       >
-                        <p className={`${preview ? "px-4 pb-5 pl-[4rem] text-sm sm:px-5 sm:pl-[4.85rem]" : "px-4 pb-4 pl-[3.55rem] text-sm sm:px-5 sm:pb-5 sm:pl-[4.45rem]"} leading-[1.65] text-ink/62 dark:text-white/62`}>
+                        <p className={`${preview ? "px-4 pb-5 pl-[4rem] text-sm sm:px-5 sm:pl-[4.85rem]" : "px-4 pb-4 pl-[3.55rem] text-sm sm:px-5 sm:pb-4 sm:pl-[4.45rem]"} font-normal leading-[1.65] text-ink/60 dark:text-white/60`}>
                           {item.answer}
                         </p>
                       </motion.div>

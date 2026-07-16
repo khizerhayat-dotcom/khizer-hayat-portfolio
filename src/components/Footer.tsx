@@ -1,4 +1,8 @@
 import { LinkButton } from "./ui";
+import behanceIcon from "../assets/icons/behance.svg";
+import downloadIcon from "../assets/icons/download.svg";
+import linkedinIcon from "../assets/icons/linkedin.svg";
+import mailIcon from "../assets/icons/mail.svg";
 
 const SITEMAP = [
   { label: "Work", href: "/work" },
@@ -9,10 +13,17 @@ const SITEMAP = [
 
 const WORDMARK = "Khizer Hayat";
 
+const SOCIAL_LINKS = [
+  { label: "Email", href: "/contact", icon: mailIcon },
+  { label: "LinkedIn", href: "https://linkedin.com/in/khizerdesigner/", icon: linkedinIcon },
+  { label: "Behance", href: "https://www.behance.net/khizerhayat8743", icon: behanceIcon },
+  { label: "Download CV", href: "/khizer-hayat-cv.pdf", icon: downloadIcon, download: true },
+];
+
 function FooterWordmark() {
   return (
     <h2
-      className="footer-wordmark group/wordmark flex select-none flex-wrap justify-center gap-x-[0.08em] py-5 text-center font-display font-semibold leading-[0.9] tracking-normal transition-colors duration-300 sm:flex-nowrap lg:py-7"
+      className="group/wordmark flex select-none flex-wrap justify-center gap-x-[0.08em] py-5 text-center font-display font-semibold leading-[0.9] tracking-normal text-white/18 transition-colors duration-300 hover:text-white/28 sm:flex-nowrap lg:py-7"
       style={{ fontSize: "clamp(3rem, 10vw, 9.25rem)" }}
       aria-label={WORDMARK}
     >
@@ -36,60 +47,55 @@ function FooterWordmark() {
 
 export default function Footer() {
   return (
-    <footer className="bg-paper text-ink/60 transition-colors duration-300 dark:bg-ink dark:text-white/60">
-      <div className="mx-auto max-w-[1440px] px-6 pb-24 pt-8 sm:px-10 sm:pb-24 sm:pt-10 lg:px-16 lg:pb-12 lg:pr-24 xl:pr-28">
-        <div className="rounded-[24px] border border-black/[0.08] bg-[#fffdf9]/74 px-5 py-6 shadow-[0_16px_50px_rgba(20,10,0,0.045)] transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.04] dark:shadow-none sm:px-7 sm:py-8 lg:px-9">
-          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Let&apos;s connect.</p>
-              <p className="mt-3 max-w-[46ch] text-sm leading-[1.6] text-ink/66 dark:text-white/66">
-                UI/UX designer in Lahore, Pakistan. Mobile apps, redesigns, systems, prototypes, and handoff.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-2 lg:justify-end">
-              <LinkButton href="/contact">Contact Khizer</LinkButton>
-            </div>
-          </div>
-
+    <footer className="bg-[#090706] text-white transition-colors duration-300">
+      <div className="mx-auto max-w-[1440px] px-6 pb-24 pt-10 sm:px-10 sm:pb-24 sm:pt-12 lg:px-16 lg:pb-14 lg:pr-28">
+        <div className="mx-auto max-w-[1120px] text-center">
           <FooterWordmark />
 
-          <div className="grid gap-6 border-t border-black/[0.08] pt-6 dark:border-white/10 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start">
-            <div className="max-w-[48ch]">
-              <a
-                href="/"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-paper shadow-[0_8px_24px_rgba(20,10,0,0.12)] transition-colors duration-300 dark:bg-white dark:shadow-none"
-                aria-label="Home"
-              >
-                <svg width="18" height="16" viewBox="0 0 20 18" aria-hidden="true">
-                  <path d="M0 0H4V7.2L9.6 0H14.4L7.6 8.6L14.8 18H10L4 10.2V18H0V0Z" fill="#0A0400" />
-                  <path d="M16 0H20V7.4H16V0Z" fill="#0A0400" />
-                  <path d="M16 10.6H20V18H16V10.6Z" fill="#0A0400" />
-                  <path d="M13.4 7.4H20L16.2 10.6H9.6L13.4 7.4Z" fill="#F4620A" />
-                </svg>
-              </a>
-              <p className="mt-4 text-sm font-semibold leading-[1.6] text-ink/68 dark:text-white/70">
-                40+ Products Shipped <span className="text-flame">·</span> 10M+ App Downloads
-              </p>
-            </div>
+          <p className="mx-auto max-w-[48ch] text-sm font-normal leading-[1.7] text-white/64">
+            UI/UX designer for mobile apps, web apps, SaaS dashboards, AI products, healthcare platforms, systems, and handoff.
+          </p>
 
-            <nav aria-label="Footer" className="lg:justify-self-end">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-flame dark:text-flame">Navigate</p>
-              <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm lg:grid lg:grid-cols-1 lg:gap-y-2.5">
-                {SITEMAP.map((item) => (
-                  <li key={item.label}>
-                    <a href={item.href} className="font-semibold text-ink/76 transition-colors duration-200 hover:text-flame dark:text-white/78 dark:hover:text-flame">
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+          <div className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <LinkButton href="/contact" className="bg-white text-black hover:bg-flame hover:text-white">
+              Contact Khizer
+            </LinkButton>
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/44">
+              40+ Products Shipped <span className="mx-2 text-flame">/</span> 10M+ App Downloads
+            </p>
           </div>
 
-          <div className="mt-7 flex flex-col gap-3 text-xs font-medium uppercase tracking-[0.14em] text-ink/48 dark:text-white/48 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5">
+            {SOCIAL_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target={link.href.startsWith("http") ? "_blank" : undefined}
+                rel={link.href.startsWith("http") ? "noreferrer" : undefined}
+                download={link.download ? true : undefined}
+                className="group inline-flex min-h-11 items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm font-medium text-white/68 transition-all duration-200 hover:-translate-y-0.5 hover:border-flame hover:bg-flame hover:text-white"
+              >
+                <img src={link.icon} alt="" className="h-4 w-4 invert opacity-78 transition duration-200 group-hover:opacity-100" aria-hidden="true" />
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <nav aria-label="Footer" className="mt-10 border-t border-white/10 pt-6">
+            <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm">
+              {SITEMAP.map((item) => (
+                <li key={item.label}>
+                  <a href={item.href} className="font-medium text-white/62 transition-colors duration-200 hover:text-flame">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="mt-7 flex flex-col gap-2 text-xs font-medium uppercase tracking-[0.14em] text-white/38 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-5">
             <p>(c) 2026 Khizer Hayat</p>
-            <p>Built with care</p>
+            <p>Lahore, Pakistan</p>
           </div>
         </div>
       </div>

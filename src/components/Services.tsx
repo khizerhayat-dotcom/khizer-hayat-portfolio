@@ -6,33 +6,46 @@ const SERVICES = [
   {
     number: "01",
     title: "Mobile App UI/UX",
-    help: "Flows, screens, onboarding, and key states.",
-    solves: "Makes complex app ideas easier to use.",
-    deliverable: "Figma UI, prototype, and handoff notes.",
+    help: "Clean app flows, onboarding, and polished mobile screens.",
+    solves: "Turns app ideas into clear, usable journeys.",
+    deliverable: "Figma screens, flows, prototype, and handoff notes.",
+    categories: ["Mobile UI", "App Flows", "Onboarding", "User Journeys", "Interaction Design", "Figma Screens"],
     visual: "mobile",
   },
   {
     number: "02",
-    title: "Product Redesign",
-    help: "Audit, hierarchy, journeys, and polish.",
-    solves: "Reduces friction in dated or unclear products.",
-    deliverable: "Priority screens, rationale, and specs.",
-    visual: "redesign",
+    title: "Web App & Dashboard UI",
+    help: "Structured dashboards, admin panels, and data-heavy web UI.",
+    solves: "Makes complex product data easier to scan and act on.",
+    deliverable: "Responsive web UI, dashboard states, tables, and handoff.",
+    categories: ["Web Apps", "Dashboards", "SaaS UI", "Admin Panels", "Data Tables", "Responsive Web"],
+    visual: "dashboard",
   },
   {
     number: "03",
-    title: "Design Systems",
-    help: "Components, type, color, spacing, and states.",
-    solves: "Keeps teams consistent as products grow.",
-    deliverable: "Foundations, variants, and usage rules.",
-    visual: "systems",
+    title: "Product Redesign",
+    help: "Sharper hierarchy, navigation, and visual polish.",
+    solves: "Improves clarity in dated or unclear products.",
+    deliverable: "UX audit, refreshed screens, rationale, and specs.",
+    categories: ["UX Audit", "UI Refresh", "Navigation", "Visual Polish", "Usability Fixes", "Conversion Flow"],
+    visual: "redesign",
   },
   {
     number: "04",
-    title: "Prototypes & Developer Handoff",
-    help: "Clickable flows, specs, assets, and notes.",
+    title: "Design Systems",
+    help: "Reusable components, tokens, states, and UI foundations.",
+    solves: "Keeps product teams consistent as the interface grows.",
+    deliverable: "Components, UI patterns, tokens, and usage rules.",
+    categories: ["Components", "UI Patterns", "Typography", "Color System", "States", "Design Tokens"],
+    visual: "systems",
+  },
+  {
+    number: "05",
+    title: "Prototype & Handoff",
+    help: "Clickable flows, specs, assets, and handoff notes.",
     solves: "Removes ambiguity before implementation.",
-    deliverable: "Prototype, assets, states, and clean Figma.",
+    deliverable: "Prototype, user flows, specs, assets, and design QA notes.",
+    categories: ["Prototypes", "User Flows", "Specs", "Assets", "Developer Handoff", "Design QA"],
     visual: "handoff",
   },
 ];
@@ -66,6 +79,21 @@ function ServiceVisual({ type }: { type: string }) {
           <span className="absolute right-1.5 top-2 h-px w-4 bg-flame/70" />
           <span className="absolute bottom-2 left-1.5 h-px w-4 bg-ink/16 dark:bg-white/24" />
           <span className="absolute bottom-2 right-1.5 h-px w-3 bg-flame/50" />
+        </div>
+      </div>
+    );
+  }
+
+  if (type === "dashboard") {
+    return (
+      <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-black/[0.08] bg-[#faf8f4] transition-transform duration-300 group-hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.045]">
+        <div className="h-9 w-10 rounded-lg border border-ink/20 p-1.5 dark:border-white/24">
+          <span className="block h-1.5 rounded-sm bg-flame/55" />
+          <div className="mt-1.5 grid grid-cols-[1fr_0.8fr] gap-1">
+            <span className="h-4 rounded bg-ink/[0.08] dark:bg-white/[0.12]" />
+            <span className="h-4 rounded bg-ink/[0.08] dark:bg-white/[0.12]" />
+          </div>
+          <span className="mt-1.5 block h-px rounded-full bg-ink/18 dark:bg-white/20" />
         </div>
       </div>
     );
@@ -111,42 +139,44 @@ export default function Services() {
         <Reveal>
           <SectionHeader
             eyebrow="Services"
-            title={<MixedText text="Clear design capabilities for product teams." accent="design" />}
-            description="Focused support from product structure to polished, build-ready UI."
+            title={<MixedText text="Design support for apps, dashboards, and systems." accent="Design" />}
+            description="Mobile apps, web apps, SaaS dashboards, design systems, prototypes, and developer-ready handoff."
             action={<LinkButton href="/services" variant="secondary">Explore services</LinkButton>}
             titleClassName="max-w-[16ch] text-[clamp(2rem,5vw,3.35rem)]"
             className="pb-6"
           />
         </Reveal>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-2 lg:gap-5">
+        <div className="mt-7 grid gap-4 md:grid-cols-2 lg:gap-5">
           {SERVICES.map((service, i) => (
             <Reveal key={service.title} delay={i * 0.07}>
               <PremiumCard className="h-full p-5 sm:p-6">
                 <div className="flex items-start justify-between gap-4">
                   <ServiceVisual type={service.visual} />
-                  <div className="rounded-full border border-black/[0.08] bg-[#faf8f4] px-2.5 py-1 text-[10px] font-bold text-ink/48 transition-colors duration-300 group-hover:border-flame/24 group-hover:text-flame dark:border-white/10 dark:bg-white/[0.045] dark:text-white/48 dark:group-hover:text-flame">
+                  <div className="rounded-full border border-black/[0.08] bg-[#faf8f4] px-2.5 py-1 text-[10px] font-medium text-ink/48 transition-colors duration-300 group-hover:border-flame/24 group-hover:text-flame dark:border-white/10 dark:bg-white/[0.045] dark:text-white/48 dark:group-hover:text-flame">
                     {service.number}
                   </div>
                 </div>
 
                 <div className="mt-5">
-                  <h3 className="font-display text-xl font-bold leading-tight tracking-normal text-ink transition-colors duration-300 group-hover:text-flame dark:text-white sm:text-[1.35rem]">
+                  <h3 className="font-display text-xl font-semibold leading-tight tracking-normal text-ink transition-colors duration-300 group-hover:text-flame dark:text-white sm:text-[1.35rem]">
                     {service.title}
                   </h3>
-                  <p className="mt-2 max-w-[38ch] text-sm leading-[1.6] text-ink/58 dark:text-white/60">
+                  <p className="mt-2 max-w-[38ch] text-sm font-normal leading-[1.6] text-ink/58 dark:text-white/60">
                     {service.help}
                   </p>
-                  <dl className="mt-5 grid gap-2.5 text-sm">
-                    <div>
-                      <dt className="text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/40 dark:text-white/40">Solves</dt>
-                      <dd className="mt-1 leading-[1.55] text-ink/62 dark:text-white/62">{service.solves}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/40 dark:text-white/40">Output</dt>
-                      <dd className="mt-1 leading-[1.55] text-ink/62 dark:text-white/62">{service.deliverable}</dd>
-                    </div>
-                  </dl>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {service.categories.slice(0, 3).map((category) => (
+                      <span key={category} className="rounded-full border border-black/[0.07] bg-[#faf8f4] px-3 py-1 text-[11px] font-medium text-ink/52 dark:border-white/10 dark:bg-white/[0.045] dark:text-white/58">
+                        {category}
+                      </span>
+                    ))}
+                  </div>
+                  <span className="mt-5 inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-ink/46 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-flame group-hover:bg-flame group-hover:text-white dark:border-white/10 dark:text-white/46 dark:group-hover:border-flame" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M3.5 8H12.5M12.5 8L8.75 4.25M12.5 8L8.75 11.75" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
                 </div>
               </PremiumCard>
             </Reveal>

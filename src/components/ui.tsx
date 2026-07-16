@@ -54,16 +54,16 @@ export function SectionHeader({
   const TitleTag = titleAs;
 
   return (
-    <div className={cn("flex flex-col justify-between gap-5 md:flex-row md:items-end", className)}>
+    <div className={cn("flex flex-col justify-between gap-4 md:flex-row md:items-end", className)}>
       <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame sm:text-sm">{eyebrow}</p>
-        <TitleTag className={cn("mt-4 font-display text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.02] tracking-normal text-ink dark:text-white", titleClassName)}>
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-flame">{eyebrow}</p>
+        <TitleTag className={cn("mt-3 font-display text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.04] tracking-normal text-ink dark:text-white", titleClassName)}>
           {title}
         </TitleTag>
       </div>
       {(description || action) && (
-        <div className="max-w-[42ch]">
-          {description && <p className="text-[15px] leading-[1.65] text-ink/58 dark:text-white/58 sm:text-base">{description}</p>}
+        <div className="max-w-[40ch]">
+          {description && <p className="text-[15px] font-normal leading-[1.7] text-ink/56 dark:text-white/58">{description}</p>}
           {action && <div className="mt-4">{action}</div>}
         </div>
       )}
@@ -108,7 +108,7 @@ export function LinkButton({
   children: ReactNode;
   variant?: LinkButtonVariant;
 }) {
-  const base = "inline-flex min-h-11 items-center justify-center rounded-full text-sm font-semibold transition-all duration-200 ease-premium active:scale-[0.98]";
+  const base = "inline-flex min-h-11 items-center justify-center rounded-full text-sm font-medium transition-all duration-200 ease-premium active:scale-[0.98]";
   const variants: Record<LinkButtonVariant, string> = {
     primary: "bg-ink px-6 py-3 text-white hover:-translate-y-0.5 dark:bg-white dark:text-black",
     secondary: "border border-black/10 bg-white px-5 py-3 text-ink hover:-translate-y-0.5 hover:border-flame hover:text-flame dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-flame dark:hover:text-flame",
@@ -163,7 +163,7 @@ export function ContactLinks({
             download={link.download ? true : undefined}
             aria-label={link.label}
             title={link.label}
-            className="group flex min-w-0 flex-col items-center gap-2 text-center text-[11px] font-semibold text-ink/52 transition-all duration-200 ease-premium hover:-translate-y-0.5 hover:text-ink active:translate-y-0 dark:text-white/56 dark:hover:text-white"
+            className="group flex min-w-0 flex-col items-center gap-2 text-center text-[11px] font-medium text-ink/52 transition-all duration-200 ease-premium hover:-translate-y-0.5 hover:text-ink active:translate-y-0 dark:text-white/56 dark:hover:text-white"
           >
             <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#e2d5c8] bg-white/60 shadow-[0_10px_28px_rgba(70,38,18,0.045)] backdrop-blur-sm transition-all duration-200 group-hover:border-flame/34 group-hover:bg-white group-hover:shadow-[0_14px_34px_rgba(216,72,15,0.12)] dark:border-white/[0.09] dark:bg-white/[0.045] dark:shadow-none dark:group-hover:border-flame/40 dark:group-hover:bg-white/[0.075]">
               <img src={link.icon} alt="" className="h-4 w-4 opacity-75 transition duration-200 group-hover:opacity-90 dark:invert dark:opacity-85 dark:group-hover:opacity-100" aria-hidden="true" />
@@ -185,7 +185,7 @@ export function ContactLinks({
           rel={link.href.startsWith("http") ? "noreferrer" : undefined}
           download={link.download ? true : undefined}
           className={cn(
-            "group inline-flex items-center text-sm font-semibold transition-all duration-200 ease-premium hover:-translate-y-0.5 active:translate-y-0",
+            "group inline-flex items-center text-sm font-medium transition-all duration-200 ease-premium hover:-translate-y-0.5 active:translate-y-0",
             variant === "darkPanel"
               ? "min-h-14 justify-center gap-3 rounded-full border border-white/18 bg-white/10 px-5 py-3 text-white backdrop-blur-sm hover:border-white/35 hover:bg-white/18"
               : variant === "footer"

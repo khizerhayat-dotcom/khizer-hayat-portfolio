@@ -12,7 +12,7 @@ const STATS = [
   { value: "3+", label: "Years Experience", accent: false },
 ];
 
-const BADGES = ["UI/UX Designer", "Product Designer", "Lahore, Pakistan", "Mobile App Designer", "Design Systems", "Developer Handoff"];
+const BADGES = ["UI/UX Designer", "Product Designer", "Mobile Apps", "Design Systems", "Handoff"];
 
 interface AboutPortraitProps {
   enableCursorGlow?: boolean;
@@ -89,19 +89,19 @@ export function AboutPortrait({ enableCursorGlow = false }: AboutPortraitProps) 
 export default function About() {
   return (
     <section id="about" className="scroll-mt-28 bg-paper dark:bg-ink">
-      <div className="mx-auto max-w-[1200px] px-6 py-14 sm:px-10 sm:py-20 lg:px-16">
+      <div className="mx-auto max-w-[1200px] px-6 py-14 sm:px-10 sm:py-16 lg:px-16">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start lg:gap-12">
           <div>
             <Reveal>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">About</p>
-              <h2 className="mt-3 max-w-[20ch] font-display text-[clamp(2rem,5vw,3.4rem)] font-bold leading-[1.04] tracking-normal text-ink dark:text-white">
-                <MixedText text="Product UI/UX for teams that need shipped craft, clarity, and handoff-ready files." accent="craft" />
+              <h2 className="mt-3 max-w-[17ch] font-display text-[clamp(2rem,5vw,3.4rem)] font-bold leading-[1.04] tracking-normal text-ink dark:text-white">
+                <MixedText text="Product UI/UX with craft, clarity, and clean handoff." accent="craft" />
               </h2>
             </Reveal>
 
             <Reveal delay={0.1}>
-              <p className="mt-5 max-w-[58ch] text-[15px] leading-[1.7] text-ink/65 dark:text-white/60">
-                I am Khizer Hayat, a UI/UX Designer in Lahore, Pakistan designing mobile apps, dashboards, AI tools, healthcare products, and utility experiences with practical product craft and clean developer handoff.
+              <p className="mt-4 max-w-[48ch] text-[15px] font-normal leading-[1.7] text-ink/62 dark:text-white/60">
+                I design mobile apps, web apps, SaaS dashboards, AI products, healthcare platforms, and Figma systems that are ready to build.
               </p>
             </Reveal>
 
@@ -110,7 +110,7 @@ export default function About() {
                 {BADGES.map((badge) => (
                   <span
                     key={badge}
-                    className="rounded-full border border-black/10 bg-white px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink/62 shadow-[0_10px_28px_rgba(20,10,0,0.05)] dark:border-white/10 dark:bg-coal dark:text-white/60 dark:shadow-none"
+                    className="rounded-full border border-black/10 bg-white px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-ink/60 shadow-[0_10px_28px_rgba(20,10,0,0.04)] dark:border-white/10 dark:bg-coal dark:text-white/60 dark:shadow-none"
                   >
                     {badge}
                   </span>

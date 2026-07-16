@@ -21,32 +21,32 @@ const ROUTE_META: Record<string, { title: string; description: string }> = {
   "/": {
     title: "Khizer Hayat Portfolio - UI UX Designer Lahore, Pakistan",
     description:
-      "Khizer Hayat is a UI UX Designer, Mobile App Designer, and Product Designer in Lahore, Pakistan with 40+ Products Shipped, 10M+ App Downloads, design systems, and developer handoff experience.",
+      "Khizer Hayat is a UI UX Designer focused on mobile apps, web apps, SaaS dashboards, AI products, healthcare platforms, design systems, prototypes, and developer-ready handoff.",
   },
   "/work": {
     title: "Work - Khizer Hayat UI UX Designer Portfolio",
     description:
-      "Explore UI UX case studies, mobile app design, product design, healthcare, AI, dashboards, design systems, and shipped product work by Khizer Hayat.",
+      "Explore UI UX case studies for mobile apps, web apps, SaaS dashboards, AI products, healthcare platforms, design systems, and shipped product work by Khizer Hayat.",
   },
   "/about": {
     title: "About - Khizer Hayat UI UX Designer Pakistan",
     description:
-      "Learn about Khizer Hayat, a Product Designer in Pakistan focused on mobile app UI UX, Figma, product redesign, design systems, and developer handoff.",
+      "Learn about Khizer Hayat, a Product Designer in Pakistan focused on mobile apps, web apps, SaaS dashboards, product redesign, design systems, and developer handoff.",
   },
   "/services": {
-    title: "Services - Mobile App UI UX, Figma & Design Systems",
+    title: "Services - Mobile App, Web App, Dashboard UI UX",
     description:
-      "UI UX services by Khizer Hayat covering mobile app UI UX design, product redesign, Figma prototypes, design systems, and developer-ready handoff.",
+      "UI UX services by Khizer Hayat covering mobile apps, web apps, SaaS dashboards, admin panels, product redesign, design systems, prototypes, and developer-ready handoff.",
   },
   "/faq": {
     title: "FAQ - Khizer Hayat Portfolio and UI UX Process",
     description:
-      "Answers about Khizer Hayat's UI UX design process, mobile app design, design systems, Figma handoff, timelines, and collaboration.",
+      "Answers about Khizer Hayat's UI UX process for mobile apps, web apps, dashboards, design systems, Figma handoff, timelines, and collaboration.",
   },
   "/contact": {
     title: "Contact - Hire Khizer Hayat UI UX Designer",
     description:
-      "Contact Khizer Hayat for UI UX roles, mobile app UI UX design, product redesign, design systems, Figma prototypes, and developer-ready handoff.",
+      "Contact Khizer Hayat for UI UX roles, mobile apps, web apps, SaaS dashboards, product redesign, design systems, prototypes, and developer-ready handoff.",
   },
 };
 

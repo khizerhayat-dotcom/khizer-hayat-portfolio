@@ -26,19 +26,23 @@ const STATS = [
 const SERVICES = [
   {
     title: "Mobile App UI/UX",
-    text: "Flows, screens, onboarding, states, and polished app interfaces.",
+    text: "Flows, screens, states, and polished mobile UI.",
+  },
+  {
+    title: "Web App & Dashboard UI",
+    text: "SaaS dashboards, admin panels, and responsive web products.",
   },
   {
     title: "Product Redesign",
-    text: "Sharper structure, hierarchy, and visual polish for existing products.",
+    text: "Sharper structure across mobile and web products.",
   },
   {
     title: "Design Systems",
-    text: "Components, typography, color, spacing, states, and reusable patterns.",
+    text: "Reusable components, type, color, spacing, and states.",
   },
   {
     title: "Prototypes & Developer Handoff",
-    text: "Clickable flows, organized Figma files, specs, assets, and build notes.",
+    text: "Clickable flows, specs, assets, and build notes.",
   },
 ];
 
@@ -198,17 +202,17 @@ export default function About() {
           <div className="min-w-0">
             <Reveal>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-flame">About Khizer Hayat</p>
-              <h1 className="mt-4 max-w-[20ch] font-display text-[clamp(2rem,5.2vw,3.75rem)] font-bold leading-[1.04] tracking-normal text-ink dark:text-white">
+              <h1 className="mt-3 max-w-[18ch] font-display text-[clamp(2rem,5.2vw,3.75rem)] font-bold leading-[1.04] tracking-normal text-ink dark:text-white">
                 <MixedText
-                  text="UI/UX Designer crafting clean mobile products and scalable design systems."
-                  accent="crafting"
+                  text="UI/UX Designer for mobile apps, web apps, and SaaS dashboards."
+                  accent="clean"
                 />
               </h1>
             </Reveal>
 
             <Reveal delay={0.08}>
-              <p className="mt-5 max-w-[58ch] text-[15px] leading-[1.7] text-ink/64 dark:text-white/62 sm:text-base">
-                I am Khizer Hayat, a UI/UX Designer in Lahore, Pakistan focused on mobile app UI/UX, product redesign, design systems, prototypes, and developer handoff.
+              <p className="mt-4 max-w-[48ch] text-[15px] font-normal leading-[1.7] text-ink/62 dark:text-white/62">
+                I focus on mobile apps, web apps, SaaS dashboards, AI products, healthcare platforms, systems, prototypes, and developer-ready Figma files.
               </p>
             </Reveal>
 
@@ -219,7 +223,7 @@ export default function About() {
                     <p className="font-display text-[clamp(1.3rem,4vw,1.75rem)] font-bold leading-none text-ink dark:text-white">
                       {stat.value}
                     </p>
-                    <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.13em] text-ink/50 dark:text-white/50">
+                    <p className="mt-2 text-[10px] font-medium uppercase tracking-[0.14em] text-ink/50 dark:text-white/50">
                       {stat.label}
                     </p>
                   </div>
@@ -237,17 +241,17 @@ export default function About() {
       </section>
 
       <section className="px-5 py-10 sm:px-8 sm:py-12 lg:px-14 lg:py-14 xl:px-16">
-        <Reveal className="mx-auto max-w-[1240px] overflow-hidden rounded-[28px] border border-white/18 bg-[linear-gradient(135deg,#f4620a_0%,#d8480f_55%,#a92a0b_100%)] px-5 py-8 text-white shadow-[0_20px_64px_rgba(216,72,15,0.22)] dark:border-flame/18 dark:bg-[linear-gradient(135deg,#2a0803_0%,#551606_52%,#120504_100%)] dark:shadow-[0_24px_76px_rgba(0,0,0,0.36)] sm:px-7 sm:py-9 lg:px-9">
+        <Reveal className="mx-auto max-w-[1240px] overflow-hidden rounded-[26px] border border-[#e2d4c8] bg-[#fbf7f1] px-5 py-8 text-ink shadow-[0_16px_46px_rgba(70,38,18,0.055)] dark:border-white/[0.09] dark:bg-[#100d0b] dark:text-white dark:shadow-none sm:px-7 sm:py-9 lg:px-9">
           <div className="grid gap-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/72">Experience</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Experience</p>
               <h2 className="mt-3 max-w-[17ch] font-display text-[clamp(2rem,5vw,3.45rem)] font-bold leading-[1.02] tracking-normal">
-                <MixedText text="Interfaces that look polished, feel simple, and are ready to ship." accent="polished" accentClassName="text-white" />
+                <MixedText text="Polished interfaces that stay simple." accent="Polished" />
               </h2>
             </div>
             <div className="flex flex-wrap gap-2.5">
               {EXPERIENCE_TAGS.map((tag) => (
-                <span key={tag} className="rounded-full border border-white/24 bg-white/12 px-3.5 py-2 text-xs font-semibold text-white/88 backdrop-blur-sm sm:text-sm">
+                <span key={tag} className="rounded-full border border-[#dfd1c4] bg-white/62 px-3.5 py-2 text-xs font-medium text-ink/62 backdrop-blur-sm dark:border-white/[0.09] dark:bg-white/[0.055] dark:text-white/66 sm:text-sm">
                   {tag}
                 </span>
               ))}
@@ -261,7 +265,7 @@ export default function About() {
           <SectionHeader
             eyebrow="Services"
             title={<MixedText text="Focused product design support." accent="product" />}
-            description="Short, practical support across mobile app UI/UX, redesign, systems, prototypes, and handoff."
+            description="Practical support across apps, dashboards, redesigns, systems, prototypes, and handoff."
             titleClassName="max-w-[15ch]"
           />
         </Reveal>
@@ -270,11 +274,11 @@ export default function About() {
           {SERVICES.map((service, index) => (
             <Reveal key={service.title} delay={index * 0.05}>
               <PremiumCard className="h-full p-5 sm:p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-flame">{String(index + 1).padStart(2, "0")}</p>
-                <h3 className="mt-4 font-display text-xl font-bold leading-tight text-ink dark:text-white sm:text-2xl">
+                <p className="text-xs font-medium uppercase tracking-[0.18em] text-flame">{String(index + 1).padStart(2, "0")}</p>
+                <h3 className="mt-4 font-display text-xl font-semibold leading-tight text-ink dark:text-white sm:text-2xl">
                   {service.title}
                 </h3>
-                <p className="mt-2 text-sm leading-[1.65] text-ink/60 dark:text-white/60">
+                <p className="mt-2 text-sm font-normal leading-[1.65] text-ink/58 dark:text-white/60">
                   {service.text}
                 </p>
               </PremiumCard>
@@ -288,7 +292,7 @@ export default function About() {
           <SectionHeader
             eyebrow="Tools / Skills"
             title={<MixedText text="Built around craft, systems, and handoff." accent="craft" />}
-            description="A compact capability set for moving product work from structure to build-ready files."
+            description="A compact capability set for structure, systems, and build-ready files."
             titleClassName="max-w-[16ch]"
           />
         </Reveal>
@@ -296,14 +300,13 @@ export default function About() {
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {TOOL_GROUPS.map((group, index) => (
             <Reveal key={group.title} delay={index * 0.05}>
-              <PremiumCard className="h-full border-[#e4d7ca] bg-[#fffbf6]/92 p-5 shadow-[0_14px_42px_rgba(70,38,18,0.055)] hover:border-flame/30 hover:shadow-[0_20px_58px_rgba(70,38,18,0.085)] dark:border-white/[0.09] dark:bg-[#11100f] dark:hover:border-flame/34 sm:p-6">
-                <div className="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-flame/38 to-transparent opacity-70 transition-opacity duration-300 group-hover:opacity-100" />
+              <PremiumCard className="h-full border-[#e4d7ca] bg-[#fffbf6]/92 p-5 shadow-[0_12px_36px_rgba(70,38,18,0.045)] hover:border-flame/30 hover:shadow-[0_18px_48px_rgba(70,38,18,0.07)] dark:border-white/[0.09] dark:bg-[#11100f] dark:hover:border-flame/34 sm:p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-flame/75">
+                    <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-flame/75">
                       0{index + 1} / Skill set
                     </p>
-                    <h3 className="mt-2 font-display text-xl font-bold leading-tight text-ink dark:text-white">{group.title}</h3>
+                    <h3 className="mt-2 font-display text-xl font-semibold leading-tight text-ink dark:text-white">{group.title}</h3>
                   </div>
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] border border-[#e3d5c8] bg-[#fbf4ec] text-flame shadow-[0_8px_22px_rgba(70,38,18,0.045)] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-flame/28 group-hover:bg-[#fff7ef] dark:border-white/[0.09] dark:bg-white/[0.045] dark:text-flame/90 dark:shadow-none dark:group-hover:border-flame/32 dark:group-hover:bg-flame/[0.09]">
                     <ToolGroupIcon type={group.visual} />
@@ -312,7 +315,7 @@ export default function About() {
 
                 <div className="mt-5 flex flex-wrap gap-2">
                   {group.items.map((item) => (
-                    <span key={item} className="inline-flex min-h-8 items-center rounded-full border border-[#dfd1c4] bg-[#fbf4ec] px-3.5 py-1.5 text-xs font-semibold text-ink/64 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] transition-colors duration-200 group-hover:border-flame/22 group-hover:bg-[#fff7ef] group-hover:text-ink/76 dark:border-white/[0.09] dark:bg-white/[0.045] dark:text-white/68 dark:shadow-none dark:group-hover:border-flame/28 dark:group-hover:bg-flame/[0.08] dark:group-hover:text-white">
+                    <span key={item} className="inline-flex min-h-8 items-center rounded-full border border-[#dfd1c4] bg-[#fbf4ec] px-3.5 py-1.5 text-xs font-medium text-ink/62 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] transition-colors duration-200 group-hover:border-flame/22 group-hover:bg-[#fff7ef] group-hover:text-ink/76 dark:border-white/[0.09] dark:bg-white/[0.045] dark:text-white/66 dark:shadow-none dark:group-hover:border-flame/28 dark:group-hover:bg-flame/[0.08] dark:group-hover:text-white">
                       {item}
                     </span>
                   ))}

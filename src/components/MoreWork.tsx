@@ -93,9 +93,9 @@ export default function MoreWork({ preview = false }: { preview?: boolean }) {
       <div className="mx-auto max-w-[1200px] px-6 py-12 sm:px-10 sm:py-16 lg:px-16">
         <Reveal className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-flame">Proof wall</p>
-            <h2 className="mt-3 max-w-[18ch] font-display text-[clamp(2rem,4.6vw,3.15rem)] font-bold leading-[1.03] tracking-normal text-ink dark:text-white">
-              <MixedText text="More shipped products" accent="shipped" />
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-flame">Product wall</p>
+            <h2 className="mt-3 max-w-[16ch] font-display text-[clamp(2rem,4.6vw,3.15rem)] font-bold leading-[1.04] tracking-normal text-ink dark:text-white">
+              <MixedText text="A curated product wall" accent="curated" />
             </h2>
           </div>
           {preview && (
@@ -108,14 +108,14 @@ export default function MoreWork({ preview = false }: { preview?: boolean }) {
           )}
         </Reveal>
 
-        <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {PROJECTS.map((project, i) => (
             <Reveal key={project.name} delay={i * 0.04}>
               <a
                 href={project.href ?? BEHANCE_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="group relative flex h-full min-h-[132px] flex-col overflow-hidden rounded-[20px] border border-black/[0.075] bg-[#fbf7f1]/72 p-4 shadow-[0_10px_32px_rgba(20,10,0,0.04)] transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:border-flame/24 hover:bg-white/90 dark:border-white/10 dark:bg-[#11100f] dark:shadow-none dark:hover:border-flame/32 dark:hover:bg-[#15120f] sm:p-5"
+                className="group relative flex h-full min-h-[126px] flex-col overflow-hidden rounded-[20px] border border-black/[0.075] bg-[#fbf7f1]/72 p-4 shadow-[0_10px_28px_rgba(20,10,0,0.035)] transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:border-flame/24 hover:bg-white/90 dark:border-white/10 dark:bg-[#11100f] dark:shadow-none dark:hover:border-flame/32 dark:hover:bg-[#15120f] sm:p-5"
                 aria-label={`View ${project.name} on Behance`}
               >
                 <div className="relative flex items-start justify-between gap-4">
@@ -133,10 +133,10 @@ export default function MoreWork({ preview = false }: { preview?: boolean }) {
                     </div>
 
                     <div className="min-w-0">
-                      <h3 className="font-display text-lg font-bold leading-tight tracking-normal text-ink transition-colors duration-300 group-hover:text-flame dark:text-white">
+                      <h3 className="font-display text-lg font-semibold leading-tight tracking-normal text-ink transition-colors duration-300 group-hover:text-flame dark:text-white">
                         {project.name}
                       </h3>
-                      <p className="mt-1.5 text-sm leading-[1.45] text-ink/58 dark:text-white/58">
+                      <p className="mt-1.5 text-sm font-normal leading-[1.5] text-ink/56 dark:text-white/58">
                         {project.category}
                       </p>
                     </div>
@@ -150,7 +150,7 @@ export default function MoreWork({ preview = false }: { preview?: boolean }) {
                 </div>
 
                 <div className="relative mt-auto pt-4">
-                  <span className="inline-flex rounded-full border border-black/[0.07] bg-white/62 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink/58 transition-colors duration-300 group-hover:border-flame/20 group-hover:bg-flame/[0.055] group-hover:text-ink/70 dark:border-white/10 dark:bg-white/[0.055] dark:text-white/66 dark:group-hover:border-flame/30 dark:group-hover:bg-flame/[0.09] dark:group-hover:text-white">
+                  <span className="inline-flex rounded-full border border-black/[0.07] bg-white/62 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-ink/56 transition-colors duration-300 group-hover:border-flame/20 group-hover:bg-flame/[0.055] group-hover:text-ink/70 dark:border-white/10 dark:bg-white/[0.055] dark:text-white/64 dark:group-hover:border-flame/30 dark:group-hover:bg-flame/[0.09] dark:group-hover:text-white">
                     {project.tag}
                   </span>
                 </div>

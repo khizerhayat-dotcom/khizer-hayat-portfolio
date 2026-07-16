@@ -56,9 +56,23 @@ export default function HeroContent() {
       <motion.div variants={item} className="pt-1 lg:mt-[36px] lg:pt-0">
         <a
           href="#work"
-          className="inline-flex min-h-12 items-center justify-center rounded-full bg-black px-7 py-3.5 text-sm font-medium text-white transition-transform duration-300 ease-premium hover:scale-[1.03] active:scale-[0.98] sm:px-9 sm:py-5 sm:text-base lg:px-14 lg:py-6"
+          className="group relative isolate inline-flex min-h-12 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-black px-7 py-3.5 text-sm font-medium text-white shadow-[0_18px_44px_rgba(0,0,0,0.22)] transition-transform duration-300 ease-premium hover:scale-[1.03] active:scale-[0.98] motion-reduce:transition-colors motion-reduce:hover:bg-white motion-reduce:hover:text-black sm:px-9 sm:py-5 sm:text-base lg:px-14 lg:py-6"
         >
-          Explore Projects
+          <span
+            aria-hidden="true"
+            className="absolute inset-y-0 left-0 w-full origin-left scale-x-0 rounded-full bg-white transition-transform duration-[680ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100 motion-reduce:hidden"
+          />
+          <span
+            aria-hidden="true"
+            className="absolute -bottom-12 -left-16 h-24 w-24 translate-x-[-110%] translate-y-[120%] scale-50 rounded-full bg-white opacity-0 transition-[transform,opacity] duration-[740ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-24 group-hover:translate-y-0 group-hover:scale-[2.8] group-hover:opacity-100 motion-reduce:hidden sm:h-28 sm:w-28"
+          />
+          <span
+            aria-hidden="true"
+            className="absolute inset-y-0 -left-1/2 w-1/2 skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/35 to-transparent opacity-0 blur-[1px] transition-[transform,opacity] duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[360%] group-hover:opacity-100 motion-reduce:hidden"
+          />
+          <span className="relative z-10 transition-colors duration-500 ease-premium group-hover:text-black motion-reduce:transition-none">
+            Explore Projects
+          </span>
         </a>
       </motion.div>
     </motion.div>

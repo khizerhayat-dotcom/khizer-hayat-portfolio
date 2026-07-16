@@ -1,8 +1,7 @@
 ﻿import { useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import MixedText from "../components/MixedText";
+import ProjectHoverCursor from "../components/ProjectHoverCursor";
 import Reveal from "../components/Reveal";
-import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import aiVoiceChangerCover from "../assets/work/covers-optimized/ai-voice-changer.webp";
 import aspireThumbnail2Cover from "../assets/work/covers-optimized/aspire-thumbnail-2.webp";
 import betterBrainCover from "../assets/work/covers-optimized/better-brain.webp";
@@ -356,7 +355,6 @@ function LazyAssetImage({
 
 export default function Work() {
   const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
 
   const activeProject = activeProjectIndex === null ? null : WORK_PROJECTS[activeProjectIndex];
 
@@ -372,7 +370,7 @@ export default function Work() {
                   <MixedText text="Selected product work" accent="product" />
                 </h1>
                 <p className="mt-3 max-w-[58ch] text-sm leading-relaxed text-ink/60 dark:text-white/60 sm:text-base">
-                  A focused gallery of mobile app UI/UX, healthcare products, utilities, dashboards, design systems, and shipped product design.
+                  A focused gallery of mobile apps, web apps, SaaS dashboards, healthcare platforms, AI products, and shipped product design.
                 </p>
               </div>
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-ink/45 dark:text-white/45 sm:text-sm">
@@ -382,61 +380,61 @@ export default function Work() {
           </div>
         </Reveal>
 
-        <div className="relative mt-6 grid gap-5 sm:grid-cols-2 lg:gap-6">
-          {WORK_PROJECTS.map((project, index) => (
-            <Reveal key={project.title} delay={index * 0.025}>
-              <motion.button
-                type="button"
-                whileHover={prefersReducedMotion ? undefined : { y: -4 }}
-                transition={{ duration: 0.24, ease: "easeOut" }}
-                onClick={() => setActiveProjectIndex(index)}
-                className="group h-full overflow-hidden rounded-[22px] border border-black/[0.075] bg-white text-left shadow-[0_12px_36px_rgba(20,10,0,0.055)] transition-colors duration-300 hover:border-flame/28 hover:shadow-[0_18px_52px_rgba(20,10,0,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-4 focus-visible:ring-offset-paper dark:border-white/10 dark:bg-white/[0.055] dark:shadow-none dark:hover:border-flame/38 dark:focus-visible:ring-offset-ink"
-              >
-                <div className="aspect-[16/7.8] overflow-hidden bg-black/[0.04] dark:bg-white/[0.04]">
-                  <LazyAssetImage
-                    image={project.cover}
-                    alt={`${project.title} cover`}
-                    className="h-full w-full object-cover transition-transform duration-700 ease-premium group-hover:scale-[1.035]"
-                    loading={index < 2 ? "eager" : "lazy"}
-                    fetchPriority={index < 2 ? "high" : "auto"}
-                  />
-                </div>
-                <div className="p-4 sm:p-5">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <p className="w-fit rounded-full bg-flame/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-flame">
-                      {project.category}
-                    </p>
+        <ProjectHoverCursor>
+          <div className="relative mt-6 grid gap-5 sm:grid-cols-2 lg:gap-6 [&_button]:lg:cursor-none">
+            {WORK_PROJECTS.map((project, index) => (
+              <Reveal key={project.title} delay={index * 0.025}>
+                <button
+                  type="button"
+                  onClick={() => setActiveProjectIndex(index)}
+                  className="group h-full overflow-hidden rounded-[22px] border border-black/[0.075] bg-white text-left shadow-[0_12px_36px_rgba(20,10,0,0.055)] transition-colors duration-300 hover:border-flame/28 hover:shadow-[0_18px_52px_rgba(20,10,0,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-4 focus-visible:ring-offset-paper dark:border-white/10 dark:bg-white/[0.055] dark:shadow-none dark:hover:border-flame/38 dark:focus-visible:ring-offset-ink"
+                >
+                  <div className="aspect-[16/7.8] overflow-hidden bg-black/[0.04] dark:bg-white/[0.04]">
+                    <LazyAssetImage
+                      image={project.cover}
+                      alt={`${project.title} cover`}
+                      className="h-full w-full object-cover transition-transform duration-700 ease-premium group-hover:scale-[1.035]"
+                      loading={index < 2 ? "eager" : "lazy"}
+                      fetchPriority={index < 2 ? "high" : "auto"}
+                    />
                   </div>
-                  <h2 className="mt-3 font-display text-2xl font-bold leading-tight tracking-normal text-ink transition-colors duration-300 group-hover:text-flame dark:text-white sm:text-[28px]">
-                    {project.title}
-                  </h2>
-                  {project.note && (
-                    <p className="mt-2 line-clamp-2 max-w-[58ch] text-sm leading-[1.55] text-ink/58 dark:text-white/58">
-                      {project.note}
-                    </p>
-                  )}
-                  <div className="mt-4 flex items-center justify-between gap-4">
-                    <span className="text-sm font-semibold text-flame">View Project</span>
-                    <span
-                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-black/12 text-ink transition-all duration-300 group-hover:translate-x-1 group-hover:border-flame group-hover:bg-flame group-hover:text-white dark:border-white/15 dark:text-white"
-                      aria-hidden="true"
-                    >
-                      <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
-                        <path
-                          d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
-                          stroke="currentColor"
-                          strokeWidth="1.6"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </span>
+                  <div className="p-4 sm:p-5">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <p className="w-fit rounded-full bg-flame/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-flame">
+                        {project.category}
+                      </p>
+                    </div>
+                    <h2 className="mt-3 font-display text-2xl font-bold leading-tight tracking-normal text-ink transition-colors duration-300 group-hover:text-flame dark:text-white sm:text-[28px]">
+                      {project.title}
+                    </h2>
+                    {project.note && (
+                      <p className="mt-2 line-clamp-2 max-w-[58ch] text-sm leading-[1.55] text-ink/58 dark:text-white/58">
+                        {project.note}
+                      </p>
+                    )}
+                    <div className="mt-4 flex items-center justify-between gap-4">
+                      <span className="text-sm font-semibold text-flame">View Project</span>
+                      <span
+                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-black/12 text-ink transition-all duration-300 group-hover:translate-x-1 group-hover:border-flame group-hover:bg-flame group-hover:text-white dark:border-white/15 dark:text-white"
+                        aria-hidden="true"
+                      >
+                        <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
+                          <path
+                            d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
+                            stroke="currentColor"
+                            strokeWidth="1.6"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </motion.button>
-            </Reveal>
-          ))}
-        </div>
+                </button>
+              </Reveal>
+            ))}
+          </div>
+        </ProjectHoverCursor>
       </section>
 
       {activeProject && (
