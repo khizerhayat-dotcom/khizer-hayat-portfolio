@@ -18,6 +18,17 @@ const container = {
   },
 };
 
+function LogoMark() {
+  return (
+    <svg width="20" height="18" viewBox="0 0 20 18" aria-hidden="true">
+      <path d="M0 0H4V7.2L9.6 0H14.4L7.6 8.6L14.8 18H10L4 10.2V18H0V0Z" fill="#0A0400" />
+      <path d="M16 0H20V7.4H16V0Z" fill="#0A0400" />
+      <path d="M16 10.6H20V18H16V10.6Z" fill="#0A0400" />
+      <path d="M13.4 7.4H20L16.2 10.6H9.6L13.4 7.4Z" fill="#F4620A" />
+    </svg>
+  );
+}
+
 interface NavbarProps {
   currentPath: string;
 }
@@ -47,6 +58,28 @@ export default function Navbar({ currentPath }: NavbarProps) {
     setIsMenuOpen(false);
   }, [currentPath]);
 
+  useEffect(() => {
+    if (!isMenuOpen) return undefined;
+
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMenuOpen]);
+
   const isActivePath = (href: string) => currentPath === href;
   const handleLogoClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -68,7 +101,7 @@ export default function Navbar({ currentPath }: NavbarProps) {
       variants={container}
       initial="hidden"
       animate="show"
-      className={`fixed inset-x-0 z-50 flex justify-center px-3 transition-[top,transform] duration-300 ease-premium sm:px-4 ${
+      className={`fixed inset-x-0 z-[100] flex justify-center px-3 transition-[top,transform] duration-300 ease-premium sm:px-4 ${
         isCompact ? "top-2 sm:top-3 lg:top-4" : "top-3 sm:top-5 lg:top-6"
       }`}
     >
@@ -88,12 +121,7 @@ export default function Navbar({ currentPath }: NavbarProps) {
           className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97] sm:h-[38px] sm:w-[38px]"
           aria-label="Home"
         >
-          <svg width="20" height="18" viewBox="0 0 20 18" aria-hidden="true">
-            <path d="M0 0H4V7.2L9.6 0H14.4L7.6 8.6L14.8 18H10L4 10.2V18H0V0Z" fill="#0A0400" />
-            <path d="M16 0H20V7.4H16V0Z" fill="#0A0400" />
-            <path d="M16 10.6H20V18H16V10.6Z" fill="#0A0400" />
-            <path d="M13.4 7.4H20L16.2 10.6H9.6L13.4 7.4Z" fill="#F4620A" />
-          </svg>
+          <LogoMark />
         </a>
 
         <ul className="hidden items-center gap-1 text-sm md:flex">
@@ -139,41 +167,79 @@ export default function Navbar({ currentPath }: NavbarProps) {
 
         <AnimatePresence>
           {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -8, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -8, scale: 0.98 }}
-              transition={{ duration: 0.18, ease: "easeOut" }}
-              className="absolute left-0 right-0 top-[calc(100%+10px)] overflow-hidden rounded-2xl border border-black/10 bg-white/96 p-2 shadow-[0_18px_60px_rgba(20,10,0,0.16)] backdrop-blur-xl dark:border-white/10 dark:bg-ink/96 md:hidden"
-            >
-              <ul className="grid gap-1 text-sm">
-                {NAV_LINKS.map((link) => (
-                  <li key={link.label}>
+            <>
+              <motion.button
+                type="button"
+                aria-label="Close menu backdrop"
+                className="fixed inset-0 z-[80] cursor-default bg-black/20 backdrop-blur-[2px] dark:bg-black/50 md:hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.18, ease: "easeOut" }}
+                onClick={() => setIsMenuOpen(false)}
+              />
+
+              <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-label="Mobile navigation"
+                initial={{ opacity: 0, y: -14, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -14, scale: 0.98 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="fixed left-3 right-3 top-3 z-[90] max-h-[calc(100svh-24px)] overflow-y-auto overscroll-contain rounded-[24px] border border-black/10 bg-[#fffaf4]/[0.98] p-3 text-ink shadow-[0_24px_80px_rgba(20,10,0,0.26)] backdrop-blur-2xl dark:border-white/[0.12] dark:bg-[#100d0b]/[0.98] dark:text-white dark:shadow-[0_24px_80px_rgba(0,0,0,0.55)] sm:left-4 sm:right-4 sm:top-4 md:hidden"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <a
+                    href="/"
+                    onClick={handleLogoClick}
+                    className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-[0_10px_26px_rgba(20,10,0,0.10)] transition-transform duration-200 active:scale-[0.97]"
+                    aria-label="Home"
+                  >
+                    <LogoMark />
+                  </a>
+
+                  <button
+                    type="button"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-black/10 bg-black/[0.05] text-ink transition-colors duration-200 active:bg-black/[0.09] dark:border-white/[0.12] dark:bg-white/10 dark:text-white dark:active:bg-white/[0.16]"
+                    aria-label="Close menu"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" />
+                    </svg>
+                  </button>
+                </div>
+
+                <ul className="mt-5 grid gap-2 text-base">
+                  {NAV_LINKS.map((link) => (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        aria-current={isActivePath(link.href) ? "page" : undefined}
+                        onClick={() => setIsMenuOpen(false)}
+                        className={`flex min-h-12 items-center rounded-2xl px-4 font-semibold transition-colors duration-200 ${
+                          isActivePath(link.href)
+                            ? "bg-flame/[0.12] text-flame dark:bg-flame/20 dark:!text-flame"
+                            : "text-ink/[0.86] hover:bg-black/[0.05] hover:text-ink dark:!text-white/[0.88] dark:hover:bg-white/10 dark:hover:!text-white"
+                        }`}
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                  <li className="pt-2">
                     <a
-                      href={link.href}
-                      aria-current={isActivePath(link.href) ? "page" : undefined}
+                      href="/contact"
                       onClick={() => setIsMenuOpen(false)}
-                      className={`block rounded-xl px-4 py-3.5 font-medium transition-colors duration-200 ${
-                        isActivePath(link.href)
-                          ? "bg-flame/10 text-flame dark:bg-flame/20 dark:!text-flame"
-                          : "text-ink/75 hover:bg-black/[0.04] hover:text-ink dark:!text-white/80 dark:hover:bg-white/10 dark:hover:!text-white"
-                      }`}
+                      className="flex min-h-12 items-center justify-center rounded-2xl bg-ink px-4 font-semibold text-white shadow-[0_14px_34px_rgba(20,10,0,0.18)] transition-transform duration-200 active:scale-[0.98] dark:bg-white dark:text-black dark:shadow-[0_14px_34px_rgba(0,0,0,0.35)]"
                     >
-                      {link.label}
+                      Get in Touch
                     </a>
                   </li>
-                ))}
-                <li>
-                  <a
-                    href="/contact"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="mt-1 block rounded-xl bg-ink px-4 py-3.5 text-center font-semibold text-white transition-transform duration-200 active:scale-[0.98] dark:bg-white dark:text-black"
-                  >
-                    Get in Touch
-                  </a>
-                </li>
-              </ul>
-            </motion.div>
+                </ul>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </nav>
