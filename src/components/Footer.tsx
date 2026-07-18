@@ -1,4 +1,3 @@
-import { LinkButton } from "./ui";
 import behanceIcon from "../assets/icons/behance.svg";
 import downloadIcon from "../assets/icons/download.svg";
 import linkedinIcon from "../assets/icons/linkedin.svg";
@@ -57,9 +56,12 @@ export default function Footer() {
           </p>
 
           <div className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <LinkButton href="/contact" className="bg-white text-black hover:bg-flame hover:text-white">
+            <a
+              href="/contact"
+              className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/18 bg-white px-6 py-3 text-sm font-semibold text-[#090706] shadow-[0_14px_34px_rgba(255,255,255,0.08)] transition-all duration-200 ease-premium hover:-translate-y-0.5 hover:border-flame hover:bg-flame hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-[#090706] active:translate-y-0"
+            >
               Contact Khizer
-            </LinkButton>
+            </a>
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/44">
               40+ Products Shipped <span className="mx-2 text-flame">/</span> 10M+ App Downloads
             </p>
@@ -73,9 +75,9 @@ export default function Footer() {
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noreferrer" : undefined}
                 download={link.download ? true : undefined}
-                className="group inline-flex min-h-11 items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm font-medium text-white/68 transition-all duration-200 hover:-translate-y-0.5 hover:border-flame hover:bg-flame hover:text-white"
+                className="group inline-flex min-h-11 items-center gap-2 rounded-full border border-white/14 bg-white/[0.095] px-4 py-2 text-sm font-semibold text-white/82 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-200 hover:-translate-y-0.5 hover:border-flame/80 hover:bg-flame hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-[#090706]"
               >
-                <img src={link.icon} alt="" className="h-4 w-4 invert opacity-78 transition duration-200 group-hover:opacity-100" aria-hidden="true" />
+                <img src={link.icon} alt="" className="h-4 w-4 invert opacity-90 transition duration-200 group-hover:opacity-100" aria-hidden="true" />
                 {link.label}
               </a>
             ))}
