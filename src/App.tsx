@@ -11,7 +11,7 @@ import FAQ from "./pages/FAQ";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Work from "./pages/Work";
-import { ROUTE_META, SITE_URL } from "./seo";
+import { getStructuredData, ROUTE_META, SITE_URL } from "./seo";
 
 export type Theme = "light" | "dark";
 
@@ -25,6 +25,18 @@ function normalizePath(pathname: string) {
 function setMetaTag(selector: string, attribute: "content" | "href", value: string) {
   const element = document.head.querySelector(selector);
   element?.setAttribute(attribute, value);
+}
+
+function setStructuredData(path: string) {
+  document.head.querySelectorAll('script[type="application/ld+json"][data-route-schema="true"]').forEach((element) => element.remove());
+
+  for (const item of getStructuredData(path)) {
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.dataset.routeSchema = "true";
+    script.textContent = JSON.stringify(item).replace(/</g, "\\u003c");
+    document.head.appendChild(script);
+  }
 }
 
 interface AppProps {
@@ -101,6 +113,7 @@ function App({ initialPath }: AppProps) {
     setMetaTag('meta[name="twitter:description"]', "content", meta.description);
     setMetaTag('meta[name="twitter:url"]', "content", canonicalUrl);
     setMetaTag('link[rel="canonical"]', "href", canonicalUrl);
+    setStructuredData(path);
   }, [path]);
 
   const routes: Record<string, ReactNode> = {

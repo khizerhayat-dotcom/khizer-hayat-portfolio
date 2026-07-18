@@ -3,49 +3,7 @@ import { useState } from "react";
 import MixedText from "./MixedText";
 import Reveal from "./Reveal";
 import { LinkButton } from "./ui";
-
-const FAQ_ITEMS = [
-  {
-    question: "What type of products do you design?",
-    answer:
-      "Mobile apps, web apps, SaaS dashboards, admin panels, AI products, healthcare platforms, and design systems.",
-  },
-  {
-    question: "Do you design complete products or only screens?",
-    answer:
-      "Complete product flows. I can cover wireframes, UI, prototypes, edge states, and developer-ready Figma handoff.",
-  },
-  {
-    question: "Can you improve an existing app UI?",
-    answer:
-      "Yes. I redesign structure, hierarchy, navigation, visual polish, and key journeys across mobile and web.",
-  },
-  {
-    question: "What does your design process look like?",
-    answer:
-      "I clarify goals, map flows, design high-fidelity screens, prototype important paths, then prepare handoff.",
-  },
-  {
-    question: "How long does a product design project take?",
-    answer:
-      "Focused redesigns often take one to three weeks. Larger apps, dashboards, or platforms usually need three to six weeks depending on scope.",
-  },
-  {
-    question: "Do you provide developer handoff?",
-    answer:
-      "Yes. I provide organized Figma files, components, specs, assets, interaction notes, and design QA support.",
-  },
-  {
-    question: "Can you create design systems for existing products?",
-    answer:
-      "Yes. I define typography, color, spacing, components, states, patterns, and usage rules for scalable UI.",
-  },
-  {
-    question: "Are you available for full-time roles or freelance projects?",
-    answer:
-      "Yes. I am open to UI/UX roles, mobile apps, web apps, SaaS dashboards, redesigns, systems, prototypes, and handoff work.",
-  },
-];
+import { FAQ_ITEMS } from "../seo";
 
 export default function FAQ({ preview = false }: { preview?: boolean }) {
   const [openIndex, setOpenIndex] = useState(0);

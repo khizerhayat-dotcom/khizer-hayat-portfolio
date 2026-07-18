@@ -83,6 +83,21 @@ function stripRootResourceHints(html) {
   return html.replace(/<link rel="(?:preload|preinit)"[^>]*\/>/g, "");
 }
 
+function renderStructuredData(items) {
+  return items
+    .map((item) => {
+      const json = JSON.stringify(item, null, 2).replace(/</g, "\\u003c");
+      return `    <script type="application/ld+json" data-route-schema="true">\n${json}\n    </script>`;
+    })
+    .join("\n\n");
+}
+
+function applyStructuredData(html, items) {
+  const schemaHtml = renderStructuredData(items);
+  const withoutSchema = html.replace(/\s*<script type="application\/ld\+json"[\s\S]*?<\/script>/g, "");
+  return withoutSchema.replace(/\n\s*<link rel="preconnect" href="https:\/\/fonts\.googleapis\.com" \/>/, `\n${schemaHtml}\n\n    <link rel="preconnect" href="https://fonts.googleapis.com" />`);
+}
+
 const template = await readFile(path.join(distDir, "index.html"), "utf8");
 const manifest = JSON.parse(await readFile(path.join(distDir, ".vite", "manifest.json"), "utf8"));
 const vite = await createServer({
@@ -94,16 +109,19 @@ const vite = await createServer({
 
 try {
   const { default: App } = await vite.ssrLoadModule("/src/App.tsx");
-  const { ROUTE_META, SITE_URL } = await vite.ssrLoadModule("/src/seo.ts");
+  const { getStructuredData, ROUTE_META, SITE_URL } = await vite.ssrLoadModule("/src/seo.ts");
 
   for (const route of routes) {
     const appHtml = stripRootResourceHints(renderToString(React.createElement(App, { initialPath: route })));
     const html = applyAssetManifest(
-      applyRouteMeta(
-        template.replace(/<div id="root"><\/div>/, `<div id="root">${appHtml}</div>`),
-        route,
-        ROUTE_META,
-        SITE_URL,
+      applyStructuredData(
+        applyRouteMeta(
+          template.replace(/<div id="root"><\/div>/, `<div id="root">${appHtml}</div>`),
+          route,
+          ROUTE_META,
+          SITE_URL,
+        ),
+        getStructuredData(route),
       ),
       manifest,
     );
