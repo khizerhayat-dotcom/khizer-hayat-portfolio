@@ -1,54 +1,19 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { AnimatePresence, MotionConfig } from "framer-motion";
 import Navbar from "./components/Navbar";
 import ThemeToggle from "./components/ThemeToggle";
 import Footer from "./components/Footer";
 import { PageTransition } from "./components/ui";
-
-const About = lazy(() => import("./pages/About"));
-const Contact = lazy(() => import("./pages/Contact"));
-const FAQ = lazy(() => import("./pages/FAQ"));
-const Home = lazy(() => import("./pages/Home"));
-const Services = lazy(() => import("./pages/Services"));
-const Work = lazy(() => import("./pages/Work"));
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import FAQ from "./pages/FAQ";
+import Home from "./pages/Home";
+import Services from "./pages/Services";
+import Work from "./pages/Work";
+import { ROUTE_META, SITE_URL } from "./seo";
 
 export type Theme = "light" | "dark";
-
-const SITE_URL = "https://khizer-hayat-portfolio.vercel.app";
-
-const ROUTE_META: Record<string, { title: string; description: string }> = {
-  "/": {
-    title: "Khizer Hayat Portfolio - UI UX Designer Lahore, Pakistan",
-    description:
-      "Khizer Hayat is a UI UX Designer focused on mobile apps, web apps, SaaS dashboards, AI products, healthcare platforms, design systems, prototypes, and developer-ready handoff.",
-  },
-  "/work": {
-    title: "Work - Khizer Hayat UI UX Designer Portfolio",
-    description:
-      "Explore UI UX case studies for mobile apps, web apps, SaaS dashboards, AI products, healthcare platforms, design systems, and shipped product work by Khizer Hayat.",
-  },
-  "/about": {
-    title: "About - Khizer Hayat UI UX Designer Pakistan",
-    description:
-      "Learn about Khizer Hayat, a Product Designer in Pakistan focused on mobile apps, web apps, SaaS dashboards, product redesign, design systems, and developer handoff.",
-  },
-  "/services": {
-    title: "Services - Mobile App, Web App, Dashboard UI UX",
-    description:
-      "UI UX services by Khizer Hayat covering mobile apps, web apps, SaaS dashboards, admin panels, product redesign, design systems, prototypes, and developer-ready handoff.",
-  },
-  "/faq": {
-    title: "FAQ - Khizer Hayat Portfolio and UI UX Process",
-    description:
-      "Answers about Khizer Hayat's UI UX process for mobile apps, web apps, dashboards, design systems, Figma handoff, timelines, and collaboration.",
-  },
-  "/contact": {
-    title: "Contact - Hire Khizer Hayat UI UX Designer",
-    description:
-      "Contact Khizer Hayat for UI UX roles, mobile apps, web apps, SaaS dashboards, product redesign, design systems, prototypes, and developer-ready handoff.",
-  },
-};
 
 const ROUTE_PATHS = new Set(Object.keys(ROUTE_META));
 
@@ -62,13 +27,22 @@ function setMetaTag(selector: string, attribute: "content" | "href", value: stri
   element?.setAttribute(attribute, value);
 }
 
-function App() {
+interface AppProps {
+  initialPath?: string;
+}
+
+function App({ initialPath }: AppProps) {
   const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "light";
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme === "dark" || storedTheme === "light") return storedTheme;
     return "light";
   });
-  const [path, setPath] = useState(() => normalizePath(window.location.pathname));
+  const [path, setPath] = useState(() => {
+    if (initialPath) return normalizePath(initialPath);
+    if (typeof window === "undefined") return "/";
+    return normalizePath(window.location.pathname);
+  });
 
   const toggleTheme = () => {
     setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"));
@@ -115,27 +89,8 @@ function App() {
   }, [path]);
 
   useEffect(() => {
-    const warmRouteChunks = () => {
-      void import("./pages/About");
-      void import("./pages/Contact");
-      void import("./pages/FAQ");
-      void import("./pages/Home");
-      void import("./pages/Services");
-      void import("./pages/Work");
-    };
-
-    if ("requestIdleCallback" in window) {
-      const idleId = window.requestIdleCallback(warmRouteChunks, { timeout: 2500 });
-      return () => window.cancelIdleCallback(idleId);
-    }
-
-    const timeoutId = globalThis.setTimeout(warmRouteChunks, 1200);
-    return () => globalThis.clearTimeout(timeoutId);
-  }, []);
-
-  useEffect(() => {
     const meta = ROUTE_META[path] ?? ROUTE_META["/"];
-    const canonicalUrl = `${SITE_URL}${path === "/" ? "" : path}`;
+    const canonicalUrl = new URL(path === "/" ? "/" : path, SITE_URL).toString();
 
     document.title = meta.title;
     setMetaTag('meta[name="description"]', "content", meta.description);
@@ -144,6 +99,7 @@ function App() {
     setMetaTag('meta[property="og:url"]', "content", canonicalUrl);
     setMetaTag('meta[name="twitter:title"]', "content", meta.title);
     setMetaTag('meta[name="twitter:description"]', "content", meta.description);
+    setMetaTag('meta[name="twitter:url"]', "content", canonicalUrl);
     setMetaTag('link[rel="canonical"]', "href", canonicalUrl);
   }, [path]);
 
@@ -164,7 +120,7 @@ function App() {
       <ThemeToggle theme={theme} onToggleTheme={toggleTheme} />
       <AnimatePresence mode="wait">
         <PageTransition key={path}>
-          <Suspense fallback={<div className="min-h-screen bg-paper dark:bg-ink" />}>{page}</Suspense>
+          {page}
         </PageTransition>
       </AnimatePresence>
       <Footer />
